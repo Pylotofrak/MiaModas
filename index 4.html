@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#20181d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mía Modas">
+<title>Mía Modas · Boutique Empire Supreme</title>
+<style>
+:root{
+ --bg1:#fbf0f3;--bg2:#efe4df;--paper:#fffaf8;--ink:#2c2226;--muted:#8d7a81;
+ --rose:#d77e95;--rose2:#f3c5d2;--gold:#c7a26b;--green:#5f9f7c;--red:#c45f69;
+ --dark:#2d2428;--line:#eadbd6;--shadow:0 18px 50px rgba(70,43,51,.15);
+ --radius:24px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;font-family:Inter,ui-rounded,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--bg1),#f7f0ec 46%,var(--bg2))}
+body{overscroll-behavior:none}
+button{font:inherit;cursor:pointer}
+button:active{transform:scale(.98)}
+.app{max-width:1180px;margin:auto;padding:calc(10px + env(safe-area-inset-top)) 10px calc(96px + env(safe-area-inset-bottom))}
+.topbar{position:sticky;top:7px;z-index:40;display:flex;justify-content:space-between;align-items:center;gap:10px;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.92);border-radius:26px;padding:11px 12px;box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#171315,#4b3941);color:#fff;font-weight:950;letter-spacing:1px;border:3px solid #fff;box-shadow:0 10px 20px rgba(0,0,0,.18);position:relative}.logo:after{content:"✦";position:absolute;right:-4px;top:-7px;color:var(--gold)}
+.brand h1{margin:0;font-size:20px}.brand p{margin:3px 0 0;color:var(--muted);font-size:9px;letter-spacing:.7px}
+.topright{display:flex;gap:6px;align-items:center}.pill{padding:8px 10px;border-radius:999px;font-size:9px;font-weight:900;border:1px solid #efccd5;background:#fff2f5;color:#874552;white-space:nowrap}.pill.dark{background:var(--dark);color:white;border-color:var(--dark)}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:9px 0}.stat{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:17px;padding:8px 4px;text-align:center;box-shadow:0 8px 20px rgba(80,54,58,.06)}.stat i{font-style:normal;font-size:17px}.stat b{display:block;font-size:14px;margin-top:2px}.stat span{display:block;color:var(--muted);font-size:7px;text-transform:uppercase;letter-spacing:.5px}
+.view{display:none}.view.active{display:block}
+.grid{display:grid;grid-template-columns:1.55fr .85fr;gap:10px}.card{background:rgba(255,255,255,.93);border:1px solid var(--line);border-radius:var(--radius);padding:11px;box-shadow:var(--shadow)}.cardhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 2px 8px}.cardhead h2{margin:0;font-size:15px}.cardhead small{font-size:9px;color:var(--muted)}
+.shop{position:relative;min-height:640px;overflow:hidden;border-radius:22px;border:1px solid #dfcec7;background:
+linear-gradient(180deg,#f5e7e1 0 69%,#d2af99 69% 70%,#ddc0ae 70% 100%)}
+.shop:before{content:"";position:absolute;inset:0;background:
+radial-gradient(circle at 20% 15%,rgba(255,255,255,.45),transparent 28%),
+linear-gradient(90deg,rgba(255,255,255,.12),transparent 30%,rgba(255,255,255,.10));pointer-events:none}
+.sign{position:absolute;top:15px;left:50%;transform:translateX(-50%);font-family:Georgia,serif;font-size:27px;letter-spacing:3px;color:#362b30;text-align:center;z-index:3}.sign small{display:block;font-family:Inter,sans-serif;font-size:7px;letter-spacing:4px;color:#94757e;margin-top:4px}
+.arch{position:absolute;top:67px;left:50%;transform:translateX(-50%);width:70%;height:290px;border:5px solid rgba(198,156,102,.48);border-bottom:none;border-radius:220px 220px 0 0}
+.window{position:absolute;left:3%;top:92px;width:21%;height:210px;border:7px solid #f6f3ef;background:linear-gradient(180deg,#dfeaf0,#faffff);box-shadow:0 9px 20px rgba(0,0,0,.08);overflow:hidden}.window:after{content:"MONTSERRAT";position:absolute;bottom:7px;left:0;right:0;text-align:center;font-size:7px;letter-spacing:1.4px;color:#6c6570}.mount{position:absolute;bottom:21px;left:0;right:0;text-align:center;font-size:64px;opacity:.85}
+.rack{position:absolute;left:28%;top:147px;width:43%;height:162px;border-top:5px solid #513d41}.rack:before,.rack:after{content:"";position:absolute;top:0;width:5px;height:150px;background:#513d41}.rack:before{left:0}.rack:after{right:0}.clothes{position:absolute;top:8px;left:5px;right:5px;display:flex;justify-content:space-around;font-size:40px}
+.mirror{position:absolute;right:4%;top:102px;width:84px;height:187px;border:7px solid #d1aa6e;border-radius:48px 48px 19px 19px;background:linear-gradient(135deg,#fbffff,#dce6ea);box-shadow:inset 0 0 0 2px #f7e8c7}
+.plant{position:absolute;left:2%;bottom:184px;font-size:57px}
+.fitting{position:absolute;left:43%;bottom:111px;width:96px;height:124px;background:#ead7dd;border:5px solid #b88b99;border-bottom:0;border-radius:16px 16px 0 0}.fitting:after{content:"PROBADOR";position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:7px;color:#7a5560;font-weight:900;letter-spacing:1px}
+.counter{position:absolute;right:5%;bottom:118px;width:38%;height:102px;background:linear-gradient(145deg,#eadbd2,#bea292);border-radius:12px;box-shadow:0 12px 20px rgba(0,0,0,.14)}.counter:after{content:"MÍA";position:absolute;inset:0;display:grid;place-items:center;font-weight:950;font-size:22px;letter-spacing:4px;color:#fff6f1}.till{position:absolute;right:10%;bottom:207px;font-size:34px}
+.customer{position:absolute;left:6%;bottom:115px;width:180px;text-align:center;transition:.25s}.avatar{font-size:88px;filter:drop-shadow(0 8px 5px rgba(0,0,0,.1))}.bubble{background:#fff;border-radius:18px;padding:10px;font-size:11px;line-height:1.35;box-shadow:0 8px 20px rgba(0,0,0,.12);position:relative;min-height:48px}.bubble:after{content:"";position:absolute;bottom:-6px;left:50%;width:12px;height:12px;background:#fff;transform:translateX(-50%) rotate(45deg)}
+.patience{height:6px;background:#eee3df;border-radius:999px;overflow:hidden;margin-top:7px}.patience>div{height:100%;background:linear-gradient(90deg,var(--green),#e8bc69,var(--red));width:100%;transition:width .4s}
+.shelf{position:absolute;left:3%;right:3%;bottom:8px;display:grid;grid-template-columns:repeat(8,1fr);gap:5px;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);padding:7px;border-radius:17px}.product{border:0;border-radius:13px;background:#fff;padding:5px 3px;box-shadow:0 4px 12px rgba(80,50,50,.1);position:relative}.product .e{display:block;font-size:22px}.product .n{font-size:7px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.product .p{font-size:9px;font-weight:900}.product .q{font-size:7px;color:var(--muted)}.product.low:after{content:"!";position:absolute;right:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#ffd6da;color:#963945;font-size:9px;font-weight:900;display:grid;place-items:center}.product.empty{opacity:.4;filter:grayscale(.75)}
+.walk{animation:walkIn .45s ease}.happy{animation:bounce .45s ease}.angry{animation:shake .28s ease}
+@keyframes walkIn{from{transform:translateX(-110px);opacity:0}to{transform:none;opacity:1}}@keyframes bounce{50%{transform:translateY(-11px)}}@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.side{display:grid;gap:9px}.section{background:#fffaf8;border:1px solid #efe1dc;border-radius:18px;padding:10px}.section h3{margin:0 0 8px;font-size:12px}.goalrow{display:flex;justify-content:space-between;font-size:10px;margin:5px 0}.progress{height:7px;background:#eee3df;border-radius:999px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--rose),var(--gold));width:0;transition:.25s}
+.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.action{border:0;border-radius:12px;padding:9px 6px;font-size:9px;font-weight:900;background:#f2eae7}.primary{background:linear-gradient(135deg,#d97f95,#c6697e)!important;color:white}.green{background:#dff1e7!important;color:#315d47}.gold{background:#f3e2bf!important;color:#684b1f}.dark{background:#30282a!important;color:white}.blue{background:#e2eef7!important;color:#3b5f78}
+.eventbox{border-radius:15px;padding:9px;background:linear-gradient(135deg,#fff0f4,#fff9f2);border:1px solid #efd7d8;font-size:9px}.eventbox b{font-size:10px}.eventbox p{margin:3px 0 0;color:var(--muted)}
+.log{height:110px;overflow:auto;background:#30282a;color:#f9edef;border-radius:13px;padding:8px;font-size:9px;line-height:1.4}.log div{margin-bottom:4px}.goodtxt{color:#c9f3d8}.badtxt{color:#ffcaca}.goldtxt{color:#f6ddb2}
+.panelgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.hero{padding:17px;border-radius:23px;background:linear-gradient(135deg,#2c2427,#59424a);color:white;position:relative;overflow:hidden}.hero:after{content:"✦";position:absolute;right:18px;top:7px;font-size:78px;color:rgba(255,255,255,.08)}.hero h2{margin:0 0 5px}.hero p{margin:0;color:#e9dfe2;font-size:10px;max-width:660px}
+.metricgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:9px}.metric{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:8px}.metric b{font-size:15px}.metric span{display:block;font-size:7px;color:#eadfe2;margin-top:2px}
+.list{display:grid;gap:6px}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border:1px solid #eee2dd;border-radius:13px;padding:8px}.row .left{display:flex;align-items:center;gap:8px}.row .emoji{font-size:26px}.row b{font-size:10px}.row small{display:block;color:var(--muted);font-size:8px;margin-top:2px}.mini{border:0;border-radius:9px;padding:7px 8px;background:#2f292a;color:#fff;font-size:8px;font-weight:900}.mini.alt{background:#f2e2bf;color:#694d1c}.mini.rose{background:#efc9d2;color:#7c4250}.mini.green{background:#dff1e7;color:#315c47}.mini.blue{background:#e3eff8;color:#395f78}
+.badge2{padding:6px 8px;border-radius:999px;background:#f5edeb;font-size:8px;font-weight:900}.upgrade{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border:1px solid #eee2dd;border-radius:13px;padding:8px}.upgrade b{font-size:10px}.upgrade small{display:block;color:var(--muted);font-size:8px;margin-top:2px}
+.nav{position:fixed;left:50%;bottom:calc(7px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(96%,760px);background:rgba(42,33,37,.95);backdrop-filter:blur(16px);border-radius:21px;padding:6px;display:grid;grid-template-columns:repeat(6,1fr);gap:3px;z-index:60;box-shadow:0 15px 40px rgba(0,0,0,.25)}.nav button{border:0;background:transparent;color:#e8dfe2;border-radius:13px;padding:6px 2px;font-size:7px}.nav button span{display:block;font-size:17px}.nav button.active{background:#fff;color:#2e2528}
+.modal{position:fixed;inset:0;background:rgba(28,21,24,.64);display:none;align-items:center;justify-content:center;padding:16px;z-index:100}.modal.show{display:flex}.modalbox{width:min(470px,100%);max-height:82vh;overflow:auto;background:#fff;border-radius:25px;padding:18px;box-shadow:0 24px 60px rgba(0,0,0,.28)}.modalbox h2{margin:0 0 5px;font-size:19px}.modalbox p{font-size:10px;color:var(--muted);line-height:1.45}.choices{display:grid;gap:7px;margin-top:10px}.choices button{border:0;border-radius:12px;padding:10px;background:#f6eeeb;font-weight:900;font-size:10px}.close{margin-top:10px;width:100%;border:0;border-radius:12px;padding:10px;background:#2f292a;color:#fff;font-weight:900}
+.toast{position:fixed;top:calc(16px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-20px);opacity:0;transition:.2s;background:#2e2729;color:#fff;border-radius:999px;padding:10px 14px;font-size:10px;font-weight:900;z-index:150;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+.spark{position:absolute;font-size:21px;animation:rise 1s ease forwards;pointer-events:none;z-index:10}@keyframes rise{to{transform:translateY(-70px);opacity:0}}
+.floating{position:absolute;right:8px;top:8px;padding:6px 8px;border-radius:999px;background:rgba(45,36,40,.88);color:white;font-size:8px;font-weight:900;z-index:8}
+.quest{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;background:#fff;border:1px solid #eee2dd;border-radius:13px;padding:8px}.quest .ico{font-size:22px}.quest b{font-size:9px}.quest small{display:block;font-size:8px;color:var(--muted);margin-top:2px}
+.chiprow{display:flex;gap:6px;overflow:auto;padding-bottom:2px}.chip{border:1px solid #eadbd6;background:#fff;border-radius:999px;padding:7px 9px;font-size:8px;font-weight:900;white-space:nowrap}.chip.active{background:#2f292a;color:white}
+@media(max-width:850px){
+ .app{padding:8px 8px calc(94px + env(safe-area-inset-bottom))}.brand h1{font-size:18px}.brand p{font-size:8px}.logo{width:50px;height:50px}.pill.dark{display:none}
+ .stats{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:1fr}.shop{min-height:650px}.panelgrid{grid-template-columns:1fr}.metricgrid{grid-template-columns:repeat(2,1fr)}
+ .customer{bottom:204px;left:4%;width:165px}.counter{bottom:194px}.till{bottom:283px}.fitting{bottom:189px}.plant{bottom:282px}.shelf{grid-template-columns:repeat(4,1fr)}.nav{grid-template-columns:repeat(6,1fr)}
+}
+</style>
+</head>
+<body>
+<div id="toast" class="toast"></div>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">MÍA</div>
+      <div><h1>Mía Modas</h1><p>BOUTIQUE EMPIRE · SANT FRUITÓS DE BAGES</p></div>
+    </div>
+    <div class="topright">
+      <div class="pill dark">⭐ NIVEL <span id="level">1</span></div>
+      <div class="pill">DÍA <span id="day">1</span></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><i>💶</i><b id="money">180 €</b><span>Caja</span></div>
+    <div class="stat"><i>🛍️</i><b id="sales">0</b><span>Ventas</span></div>
+    <div class="stat"><i>💗</i><b id="rep">12</b><span>Fama</span></div>
+    <div class="stat"><i>📱</i><b id="fans">350</b><span>Seguidoras</span></div>
+    <div class="stat"><i>📦</i><b id="orders">0</b><span>Pedidos</span></div>
+    <div class="stat"><i>👩‍💼</i><b id="staff">0</b><span>Equipo</span></div>
+  </div>
+
+  <section id="view-shop" class="view active">
+    <div class="grid">
+      <div class="card">
+        <div class="cardhead"><h2>🏬 Tu boutique</h2><small id="eventText">Jornada normal · clientas entrando</small></div>
+        <div class="shop" id="shop">
+          <div class="floating" id="weather">☀️ Verano</div>
+          <div class="sign">MÍA MODAS<small>FASHION · STYLE · YOU</small></div>
+          <div class="arch"></div>
+          <div class="window"><div class="mount">⛰️</div></div>
+          <div class="rack"><div class="clothes"><span>👚</span><span>👗</span><span>👖</span><span>🧥</span></div></div>
+          <div class="mirror"></div><div class="plant">🪴</div><div class="fitting"></div><div class="till">🖥️</div><div class="counter"></div>
+          <div class="customer walk" id="customer">
+            <div class="bubble"><div id="request">Busco algo bonito para hoy.</div><div class="patience"><div id="patienceBar"></div></div></div>
+            <div class="avatar" id="avatar">👩🏻</div>
+          </div>
+          <div class="shelf" id="products"></div>
+        </div>
+      </div>
+
+      <aside class="side">
+        <div class="card">
+          <div class="section">
+            <h3>🎯 Objetivos del día</h3>
+            <div class="goalrow"><span>Ventas</span><b><span id="gSalesNow">0</span>/<span id="gSales">7</span></b></div><div class="progress"><div class="bar" id="salesBar"></div></div>
+            <div class="goalrow"><span>Ingresos</span><b><span id="gMoneyNow">0</span>/<span id="gMoney">150</span> €</b></div><div class="progress"><div class="bar" id="moneyBar"></div></div>
+            <div class="goalrow"><span>Clientas felices</span><b><span id="gHappyNow">0</span>/<span id="gHappy">5</span></b></div><div class="progress"><div class="bar" id="happyBar"></div></div>
+          </div>
+
+          <div class="section">
+            <h3>✨ Gestionar tienda</h3>
+            <div class="actions">
+              <button class="action primary" onclick="openRestock()">📦 Reponer</button>
+              <button class="action green" onclick="social()">📱 Story</button>
+              <button class="action gold" onclick="eventPromo()">🎉 Evento</button>
+              <button class="action blue" onclick="discountHour()">🏷️ Oferta flash</button>
+              <button class="action dark" onclick="closeDay()">🌙 Cerrar día</button>
+              <button class="action" onclick="serveAdvice()">💬 Aconsejar</button>
+            </div>
+          </div>
+
+          <div class="section">
+            <h3>📅 Evento activo</h3>
+            <div class="eventbox"><b id="eventTitle">Sin evento especial</b><p id="eventDesc">Haz promociones para atraer más clientas.</p></div>
+          </div>
+
+          <div class="section">
+            <h3>📒 Actividad</h3>
+            <div class="log" id="log"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="view-stock" class="view">
+    <div class="hero"><h2>📦 Almacén y proveedores</h2><p>Controla el stock, compra mejor y no pierdas ventas por quedarte sin tallas.</p>
+      <div class="metricgrid"><div class="metric"><b id="stockUnits">0</b><span>UNIDADES</span></div><div class="metric"><b id="stockValue">0 €</b><span>VALOR A COSTE</span></div><div class="metric"><b id="lowStock">0</b><span>STOCK BAJO</span></div><div class="metric"><b id="marginAvg">0%</b><span>MARGEN MEDIO</span></div></div>
+    </div>
+    <div class="panelgrid" style="margin-top:10px">
+      <div class="card"><div class="cardhead"><h2>Inventario</h2><small>Toca para revisar</small></div><div id="stockList" class="list"></div></div>
+      <div class="card"><div class="cardhead"><h2>Proveedores</h2><small>Compra al por mayor</small></div><div id="supplierList" class="list"></div></div>
+    </div>
+  </section>
+
+  <section id="view-online" class="view">
+    <div class="hero"><h2>📲 Mía Modas Online</h2><p>Publica contenido, haz directos y prepara pedidos. Cuantas más seguidoras tengas, más ventas online entrarán.</p>
+      <div class="metricgrid"><div class="metric"><b id="onlinePending">0</b><span>PENDIENTES</span></div><div class="metric"><b id="onlineDone">0</b><span>PREPARADOS</span></div><div class="metric"><b id="onlineFollowers">0</b><span>SEGUIDORAS</span></div><div class="metric"><b id="onlineLevel">0</b><span>NIVEL ONLINE</span></div></div>
+    </div>
+    <div class="panelgrid" style="margin-top:10px">
+      <div class="card"><div class="cardhead"><h2>Pedidos</h2><small>Prepara antes de cerrar</small></div><div id="onlineOrders" class="list"></div></div>
+      <div class="card"><div class="cardhead"><h2>Marketing</h2><small>Haz crecer la cuenta</small></div>
+        <div class="actions">
+          <button class="action green" onclick="social()">📱 Story · 10 €</button>
+          <button class="action primary" onclick="liveSale()">🔴 Directo · 30 €</button>
+          <button class="action gold" onclick="influencer()">✨ Influencer · 85 €</button>
+          <button class="action blue" onclick="giveaway()">🎁 Sorteo · 55 €</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-team" class="view">
+    <div class="hero"><h2>👩‍💼 Equipo y boutique</h2><p>Contrata personal, mejora la tienda y desbloquea ventajas para vender más rápido.</p>
+      <div class="metricgrid"><div class="metric"><b id="teamCount">0</b><span>EMPLEADAS</span></div><div class="metric"><b id="dailyPayroll">0 €</b><span>COSTE DIARIO</span></div><div class="metric"><b id="upgradeCount">0</b><span>MEJORAS</span></div><div class="metric"><b id="shopWorth">0 €</b><span>VALOR TIENDA</span></div></div>
+    </div>
+    <div class="panelgrid" style="margin-top:10px">
+      <div class="card"><div class="cardhead"><h2>Personal</h2></div><div id="staffList" class="list"></div></div>
+      <div class="card"><div class="cardhead"><h2>Mejoras</h2></div><div id="upgrades" class="list"></div></div>
+    </div>
+  </section>
+
+  <section id="view-looks" class="view">
+    <div class="hero"><h2>👗 Looks completos</h2><p>Vende combinaciones completas para conseguir tickets más altos, fama extra y mejores rachas.</p>
+      <div class="metricgrid"><div class="metric"><b id="looksSold">0</b><span>LOOKS VENDIDOS</span></div><div class="metric"><b id="bestStreak">0</b><span>MEJOR RACHA</span></div><div class="metric"><b id="tips">0 €</b><span>PROPINAS</span></div><div class="metric"><b id="happyTotal">0</b><span>CLIENTAS FELICES</span></div></div>
+    </div>
+    <div class="card" style="margin-top:10px"><div class="cardhead"><h2>Combinaciones</h2><small>Necesitas stock de todas las prendas</small></div><div id="lookBuilder" class="list"></div></div>
+  </section>
+
+  <section id="view-goals" class="view">
+    <div class="hero"><h2>🏆 Carrera de Mía Modas</h2><p>Completa hitos, sube de nivel y convierte la boutique en una marca reconocida.</p>
+      <div class="metricgrid"><div class="metric"><b id="careerLevel">1</b><span>NIVEL</span></div><div class="metric"><b id="xpText">0/100</b><span>XP</span></div><div class="metric"><b id="achievements">0</b><span>LOGROS</span></div><div class="metric"><b id="daysOpen">1</b><span>DÍAS ABIERTA</span></div></div>
+    </div>
+    <div class="panelgrid" style="margin-top:10px">
+      <div class="card"><div class="cardhead"><h2>Misiones</h2></div><div id="quests" class="list"></div></div>
+      <div class="card"><div class="cardhead"><h2>Resumen</h2></div><div id="summaryBox" class="list"></div></div>
+    </div>
+  </section>
+</div>
+
+<div class="nav" id="nav">
+  <button class="active" data-v="shop" onclick="showView('shop',this)"><span>🏬</span>Tienda</button>
+  <button data-v="stock" onclick="showView('stock',this)"><span>📦</span>Stock</button>
+  <button data-v="online" onclick="showView('online',this)"><span>📲</span>Online</button>
+  <button data-v="team" onclick="showView('team',this)"><span>👩‍💼</span>Equipo</button>
+  <button data-v="looks" onclick="showView('looks',this)"><span>👗</span>Looks</button>
+  <button data-v="goals" onclick="showView('goals',this)"><span>🏆</span>Logros</button>
+</div>
+
+<div class="modal" id="modal"><div class="modalbox">
+  <h2 id="modalTitle"></h2><p id="modalText"></p><div class="choices" id="modalChoices"></div>
+  <button class="close" onclick="closeModal()">Cerrar</button>
+</div></div>
+
+<script>
+const catalog=[
+{id:'vestido',name:'Vestido',emoji:'👗',price:26,cost:10,base:5,tags:['fiesta','elegante','verano']},
+{id:'camiseta',name:'Camiseta',emoji:'👚',price:12,cost:5,base:8,tags:['casual','verano','barato']},
+{id:'palazzo',name:'Palazzo',emoji:'👖',price:20,cost:8,base:6,tags:['casual','elegante']},
+{id:'bolso',name:'Bolso',emoji:'👜',price:19,cost:7,base:5,tags:['complemento','elegante']},
+{id:'gafas',name:'Gafas',emoji:'🕶️',price:10,cost:4,base:6,tags:['complemento','verano','barato']},
+{id:'sandalias',name:'Sandalias',emoji:'👡',price:23,cost:9,base:5,tags:['fiesta','verano','elegante']},
+{id:'conjunto',name:'Conjunto',emoji:'🩱',price:29,cost:12,base:4,tags:['tendencia','elegante','verano']},
+{id:'collar',name:'Collar',emoji:'📿',price:9,cost:3,base:6,tags:['complemento','barato']}
+];
+const customers=[
+{a:'👩🏻',txt:'Quiero algo mono y cómodo para esta tarde.',want:['casual','verano'],budget:28},
+{a:'👱🏼‍♀️',txt:'Tengo una cena y quiero ir elegante.',want:['elegante'],budget:40},
+{a:'👩🏽',txt:'Quiero algo bonito pero no muy caro.',want:['barato'],budget:18},
+{a:'👩🏻‍🦰',txt:'Necesito un complemento que cambie el look.',want:['complemento'],budget:22},
+{a:'👩🏾',txt:'Salgo esta noche. Quiero algo especial.',want:['fiesta','elegante'],budget:38},
+{a:'👵🏻',txt:'Quiero algo fresco y favorecedor.',want:['verano','casual'],budget:26},
+{a:'👩🏼',txt:'Quiero un look completo para una ocasión.',want:['elegante','complemento'],budget:65},
+{a:'👩🏽‍🦱',txt:'Enséñame algo que esté en tendencia.',want:['tendencia','verano'],budget:45}
+];
+const upgradeDefs={
+decor:{name:'Decoración premium',emoji:'✨',base:55,desc:'+ fama y propinas'},
+online:{name:'Tienda online',emoji:'📲',base:70,desc:'+ pedidos online'},
+showcase:{name:'Escaparate',emoji:'🪟',base:60,desc:'+ éxito en ventas'},
+marketing:{name:'Marketing local',emoji:'📣',base:65,desc:'+ seguidores'},
+fitting:{name:'Probador premium',emoji:'🪞',base:50,desc:'+ clientas felices'}
+};
+const init=()=>({
+ money:180,day:1,rep:12,fans:350,level:1,xp:0,lifetimeSales:0,onlineDone:0,staff:0,totalHappy:0,
+ streak:0,bestStreak:0,tips:0,looksSold:0,achievements:0,flash:0,event:null,
+ stock:Object.fromEntries(catalog.map(p=>[p.id,p.base])),
+ daily:{sales:0,revenue:0,happy:0,gSales:7,gMoney:150,gHappy:5,rewarded:false},
+ upgrades:{decor:0,online:0,showcase:0,marketing:0,fitting:0},online:[],quests:{}
+});
+let s;
+try{s=JSON.parse(localStorage.getItem('mia_modas_supreme')||'null')||init()}catch(e){s=init()}
+let current=null, patience=100, patienceTimer=null;
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem('mia_modas_supreme',JSON.stringify(s))}catch(e){}}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>e.classList.remove('show'),1600)}
+function log(t,c=''){const el=$('log');el.innerHTML=`<div class="${c}">• ${t}</div>`+el.innerHTML}
+function spark(x){const e=document.createElement('div');e.className='spark';e.textContent=x;e.style.left=(70+Math.random()*120)+'px';e.style.bottom=(260+Math.random()*30)+'px';$('shop').appendChild(e);setTimeout(()=>e.remove(),1000)}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function showView(v,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));$('view-'+v).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');update()}
+function update(){
+ $('money').textContent=Math.round(s.money)+' €';$('sales').textContent=s.lifetimeSales;$('rep').textContent=s.rep;$('fans').textContent=s.fans;$('orders').textContent=s.onlineDone;$('staff').textContent=s.staff;$('level').textContent=s.level;$('day').textContent=s.day;
+ $('gSalesNow').textContent=s.daily.sales;$('gSales').textContent=s.daily.gSales;$('gMoneyNow').textContent=Math.round(s.daily.revenue);$('gMoney').textContent=s.daily.gMoney;$('gHappyNow').textContent=s.daily.happy;$('gHappy').textContent=s.daily.gHappy;
+ $('salesBar').style.width=clamp(s.daily.sales/s.daily.gSales*100,0,100)+'%';$('moneyBar').style.width=clamp(s.daily.revenue/s.daily.gMoney*100,0,100)+'%';$('happyBar').style.width=clamp(s.daily.happy/s.daily.gHappy*100,0,100)+'%';
+ $('products').innerHTML=catalog.map(p=>`<button class="product ${s.stock[p.id]<=0?'empty':s.stock[p.id]<=2?'low':''}" onclick="sell('${p.id}')"><span class="e">${p.emoji}</span><div class="n">${p.name}</div><div class="p">${p.price} €</div><div class="q">x${s.stock[p.id]}</div></button>`).join('');
+ renderStock();renderSuppliers();renderOrders();renderUpgrades();renderStaff();renderLookBuilder();renderCareer();renderEvent();save()
+}
+function startPatience(){
+ clearInterval(patienceTimer);patience=100;$('patienceBar').style.width='100%';
+ patienceTimer=setInterval(()=>{patience-=1.7-Math.min(.7,s.staff*.08);$('patienceBar').style.width=clamp(patience,0,100)+'%';if(patience<=0){clearInterval(patienceTimer);s.rep=Math.max(0,s.rep-1);s.streak=0;animateCustomer('angry');log('Una clienta se cansó de esperar y se fue.','badtxt');newCustomer();update()}},800)
+}
+function newCustomer(){
+ current=customers[Math.floor(Math.random()*customers.length)];
+ $('avatar').textContent=current.a;$('request').textContent=current.txt;
+ const c=$('customer');c.classList.remove('walk','happy','angry');void c.offsetWidth;c.classList.add('walk');startPatience()
+}
+function animateCustomer(cls){const c=$('customer');c.classList.remove('happy','angry');void c.offsetWidth;c.classList.add(cls)}
+function successChance(p){
+ const match=p.tags.filter(t=>current.want.includes(t)).length;
+ let ch=.20+match*.28+s.upgrades.showcase*.045+s.staff*.025+s.rep/1200;
+ if(p.price<=current.budget)ch+=.12; else ch-=.08;
+ if(s.flash>0)ch+=.14;
+ if(s.event==='shopping')ch+=.08;
+ return clamp(ch,.05,.94)
+}
+function sell(id){
+ if(!current)return;const p=catalog.find(x=>x.id===id);
+ if(s.stock[id]<=0){s.rep=Math.max(0,s.rep-1);log(`No quedaba ${p.name}. Perdiste la venta.`,'badtxt');toast('Sin stock 😢');animateCustomer('angry');newCustomer();update();return}
+ const ok=Math.random()<successChance(p);
+ if(ok){
+  s.stock[id]--;let price=p.price;if(s.flash>0)price=Math.max(5,Math.round(price*.9));
+  s.money+=price;s.daily.revenue+=price;s.daily.sales++;s.lifetimeSales++;
+  const happy=p.tags.some(t=>current.want.includes(t))||Math.random()<.45+s.upgrades.fitting*.06;
+  if(happy){s.daily.happy++;s.totalHappy++;s.rep+=2;s.fans+=1+Math.floor(Math.random()*5);s.xp+=18;s.streak++;s.bestStreak=Math.max(s.bestStreak,s.streak);animateCustomer('happy');spark('💖');
+    let tip=0;if(Math.random()<.10+s.upgrades.decor*.04){tip=1+Math.floor(Math.random()*4);s.money+=tip;s.tips+=tip}log(`Venta de ${p.name}: +${price} €${tip?` · propina ${tip} €`:''}. Clienta encantada.`,'goodtxt')
+  }else{s.rep++;s.xp+=10;s.streak=0;spark('✨');log(`Vendiste ${p.name}: +${price} €.`)}
+  maybeOnline();checkLevel();checkGoals();checkAchievements()
+ }else{s.rep=Math.max(0,s.rep-1);s.streak=0;animateCustomer('angry');spark('💭');log(`No convenciste a la clienta con ${p.name}.`,'badtxt')}
+ if(s.flash>0)s.flash--;setTimeout(newCustomer,180);update()
+}
+function serveAdvice(){
+ if(!current)return;const options=catalog.filter(p=>s.stock[p.id]>0).map(p=>({p,score:p.tags.filter(t=>current.want.includes(t)).length+(p.price<=current.budget?.5:0)})).sort((a,b)=>b.score-a.score);
+ if(!options.length){toast('No queda stock');return}
+ const p=options[0].p;toast(`Prueba con ${p.name} ${p.emoji}`);log(`Aconsejaste ${p.name} a la clienta.`)
+}
+function maybeOnline(){
+ let chance=.10+s.upgrades.online*.065+s.fans/16000+s.upgrades.marketing*.018+(s.event==='viral'?.08:0);
+ if(Math.random()<chance){const p=catalog[Math.floor(Math.random()*catalog.length)],q=Math.random()<.82?1:2;s.online.push({id:String(Date.now()+Math.random()),pid:p.id,q,total:p.price*q});toast('Nuevo pedido online 📲');log(`Entró un pedido online de ${p.name}.`,'goldtxt')}
+}
+function renderOrders(){
+ if(!$('onlineOrders'))return;$('onlinePending').textContent=s.online.length;$('onlineDone').textContent=s.onlineDone;$('onlineFollowers').textContent=s.fans;$('onlineLevel').textContent=s.upgrades.online;
+ $('onlineOrders').innerHTML=s.online.length?s.online.slice(0,10).map(o=>{const p=catalog.find(x=>x.id===o.pid);return `<div class="row"><div class="left"><div class="emoji">${p.emoji}</div><div><b>${p.name} x${o.q}</b><small>${o.total} € · stock ${s.stock[o.pid]}</small></div></div><button class="mini green" onclick="prepareOrder('${o.id}')">Preparar</button></div>`}).join(''):'<div class="row"><div><b>No hay pedidos pendientes</b><small>Haz stories o directos para generar ventas.</small></div></div>'
+}
+function prepareOrder(id){
+ const o=s.online.find(x=>String(x.id)===String(id));if(!o)return;const p=catalog.find(x=>x.id===o.pid);
+ if(s.stock[o.pid]<o.q){toast('No tienes stock suficiente');return}
+ s.stock[o.pid]-=o.q;s.money+=o.total;s.daily.revenue+=o.total;s.onlineDone++;s.xp+=12;s.fans+=2;s.online=s.online.filter(x=>String(x.id)!==String(id));log(`Pedido online preparado: +${o.total} €.`,'goodtxt');checkLevel();checkGoals();update()
+}
+function checkGoals(){
+ if(!s.daily.rewarded&&s.daily.sales>=s.daily.gSales&&s.daily.revenue>=s.daily.gMoney&&s.daily.happy>=s.daily.gHappy){s.daily.rewarded=true;s.money+=80;s.rep+=6;s.xp+=35;toast('Objetivos completados 🏆');log('Objetivos diarios completados: +80 € y +6 fama.','goldtxt')}
+}
+function checkLevel(){const nl=Math.floor(s.xp/100)+1;if(nl>s.level){s.level=nl;s.money+=50;s.fans+=35;toast(`¡Nivel ${nl}! 👑`);log(`Subes al nivel ${nl}: +50 € y +35 seguidoras.`,'goldtxt')}}
+function checkAchievements(){
+ let n=0;if(s.lifetimeSales>=10)n++;if(s.lifetimeSales>=50)n++;if(s.lifetimeSales>=150)n++;if(s.totalHappy>=25)n++;if(s.fans>=1000)n++;if(s.fans>=5000)n++;if(s.money>=1000)n++;if(s.staff>=2)n++;if(s.looksSold>=10)n++;s.achievements=n
+}
+function openRestock(){openModal('📦 Reponer colección','Elige cuánto quieres reponer.',[
+ ['Mini · +1 de cada · 32 €',()=>restock(1,32)],['Normal · +2 de cada · 56 €',()=>restock(2,56)],['Gran reposición · +4 de cada · 98 €',()=>restock(4,98)]])}
+function restock(q,c){if(s.money<c){toast('No tienes suficiente caja');return}s.money-=c;catalog.forEach(p=>s.stock[p.id]+=q);log(`Reposición recibida: +${q} de cada producto.`);toast('Stock repuesto 📦');closeModal();update()}
+function social(){if(s.money<10){toast('Necesitas 10 €');return}s.money-=10;const f=20+Math.floor(Math.random()*35)+s.upgrades.marketing*6;s.fans+=f;s.xp+=8;if(Math.random()<.42+s.upgrades.online*.05){const p=catalog[Math.floor(Math.random()*catalog.length)];s.online.push({id:String(Date.now()+Math.random()),pid:p.id,q:1,total:p.price});log(`Story viral: +${f} seguidoras y nuevo pedido.`,'goodtxt')}else log(`Subiste una story: +${f} seguidoras.`);checkLevel();toast('Story publicada 📱');update()}
+function liveSale(){if(s.money<30){toast('Necesitas 30 €');return}s.money-=30;const f=80+Math.floor(Math.random()*90);s.fans+=f;s.rep+=3;s.xp+=20;for(let i=0;i<2+s.upgrades.online;i++)maybeOnline();log(`Directo de ventas: +${f} seguidoras.`,'goodtxt');checkLevel();update()}
+function influencer(){if(s.money<85){toast('Necesitas 85 €');return}s.money-=85;const f=250+Math.floor(Math.random()*300);s.fans+=f;s.rep+=5;s.xp+=35;for(let i=0;i<3;i++)maybeOnline();log(`Colaboración con influencer: +${f} seguidoras.`,'goldtxt');checkLevel();update()}
+function giveaway(){if(s.money<55){toast('Necesitas 55 €');return}s.money-=55;const f=130+Math.floor(Math.random()*180);s.fans+=f;s.rep+=4;s.xp+=22;if(Math.random()<.7)for(let i=0;i<2;i++)maybeOnline();log(`Sorteo en redes: +${f} seguidoras.`,'goldtxt');checkLevel();update()}
+function eventPromo(){if(s.money<40){toast('Necesitas 40 €');return}s.money-=40;s.event='shopping';s.rep+=5;s.fans+=45;s.xp+=20;log('Has montado un evento especial en tienda.','goldtxt');toast('Evento activo 🎉');checkLevel();update()}
+function discountHour(){if(s.flash>0){toast('Ya tienes una oferta activa');return}s.flash=4;s.event='flash';toast('Oferta flash activa 🏷️');log('Oferta flash: 10% de descuento durante 4 ventas.','goldtxt');update()}
+function closeDay(){
+ clearInterval(patienceTimer);const expenses=22+s.staff*14,onlineBonus=Math.floor(s.fans/150);s.money=Math.max(0,s.money-expenses)+onlineBonus;
+ log(`Día ${s.day} cerrado. Gastos -${expenses} €. Ventas indirectas +${onlineBonus} €.`,'goldtxt');
+ s.day++;s.flash=0;s.event=null;s.daily={sales:0,revenue:0,happy:0,gSales:7+Math.floor(s.day/3),gMoney:150+Math.floor(s.day/2)*18,gHappy:5+Math.floor(s.day/5),rewarded:false};
+ if(s.day%5===0){s.money+=45;log('Bono de fidelidad de clientas: +45 €.','goodtxt')}
+ newCustomer();toast(`Empieza el día ${s.day} ☀️`);update()
+}
+function renderEvent(){
+ let title='Sin evento especial',desc='Haz promociones para atraer más clientas.';
+ if(s.event==='shopping'){title='🎉 Tarde especial en tienda';desc='Más facilidad para vender mientras dure el día.'}
+ if(s.event==='flash'){title='🏷️ Oferta flash';desc=`Quedan ${s.flash} ventas con descuento.`}
+ $('eventTitle').textContent=title;$('eventDesc').textContent=desc;
+ $('eventText').textContent=s.event==='shopping'?'🎉 Evento especial · más movimiento':s.flash>0?'🏷️ Oferta flash activa':'Jornada normal · clientas entrando';
+}
+function renderStock(){
+ if(!$('stockList'))return;let units=0,val=0,low=0,marg=0;catalog.forEach(p=>{units+=s.stock[p.id];val+=s.stock[p.id]*p.cost;if(s.stock[p.id]<=2)low++;marg+=(p.price-p.cost)/p.price});
+ $('stockUnits').textContent=units;$('stockValue').textContent=Math.round(val)+' €';$('lowStock').textContent=low;$('marginAvg').textContent=Math.round(marg/catalog.length*100)+'%';
+ $('stockList').innerHTML=catalog.map(p=>`<div class="row"><div class="left"><div class="emoji">${p.emoji}</div><div><b>${p.name}</b><small>Venta ${p.price} € · coste ${p.cost} € · margen ${p.price-p.cost} €</small></div></div><span class="badge2">x${s.stock[p.id]}</span></div>`).join('')
+}
+function renderSuppliers(){
+ if(!$('supplierList'))return;const offers=[{q:1,m:1,label:'Pedido rápido',d:'+1 de cada producto'},{q:3,m:.91,label:'Mayorista',d:'+3 de cada · 9% descuento'},{q:6,m:.82,label:'Compra grande',d:'+6 de cada · 18% descuento'}];
+ $('supplierList').innerHTML=offers.map(x=>{const cost=Math.round(catalog.reduce((a,p)=>a+p.cost*x.q,0)*x.m);return `<div class="row"><div class="left"><div class="emoji">🚚</div><div><b>${x.label}</b><small>${x.d}</small></div></div><button class="mini alt" onclick="supplierBuy(${x.q},${cost})">${cost} €</button></div>`}).join('')
+}
+function supplierBuy(q,c){if(s.money<c){toast('No tienes suficiente caja');return}s.money-=c;catalog.forEach(p=>s.stock[p.id]+=q);log(`Compra a proveedor: +${q} unidades de cada producto.`);toast('Pedido recibido 🚚');update()}
+function renderUpgrades(){
+ if(!$('upgrades'))return;let count=0;Object.values(s.upgrades).forEach(v=>count+=v);$('upgradeCount').textContent=count;$('shopWorth').textContent=Math.round(s.money+s.rep*8+s.fans/8+s.staff*130+count*90)+' €';
+ $('upgrades').innerHTML=Object.entries(upgradeDefs).map(([k,d])=>{const lv=s.upgrades[k],cost=d.base+lv*38;return `<div class="upgrade"><div><b>${d.emoji} ${d.name}</b><small>Nivel ${lv}/5 · ${d.desc}</small></div><button class="mini alt" onclick="upgrade('${k}',${cost})">${lv>=5?'MAX':cost+' €'}</button></div>`}).join('')
+}
+function upgrade(k,c){if(s.upgrades[k]>=5){toast('Mejora al máximo');return}if(s.money<c){toast('No tienes suficiente caja');return}s.money-=c;s.upgrades[k]++;s.rep+=2;s.xp+=16;log(`Mejora ${upgradeDefs[k].name} subida a nivel ${s.upgrades[k]}.`,'goldtxt');toast('Mejora comprada ✨');checkLevel();update()}
+function renderStaff(){
+ if(!$('staffList'))return;const next=90+s.staff*48;$('teamCount').textContent=s.staff;$('dailyPayroll').textContent=(s.staff*14)+' €';
+ $('staffList').innerHTML=`<div class="row"><div class="left"><div class="emoji">👩‍💼</div><div><b>Dependientas: ${s.staff}</b><small>Ayudan con la paciencia y la venta</small></div></div><button class="mini green" onclick="hire()">Contratar ${next} €</button></div>
+ <div class="row"><div class="left"><div class="emoji">🧾</div><div><b>Coste diario</b><small>${s.staff?`${s.staff} empleada(s)`: 'Sin personal contratado'}</small></div></div><span class="badge2">${s.staff?'-'+s.staff*14+' €':'0 €'}</span></div>`
+}
+function hire(){const cost=90+s.staff*48;if(s.money<cost){toast(`Necesitas ${cost} €`);return}s.money-=cost;s.staff++;s.rep+=2;s.xp+=22;log('Contrataste una nueva dependienta.','goldtxt');toast('Nueva empleada 👩‍💼');checkLevel();update()}
+function renderLookBuilder(){
+ if(!$('lookBuilder'))return;$('looksSold').textContent=s.looksSold;$('bestStreak').textContent=s.bestStreak;$('tips').textContent=s.tips+' €';$('happyTotal').textContent=s.totalHappy;
+ const combos=[
+ {name:'Look cena elegante',items:['vestido','bolso','sandalias'],bonus:14},
+ {name:'Look casual de verano',items:['camiseta','palazzo','gafas'],bonus:9},
+ {name:'Look tendencia',items:['conjunto','collar','bolso'],bonus:12},
+ {name:'Look completo económico',items:['camiseta','gafas','collar'],bonus:6}
+ ];
+ $('lookBuilder').innerHTML=combos.map(c=>{const emojis=c.items.map(id=>catalog.find(p=>p.id===id).emoji).join(' + '),total=c.items.reduce((a,id)=>a+catalog.find(p=>p.id===id).price,0);return `<div class="row"><div class="left"><div class="emoji">${emojis}</div><div><b>${c.name}</b><small>${total} € + bonus ${c.bonus} €</small></div></div><button class="mini rose" onclick='sellLook(${JSON.stringify(c.items)},${c.bonus})'>Vender</button></div>`}).join('')
+}
+function sellLook(items,bonus){
+ if(items.some(id=>s.stock[id]<=0)){toast('Falta stock para ese look');return}
+ const total=items.reduce((a,id)=>a+catalog.find(p=>p.id===id).price,0)+bonus;items.forEach(id=>s.stock[id]--);
+ s.money+=total;s.daily.revenue+=total;s.daily.sales+=items.length;s.lifetimeSales+=items.length;s.daily.happy++;s.totalHappy++;s.rep+=4;s.fans+=8;s.xp+=32;s.streak++;s.looksSold++;s.bestStreak=Math.max(s.bestStreak,s.streak);
+ log(`Look completo vendido: +${total} €.`,'goodtxt');toast('¡Look completo vendido! 👗✨');checkLevel();checkGoals();checkAchievements();update()
+}
+function renderCareer(){
+ if(!$('careerLevel'))return;$('careerLevel').textContent=s.level;$('xpText').textContent=(s.xp%100)+'/100';$('achievements').textContent=s.achievements;$('daysOpen').textContent=s.day;
+ const qs=[
+ ['🛍️','Primera racha','Consigue 5 clientas felices seguidas',s.bestStreak>=5],
+ ['📱','Boutique viral','Llega a 1.000 seguidoras',s.fans>=1000],
+ ['💶','Caja fuerte','Ten 1.000 € en caja',s.money>=1000],
+ ['👗','Estilista','Vende 10 looks completos',s.looksSold>=10],
+ ['👩‍💼','Equipo formado','Contrata 2 empleadas',s.staff>=2],
+ ['🏆','Marca conocida','Consigue 150 ventas',s.lifetimeSales>=150]
+ ];
+ $('quests').innerHTML=qs.map(q=>`<div class="quest"><div class="ico">${q[0]}</div><div><b>${q[1]}</b><small>${q[2]}</small></div><span class="badge2">${q[3]?'✅':'🔒'}</span></div>`).join('');
+ $('summaryBox').innerHTML=`<div class="row"><div><b>Ventas totales</b><small>Desde que abriste</small></div><span class="badge2">${s.lifetimeSales}</span></div>
+ <div class="row"><div><b>Clientas felices</b><small>Experiencias positivas</small></div><span class="badge2">${s.totalHappy}</span></div>
+ <div class="row"><div><b>Pedidos preparados</b><small>Ventas online completadas</small></div><span class="badge2">${s.onlineDone}</span></div>
+ <div class="row"><div><b>Reiniciar partida</b><small>Empieza desde cero</small></div><button class="mini" onclick="resetGame()">Reiniciar</button></div>`
+}
+function openModal(title,text,choices){$('modalTitle').textContent=title;$('modalText').textContent=text;$('modalChoices').innerHTML='';choices.forEach(([label,fn])=>{const b=document.createElement('button');b.textContent=label;b.onclick=fn;$('modalChoices').appendChild(b)});$('modal').classList.add('show')}
+function closeModal(){$('modal').classList.remove('show')}
+function resetGame(){if(confirm('¿Seguro que quieres empezar de cero?')){try{localStorage.removeItem('mia_modas_supreme')}catch(e){}location.reload()}}
+update();newCustomer();if(!$('log').innerHTML)log('Mía Modas abre sus puertas. Empieza tu imperio de moda 💕','goodtxt');
+</script>
+</body>
+</html>
