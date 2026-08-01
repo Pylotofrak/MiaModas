@@ -297,6 +297,20 @@ button{cursor:pointer;-webkit-user-select:none;user-select:none}
 @media(max-width:340px){.brandText{display:none}.brand{min-width:36px}.stat small{display:none}.stat{min-width:45px}.locationPill{max-width:69vw}}
 @media(max-height:620px){.locationPill{top:7px}.quest{top:7px}.audioBtn{top:58px}.joy{bottom:9px}.actionStack{bottom:9px}.interact{bottom:75px}.bottom{padding-top:3px}.nav{height:42px}}
 
+
+/* Personaje DOM garantizado para móvil */
+.playerSprite{position:absolute;left:50%;top:50%;z-index:7;width:54px;height:82px;transform:translate(-50%,-72%);pointer-events:none;filter:drop-shadow(0 10px 8px rgba(46,20,32,.28));will-change:left,top,transform;display:none}
+.playerSprite.visible{display:block}
+.playerSprite:before{content:"";position:absolute;left:50%;bottom:0;width:48px;height:14px;transform:translateX(-50%);border-radius:50%;background:rgba(55,25,38,.20);filter:blur(1px)}
+.psHead{position:absolute;left:15px;top:10px;width:25px;height:26px;border-radius:48% 48% 46% 46%;background:#efc2ad;border:1px solid rgba(91,47,48,.18);z-index:3}
+.psHead i{position:absolute;top:10px;width:5px;height:4px;border-radius:50%;background:#fff}.psHead i:first-child{left:5px}.psHead i:nth-child(2){right:5px}.psHead i:after{content:"";position:absolute;inset:1px;border-radius:50%;background:#4f8b6d}
+.psHead b{position:absolute;left:8px;top:18px;width:8px;height:4px;border-bottom:2px solid #b65376;border-radius:50%}
+.psHair{position:absolute;left:9px;top:4px;width:36px;height:51px;border-radius:48% 48% 42% 42%;background:linear-gradient(120deg,#6b4438,#3e2925 70%);z-index:1;box-shadow:inset 5px 0 0 rgba(156,95,77,.24)}
+.psBody{position:absolute;left:8px;top:33px;width:38px;height:36px;clip-path:polygon(27% 0,73% 0,100% 100%,0 100%);background:linear-gradient(135deg,#ff9fbe,#d95f8e 52%,#8f315a);border-radius:8px;z-index:2;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.psBody:after{content:"";position:absolute;left:4px;right:4px;top:13px;height:4px;border-radius:3px;background:#d6b067}
+.psLeg{position:absolute;top:66px;width:8px;height:14px;border-radius:4px;background:#4a3642;z-index:1}.psLeg.l{left:16px}.psLeg.r{right:16px}.psLeg:after{content:"";position:absolute;left:-3px;bottom:-3px;width:14px;height:6px;border-radius:5px;background:#fff;border:1px solid #d8b7c4}
+.psTag{position:absolute;left:50%;top:-12px;transform:translateX(-50%);padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.96);color:#7f3153;font-size:9px;font-weight:1000;box-shadow:0 5px 12px rgba(75,28,49,.16)}
+.playerSprite.walking{animation:psBob .28s ease-in-out infinite alternate}@keyframes psBob{to{transform:translate(-50%,-75%)}}
 </style>
 </head>
 <body>
@@ -312,7 +326,7 @@ button{cursor:pointer;-webkit-user-select:none;user-select:none}
   </header>
 
   <main class="gameWrap" id="gameWrap">
-    <canvas id="game"></canvas><div class="tutorialHint" id="tutorialHint">Usa el joystick o toca directamente el suelo para caminar ✨</div>
+    <canvas id="game"></canvas><div id="playerSprite" class="playerSprite" aria-label="Tu personaje"><div class="psHair"></div><div class="psHead"><i></i><i></i><b></b></div><div class="psBody"></div><div class="psLeg l"></div><div class="psLeg r"></div><div class="psTag">TÚ</div></div><div class="tutorialHint" id="tutorialHint">Usa el joystick o toca directamente el suelo para caminar ✨</div>
     <div class="locationPill"><b id="locName">Carretera de Vic</b><small id="locSub">Sant Fruitós de Bages · Mía Modas nº 26</small><span class="dayChip" id="dayChip">DÍA 1</span></div>
     <button class="quest" onclick="openSheet('missions')" aria-label="Abrir misiones">🎯</button><button class="audioBtn" id="audioBtn" onclick="toggleAudio()" aria-label="Activar o desactivar sonido">🔇</button>
     <button class="interact" id="interact" onclick="useAction()" aria-label="Interactuar con la zona cercana">Entrar</button>
@@ -337,9 +351,11 @@ button{cursor:pointer;-webkit-user-select:none;user-select:none}
 <script>
 const C=document.getElementById('game'),ctx=C.getContext('2d'),wrap=document.getElementById('gameWrap');
 let W=0,H=0,dpr=1,last=0,joyX=0,joyY=0,target=null,near=null,started=false;
+const playerSprite=document.getElementById('playerSprite');
 const SAVE_VERSION=4;
 const DEFAULT_STATE={saveVersion:SAVE_VERSION,money:1250,fame:12,energy:100,followers:326,level:1,x:410,y:560,scene:'street',day:1,sales:0,dailySales:0,earnedToday:0,owned:['Mía Modas'],homes:[],stock:{vestido:6,camiseta:8,pantalon:5,bolso:4,zapatos:3},decor:0,claimed:{},dailyPhoto:0,dailyLook:0,lastScene:'street'};
-let storedState=null;try{storedState=JSON.parse(localStorage.getItem('miaMobileSave')||'null')}catch(_){storedState=null}
+const STORAGE={get(k){try{return localStorage.getItem(k)}catch(e){console.warn('Almacenamiento no disponible',e);return null}},set(k,v){try{localStorage.setItem(k,v);return true}catch(e){console.warn('No se pudo guardar',e);return false}},remove(k){try{localStorage.removeItem(k)}catch(e){console.warn('No se pudo borrar',e)}}};
+let storedState=null;try{storedState=JSON.parse(STORAGE.get('miaMobileSave')||'null')}catch(_){storedState=null}
 const state={...DEFAULT_STATE,...(storedState&&typeof storedState==='object'?storedState:{}),stock:{...DEFAULT_STATE.stock,...(storedState?.stock||{})},claimed:{...(storedState?.claimed||{})}};
 if(!Array.isArray(state.owned))state.owned=['Mía Modas'];
 if(!Array.isArray(state.homes))state.homes=[];
@@ -351,7 +367,7 @@ if(!Number.isFinite(Number(state.y)))state.y=DEFAULT_STATE.y;
 state.x=Number(state.x);state.y=Number(state.y);
 ['money','fame','energy','followers','level','day','sales','dailySales','earnedToday','decor','dailyPhoto','dailyLook'].forEach(k=>{if(!Number.isFinite(Number(state[k])))state[k]=DEFAULT_STATE[k]??0;else state[k]=Number(state[k])});
 
-let audioOn=localStorage.getItem('miaAudioOn')!=='0',audioCtx=null,musicTimer=null,master=null,ambience=null;
+let audioOn=STORAGE.get('miaAudioOn')!=='0',audioCtx=null,musicTimer=null,master=null,ambience=null;
 const AUDIO_KEY='miaAudioOn';
 function initAudio(){
   if(audioCtx)return;
@@ -385,8 +401,8 @@ function speak(text,force=false){
 }
 function updateAudioBtn(){const b=document.getElementById('audioBtn');if(!b)return;b.textContent=audioOn?'🔊':'🔇';b.classList.toggle('on',audioOn)}
 async function toggleAudio(){
-  audioOn=!audioOn;localStorage.setItem(AUDIO_KEY,audioOn?'1':'0');updateAudioBtn();
-  if(audioOn){try{initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();startMusic();sparkle();setTimeout(()=>speak('Sonido activado. Bienvenida a Mía Modas.'),300)}catch(err){audioOn=false;localStorage.setItem(AUDIO_KEY,'0');updateAudioBtn();toast('El teléfono no ha permitido activar el sonido')}}else{clearInterval(musicTimer);musicTimer=null;window.speechSynthesis?.cancel()}
+  audioOn=!audioOn;STORAGE.set(AUDIO_KEY,audioOn?'1':'0');updateAudioBtn();
+  if(audioOn){try{initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();startMusic();sparkle();setTimeout(()=>speak('Sonido activado. Bienvenida a Mía Modas.'),300)}catch(err){audioOn=false;STORAGE.set(AUDIO_KEY,'0');updateAudioBtn();toast('El teléfono no ha permitido activar el sonido')}}else{clearInterval(musicTimer);musicTimer=null;window.speechSynthesis?.cancel()}
 }
 const scenes={
  street:{name:'Carretera de Vic',sub:'Sant Fruitós de Bages · Mía Modas nº 26',w:1500,h:1000},
@@ -404,10 +420,10 @@ const interactables={
  home:[{x:130,y:140,w:250,h:190,label:'Descansar',action:'rest'},{x:450,y:140,w:250,h:190,label:'Cambiar de look',action:'wardrobe'},{x:70,y:560,w:190,h:130,label:'Volver a la calle',to:'street'}]
 };
 function resize(){dpr=Math.min(window.devicePixelRatio||1,2);W=Math.max(1,wrap.clientWidth);H=Math.max(1,wrap.clientHeight);const nw=Math.round(W*dpr),nh=Math.round(H*dpr);if(C.width!==nw||C.height!==nh){C.width=nw;C.height=nh}ctx.setTransform(dpr,0,0,dpr,0,0);draw()}addEventListener('resize',resize,{passive:true});addEventListener('orientationchange',()=>setTimeout(resize,180),{passive:true});resize();
-let lastSaveAt=0;function save(force=false){state.x=player.x;state.y=player.y;state.saveVersion=SAVE_VERSION;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);const now=Date.now();if(force||now-lastSaveAt>250){try{localStorage.setItem('miaMobileSave',JSON.stringify(state));lastSaveAt=now}catch(e){console.warn('No se pudo guardar la partida',e)}}updateHud()}
+let lastSaveAt=0;function save(force=false){state.x=player.x;state.y=player.y;state.saveVersion=SAVE_VERSION;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);const now=Date.now();if(force||now-lastSaveAt>250){if(STORAGE.set('miaMobileSave',JSON.stringify(state)))lastSaveAt=now}updateHud()}
 const hud={money:document.getElementById('money'),fame:document.getElementById('fame'),energy:document.getElementById('energy'),locName:document.getElementById('locName'),locSub:document.getElementById('locSub')};
 function updateHud(){const sc=scenes[state.scene]||scenes.street;hud.money.textContent=Math.max(0,state.money).toLocaleString('es-ES')+' €';hud.fame.textContent='⭐ '+Math.max(0,state.fame);hud.energy.textContent='⚡ '+Math.round(Math.max(0,state.energy));hud.locName.textContent=sc.name;hud.locSub.textContent=sc.sub;const day=document.getElementById('dayChip');if(day)day.textContent='DÍA '+Math.max(1,state.day||1)}
-async function startGame(){if(started)return;started=true;const startEl=document.getElementById('start');if(startEl)startEl.style.display='none';const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));draw();try{initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume()}catch(err){console.warn('El audio no pudo iniciarse',err)}updateAudioBtn();if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350)}const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),500);setTimeout(()=>th.classList.remove('show'),6000)}updateHud();requestAnimationFrame(loop)}
+function startGame(){if(started)return;started=true;last=0;const startEl=document.getElementById('start');if(startEl)startEl.style.display='none';resize();const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));if(playerSprite)playerSprite.classList.add('visible');updateHud();draw();requestAnimationFrame(loop);setTimeout(async()=>{try{initAudio();if(audioCtx&&audioCtx.state==='suspended')await Promise.race([audioCtx.resume(),new Promise(r=>setTimeout(r,700))]);updateAudioBtn();if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),250)}}catch(err){console.warn('El audio no pudo iniciarse',err);updateAudioBtn()}},0);const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),350);setTimeout(()=>th.classList.remove('show'),6000)}}
 function rounded(x,y,w,h,r,fill,stroke){r=Math.max(0,Math.min(r,Math.abs(w)/2,Math.abs(h)/2));ctx.beginPath();if(typeof ctx.roundRect==='function')ctx.roundRect(x,y,w,h,r);else{ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
 function text(t,x,y,size=14,color='#35252d',align='left',weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px ui-rounded,-apple-system`;ctx.textAlign=align;ctx.fillText(t,x,y)}
 function camera(){const sc=scenes[state.scene]||scenes.street;const px=Number.isFinite(player.x)?player.x:DEFAULT_STATE.x,py=Number.isFinite(player.y)?player.y:DEFAULT_STATE.y;return{x:Math.max(0,Math.min(Math.max(0,sc.w-W),px-W/2)),y:Math.max(0,Math.min(Math.max(0,sc.h-H),py-H/2))}}
@@ -491,9 +507,9 @@ function drawShop(cam){
 }
 
 function drawMarkers(cam){const list=interactables[state.scene]||[];const pulse=.55+Math.sin(performance.now()/420)*.18;for(const a of list){const cx=a.x+a.w/2-cam.x,cy=a.y+a.h/2-cam.y;if(cx<-80||cy<-80||cx>W+80||cy>H+80)continue;ctx.save();ctx.globalAlpha=pulse;ctx.strokeStyle='rgba(215,91,139,.62)';ctx.lineWidth=2;ctx.setLineDash([7,7]);ctx.beginPath();ctx.ellipse(cx,cy,Math.min(44,a.w*.2),16,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.restore()}}
-function draw(){const cam=camera();ctx.clearRect(0,0,W,H);if(state.scene==='street')drawStreet(cam);else if(state.scene==='shop')drawShop(cam);else drawInterior(cam,state.scene);drawMarkers(cam);drawPlayer(cam);if(started){const px=player.x-cam.x,py=player.y-cam.y;rounded(px-26,py-67,52,17,9,'rgba(255,255,255,.88)','rgba(164,72,108,.15)');text('TÚ',px,py-55,9,'#7f3153','center',1000)}const vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.22,W/2,H/2,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,255,255,0)');vg.addColorStop(1,'rgba(55,24,39,.12)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H)}
+function draw(){const cam=camera();ctx.clearRect(0,0,W,H);if(state.scene==='street')drawStreet(cam);else if(state.scene==='shop')drawShop(cam);else drawInterior(cam,state.scene);drawMarkers(cam);drawPlayer(cam);if(started){const px=player.x-cam.x,py=player.y-cam.y;rounded(px-26,py-67,52,17,9,'rgba(255,255,255,.88)','rgba(164,72,108,.15)');text('TÚ',px,py-55,9,'#7f3153','center',1000);if(playerSprite){playerSprite.style.left=px+'px';playerSprite.style.top=py+'px';playerSprite.classList.add('visible');playerSprite.classList.toggle('walking',Math.abs(joyX)+Math.abs(joyY)>.08||!!target)}}const vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.22,W/2,H/2,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,255,255,0)');vg.addColorStop(1,'rgba(55,24,39,.12)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H)}
 function loop(t){if(!started)return;if(!last)last=t;const dt=Math.min(Math.max((t-last)/1000,0),.035);last=t;let dx=joyX,dy=joyY;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy);if(d<8)target=null;else{dx=vx/d;dy=vy/d}}
- if((dx||dy)&&state.energy>0){const mag=Math.max(.001,Math.min(1,Math.hypot(dx,dy)));player.x+=dx/mag*player.speed*dt;player.y+=dy/mag*player.speed*dt;state.energy=Math.max(0,state.energy-dt*.18)}else if(state.energy<=0&&target){target=null;toast('Estás agotada. Ve a casa a descansar 🌙')}
+ if(dx||dy){const mag=Math.max(.001,Math.min(1,Math.hypot(dx,dy)));player.x+=dx/mag*player.speed*dt;player.y+=dy/mag*player.speed*dt}
  const s=scenes[state.scene]||scenes.street;if(!scenes[state.scene])state.scene='street';player.x=Math.max(25,Math.min(s.w-25,player.x));player.y=Math.max(70,Math.min(s.h-25,player.y));checkNear();draw();updateHud();requestAnimationFrame(loop)}
 function checkNear(){near=null;for(const a of (interactables[state.scene]||[])){const cx=Math.max(a.x,Math.min(player.x,a.x+a.w)),cy=Math.max(a.y,Math.min(player.y,a.y+a.h));if(Math.hypot(player.x-cx,player.y-cy)<65){near=a;break}}const b=document.getElementById('interact');b.classList.toggle('show',!!near);b.textContent=near?near.label:'Entrar'}
 function useAction(){if(near)activate(near);else toast('Acércate a una zona marcada ✨')}
@@ -508,7 +524,7 @@ function toast(t){tone(523,.12,0,'triangle',.04);const e=document.getElementById
 // touch movement
 C.addEventListener('pointerdown',e=>{if(document.getElementById('sheet').classList.contains('open'))return;e.preventDefault();const r=C.getBoundingClientRect(),cam=camera();target={x:e.clientX-r.left+cam.x,y:e.clientY-r.top+cam.y}},{passive:false});
 const joy=document.getElementById('joy'),knob=document.getElementById('knob');let joyId=null;
-joy.addEventListener('pointerdown',e=>{joyId=e.pointerId;joy.setPointerCapture(joyId);moveJoy(e)});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId)moveJoy(e)});joy.addEventListener('pointerup',resetJoy);joy.addEventListener('pointercancel',resetJoy);window.addEventListener('pointerup',e=>{if(e.pointerId===joyId)resetJoy()},{passive:true});
+joy.addEventListener('pointerdown',e=>{e.preventDefault();joyId=e.pointerId;try{joy.setPointerCapture(joyId)}catch(_){}moveJoy(e)},{passive:false});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId){e.preventDefault();moveJoy(e)}},{passive:false});joy.addEventListener('pointerup',resetJoy);joy.addEventListener('pointercancel',resetJoy);window.addEventListener('pointerup',e=>{if(e.pointerId===joyId)resetJoy()},{passive:true});
 function moveJoy(e){target=null;const r=joy.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy),max=34,k=Math.min(max,d);joyX=d?dx/d:0;joyY=d?dy/d:0;knob.style.transform=`translate(${joyX*k}px,${joyY*k}px)`}
 function resetJoy(){joyId=null;joyX=joyY=0;knob.style.transform='translate(0,0)'}
 function setNav(b){document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
@@ -536,7 +552,7 @@ function nextDay(){advanceDay('Empieza el día '+(state.day+1))}
 function claimMission(k){state.claimed=state.claimed||{};const key=state.day+'_'+k;if(state.claimed[key])return toast('Esta recompensa ya está cobrada ✨');let ok=false,reward=0;if(k==='sales'&&(state.dailySales||0)>=3){ok=true;reward=300}else if(k==='money'&&(state.earnedToday||0)>=500){ok=true;reward=450}else if(k==='photo'&&state.dailyPhoto){ok=true;reward=250}else if(k==='look'&&state.dailyLook){ok=true;reward=220}if(!ok){if(k==='photo'){closeSheet();return goScene('studio')}if(k==='look')return openSheet('wardrobe');return toast('Aún no has completado la misión')}state.claimed[key]=true;state.money+=reward;state.fame+=10;save();sparkle();toast('Misión completada: +'+reward+' €');speak('Misión completada. Recompensa conseguida.')}
 function goScene(s){if(!scenes[s])return toast('Esa zona no está disponible');state.lastScene=state.scene;state.scene=s;player.x=100;player.y=scenes[s].h-120;target=null;resetJoy();closeSheet();save();toast('Has viajado a '+scenes[s].name)}
 async function toggleFull(){closeSheet();try{if(document.fullscreenElement){await document.exitFullscreen?.()}else if(document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen()}else{toast('En iPhone, añádelo a inicio para verlo como una app')}}catch(_){toast('No se pudo activar la pantalla completa')}}
-function resetGame(){if(confirm('¿Seguro que quieres borrar la partida?')){localStorage.removeItem('miaMobileSave');location.reload()}}
+function resetGame(){if(confirm('¿Seguro que quieres borrar la partida?')){STORAGE.remove('miaMobileSave');location.reload()}}
 updateHud();draw();setInterval(save,8000);
 
 
@@ -562,6 +578,14 @@ window.addEventListener('unhandledrejection',e=>{console.error('Mía Modas promi
 
 // Premium touch feedback
 document.addEventListener('click',e=>{if(e.target.closest('button')) navigator.vibrate?.(10)});
+
+// Protección final para móviles: evita que un fallo aislado bloquee toda la partida.
+window.addEventListener('error',e=>{console.error('Error del juego:',e.error||e.message);try{save(true)}catch(_){} });
+window.addEventListener('unhandledrejection',e=>{console.error('Promesa rechazada:',e.reason);try{save(true)}catch(_){} });
+window.addEventListener('pagehide',()=>{try{save(true)}catch(_){} });
+document.addEventListener('visibilitychange',()=>{if(document.hidden){try{save(true)}catch(_){};if(audioCtx&&audioCtx.state==='running')audioCtx.suspend().catch(()=>{})}else if(started&&audioOn&&audioCtx&&audioCtx.state==='suspended'){audioCtx.resume().catch(()=>{})}});
+
+if(new URLSearchParams(location.search).get('autostart')==='1')setTimeout(startGame,50);
 </script>
 </body>
 </html>
