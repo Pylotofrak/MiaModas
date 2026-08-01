@@ -7,7 +7,7 @@
 <meta name="format-detection" content="telephone=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>Mía Modas · Diamond Mobile Edition</title>
+<title>Mía Modas · Velvet Mobile Edition</title>
 <style>
 :root{
   --rose:#cf5f8b;--rose2:#f5bfd2;--rose3:#fff0f6;--wine:#5f2940;--gold:#caa55d;
@@ -137,6 +137,33 @@ body{background:radial-gradient(circle at 50% -20%,#fff 0,#f8e8ef 36%,#e7d4dd 10
 @media(max-width:430px){.topbar{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right))}.locSub{max-width:210px}.bottomBar{padding-bottom:max(8px,env(safe-area-inset-bottom))}.nav{min-width:58px}.nav span{font-size:10px}.joy{width:104px;height:104px}.actionBtn{right:14px;bottom:calc(84px + env(safe-area-inset-bottom))}}
 @media(max-height:700px){.joy{width:92px;height:92px}.knob{width:42px;height:42px}.actionBtn{min-height:46px}.topbar{padding-top:max(5px,env(safe-area-inset-top))}}
 
+
+/* Velvet Mobile Edition — revisión final de interfaz */
+html,body,#app{height:100%;height:100dvh;overscroll-behavior:none}
+button{cursor:pointer;-webkit-user-select:none;user-select:none}
+.gameWrap{isolation:isolate}
+.locationPill{padding-right:58px;overflow:hidden}
+.dayChip{position:absolute;right:8px;bottom:8px;padding:4px 7px;border-radius:999px;background:linear-gradient(135deg,#7d3154,#b9537e);color:#fff;font-size:7px;font-weight:1000;letter-spacing:.8px;box-shadow:0 5px 12px rgba(100,38,68,.22)}
+.interact{min-height:43px;padding:11px 20px;border:1px solid rgba(255,255,255,.55);white-space:nowrap}
+.interact.show{pointer-events:auto}
+.sheet>.handle{display:block}
+.sheet:before{display:none!important}
+.card button,.item button,.wideBtn,.play{min-height:44px}
+.item button{width:100%;margin-top:7px;padding:8px;border-radius:10px;background:linear-gradient(135deg,#c95784,#92345a);color:#fff;font-size:9px;font-weight:900}
+.startCard{border:1px solid rgba(255,255,255,.96);box-shadow:0 34px 95px rgba(67,24,45,.36),inset 0 1px 0 #fff}
+.royalTag{display:inline-flex;align-items:center;justify-content:center;min-height:25px;padding:5px 10px;border-radius:999px;background:linear-gradient(135deg,#fff2d8,#e8c47a);color:#663e20;font-size:8px;font-weight:1000;letter-spacing:1px;box-shadow:0 7px 16px rgba(145,101,41,.18)}
+.play:active{transform:translateY(1px) scale(.99)}
+@media(max-width:390px){
+ .brand{min-width:88px}.brandText b{font-size:11px}.brandText small{font-size:8px}
+ .stats{gap:3px}.stat{padding:5px 4px}.stat small{font-size:7px}.stat b{font-size:10px}
+ .nav{font-size:18px!important}.nav span{font-size:7px!important;margin-top:1px}
+ .locationPill{max-width:72vw}
+ .wardrobe{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .joy{width:104px;height:104px}.knob{left:31px;top:31px;width:42px;height:42px}
+}
+@media(max-width:340px){.brandText{display:none}.brand{min-width:36px}.stat small{display:none}.stat{min-width:45px}.locationPill{max-width:69vw}}
+@media(max-height:620px){.locationPill{top:7px}.quest{top:7px}.audioBtn{top:58px}.joy{bottom:9px}.actionStack{bottom:9px}.interact{bottom:75px}.bottom{padding-top:3px}.nav{height:42px}}
+
 </style>
 
 <style id="luxury-detail-pass">
@@ -243,6 +270,33 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
 @media(max-height:690px){.joy{width:92px;height:92px;bottom:12px}.knob{width:46px;height:46px}.actionStack{bottom:14px}.interact{bottom:88px}.bottom{min-height:57px}.nav span{font-size:8px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 
+
+/* Velvet Mobile Edition — revisión final de interfaz */
+html,body,#app{height:100%;height:100dvh;overscroll-behavior:none}
+button{cursor:pointer;-webkit-user-select:none;user-select:none}
+.gameWrap{isolation:isolate}
+.locationPill{padding-right:58px;overflow:hidden}
+.dayChip{position:absolute;right:8px;bottom:8px;padding:4px 7px;border-radius:999px;background:linear-gradient(135deg,#7d3154,#b9537e);color:#fff;font-size:7px;font-weight:1000;letter-spacing:.8px;box-shadow:0 5px 12px rgba(100,38,68,.22)}
+.interact{min-height:43px;padding:11px 20px;border:1px solid rgba(255,255,255,.55);white-space:nowrap}
+.interact.show{pointer-events:auto}
+.sheet>.handle{display:block}
+.sheet:before{display:none!important}
+.card button,.item button,.wideBtn,.play{min-height:44px}
+.item button{width:100%;margin-top:7px;padding:8px;border-radius:10px;background:linear-gradient(135deg,#c95784,#92345a);color:#fff;font-size:9px;font-weight:900}
+.startCard{border:1px solid rgba(255,255,255,.96);box-shadow:0 34px 95px rgba(67,24,45,.36),inset 0 1px 0 #fff}
+.royalTag{display:inline-flex;align-items:center;justify-content:center;min-height:25px;padding:5px 10px;border-radius:999px;background:linear-gradient(135deg,#fff2d8,#e8c47a);color:#663e20;font-size:8px;font-weight:1000;letter-spacing:1px;box-shadow:0 7px 16px rgba(145,101,41,.18)}
+.play:active{transform:translateY(1px) scale(.99)}
+@media(max-width:390px){
+ .brand{min-width:88px}.brandText b{font-size:11px}.brandText small{font-size:8px}
+ .stats{gap:3px}.stat{padding:5px 4px}.stat small{font-size:7px}.stat b{font-size:10px}
+ .nav{font-size:18px!important}.nav span{font-size:7px!important;margin-top:1px}
+ .locationPill{max-width:72vw}
+ .wardrobe{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .joy{width:104px;height:104px}.knob{left:31px;top:31px;width:42px;height:42px}
+}
+@media(max-width:340px){.brandText{display:none}.brand{min-width:36px}.stat small{display:none}.stat{min-width:45px}.locationPill{max-width:69vw}}
+@media(max-height:620px){.locationPill{top:7px}.quest{top:7px}.audioBtn{top:58px}.joy{bottom:9px}.actionStack{bottom:9px}.interact{bottom:75px}.bottom{padding-top:3px}.nav{height:42px}}
+
 </style>
 </head>
 <body>
@@ -259,9 +313,9 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
 
   <main class="gameWrap" id="gameWrap">
     <canvas id="game"></canvas><div class="tutorialHint" id="tutorialHint">Usa el joystick o toca directamente el suelo para caminar ✨</div>
-    <div class="locationPill"><b id="locName">Carretera de Vic</b><small id="locSub">Sant Fruitós de Bages · Mía Modas nº 26</small></div>
+    <div class="locationPill"><b id="locName">Carretera de Vic</b><small id="locSub">Sant Fruitós de Bages · Mía Modas nº 26</small><span class="dayChip" id="dayChip">DÍA 1</span></div>
     <button class="quest" onclick="openSheet('missions')" aria-label="Abrir misiones">🎯</button><button class="audioBtn" id="audioBtn" onclick="toggleAudio()" aria-label="Activar o desactivar sonido">🔇</button>
-    <button class="interact" id="interact">Entrar</button>
+    <button class="interact" id="interact" onclick="useAction()" aria-label="Interactuar con la zona cercana">Entrar</button>
     <div class="joy" id="joy"><div class="knob" id="knob"></div></div>
     <div class="actionStack">
       <button class="roundBtn" onclick="openSheet('map')">🗺️</button>
@@ -279,7 +333,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
   </nav>
 </div>
 <div class="sheet" id="sheet"><div class="handle"></div><div id="sheetContent"></div></div>
-<div class="start" id="start"><div class="startCard"><div class="startLogo">M</div><h1>Mía Modas</h1><div class="royalTag">BOUTIQUE LIFE · DIAMOND MOBILE EDITION</div><p>Recorre Sant Fruitós, atiende clientas, crea looks, compra ropa y convierte tu boutique de Carretera de Vic, 26 en un imperio de moda.</p><button class="play" onclick="startGame()">EMPEZAR MI HISTORIA ✨</button><div class="soundNote">Toca para activar <b>música, ambiente y voces</b></div></div></div>
+<div class="start" id="start"><div class="startCard"><div class="startLogo">M</div><h1>Mía Modas</h1><div class="royalTag">BOUTIQUE LIFE · VELVET MOBILE EDITION</div><p>Recorre Sant Fruitós, atiende clientas, crea looks, compra ropa y convierte tu boutique de Carretera de Vic, 26 en un imperio de moda.</p><button class="play" onclick="startGame()">EMPEZAR MI HISTORIA ✨</button><div class="soundNote">Toca para activar <b>música, ambiente y voces</b></div></div></div>
 <script>
 const C=document.getElementById('game'),ctx=C.getContext('2d'),wrap=document.getElementById('gameWrap');
 let W=0,H=0,dpr=1,last=0,joyX=0,joyY=0,target=null,near=null,started=false;
@@ -331,8 +385,8 @@ function speak(text,force=false){
 }
 function updateAudioBtn(){const b=document.getElementById('audioBtn');if(!b)return;b.textContent=audioOn?'🔊':'🔇';b.classList.toggle('on',audioOn)}
 async function toggleAudio(){
-  initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();audioOn=!audioOn;localStorage.setItem(AUDIO_KEY,audioOn?'1':'0');updateAudioBtn();
-  if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Sonido activado. Bienvenida a Mía Modas.'),300)}else{clearInterval(musicTimer);window.speechSynthesis&&window.speechSynthesis.cancel()}
+  audioOn=!audioOn;localStorage.setItem(AUDIO_KEY,audioOn?'1':'0');updateAudioBtn();
+  if(audioOn){try{initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();startMusic();sparkle();setTimeout(()=>speak('Sonido activado. Bienvenida a Mía Modas.'),300)}catch(err){audioOn=false;localStorage.setItem(AUDIO_KEY,'0');updateAudioBtn();toast('El teléfono no ha permitido activar el sonido')}}else{clearInterval(musicTimer);musicTimer=null;window.speechSynthesis?.cancel()}
 }
 const scenes={
  street:{name:'Carretera de Vic',sub:'Sant Fruitós de Bages · Mía Modas nº 26',w:1500,h:1000},
@@ -352,8 +406,8 @@ const interactables={
 function resize(){dpr=Math.min(window.devicePixelRatio||1,2);W=Math.max(1,wrap.clientWidth);H=Math.max(1,wrap.clientHeight);const nw=Math.round(W*dpr),nh=Math.round(H*dpr);if(C.width!==nw||C.height!==nh){C.width=nw;C.height=nh}ctx.setTransform(dpr,0,0,dpr,0,0);draw()}addEventListener('resize',resize,{passive:true});addEventListener('orientationchange',()=>setTimeout(resize,180),{passive:true});resize();
 let lastSaveAt=0;function save(force=false){state.x=player.x;state.y=player.y;state.saveVersion=SAVE_VERSION;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);const now=Date.now();if(force||now-lastSaveAt>250){try{localStorage.setItem('miaMobileSave',JSON.stringify(state));lastSaveAt=now}catch(e){console.warn('No se pudo guardar la partida',e)}}updateHud()}
 const hud={money:document.getElementById('money'),fame:document.getElementById('fame'),energy:document.getElementById('energy'),locName:document.getElementById('locName'),locSub:document.getElementById('locSub')};
-function updateHud(){const sc=scenes[state.scene]||scenes.street;hud.money.textContent=Math.max(0,state.money).toLocaleString('es-ES')+' €';hud.fame.textContent='⭐ '+Math.max(0,state.fame);hud.energy.textContent='⚡ '+Math.round(Math.max(0,state.energy));hud.locName.textContent=sc.name;hud.locSub.textContent=sc.sub}
-async function startGame(){if(started)return;started=true;const startEl=document.getElementById('start');if(startEl)startEl.style.display='none';const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));draw();initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();updateAudioBtn();if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);}const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),500);setTimeout(()=>th.classList.remove('show'),6000)}updateHud();updateAudioBtn();requestAnimationFrame(loop)}
+function updateHud(){const sc=scenes[state.scene]||scenes.street;hud.money.textContent=Math.max(0,state.money).toLocaleString('es-ES')+' €';hud.fame.textContent='⭐ '+Math.max(0,state.fame);hud.energy.textContent='⚡ '+Math.round(Math.max(0,state.energy));hud.locName.textContent=sc.name;hud.locSub.textContent=sc.sub;const day=document.getElementById('dayChip');if(day)day.textContent='DÍA '+Math.max(1,state.day||1)}
+async function startGame(){if(started)return;started=true;const startEl=document.getElementById('start');if(startEl)startEl.style.display='none';const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));draw();try{initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume()}catch(err){console.warn('El audio no pudo iniciarse',err)}updateAudioBtn();if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350)}const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),500);setTimeout(()=>th.classList.remove('show'),6000)}updateHud();requestAnimationFrame(loop)}
 function rounded(x,y,w,h,r,fill,stroke){r=Math.max(0,Math.min(r,Math.abs(w)/2,Math.abs(h)/2));ctx.beginPath();if(typeof ctx.roundRect==='function')ctx.roundRect(x,y,w,h,r);else{ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
 function text(t,x,y,size=14,color='#35252d',align='left',weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px ui-rounded,-apple-system`;ctx.textAlign=align;ctx.fillText(t,x,y)}
 function camera(){const sc=scenes[state.scene]||scenes.street;const px=Number.isFinite(player.x)?player.x:DEFAULT_STATE.x,py=Number.isFinite(player.y)?player.y:DEFAULT_STATE.y;return{x:Math.max(0,Math.min(Math.max(0,sc.w-W),px-W/2)),y:Math.max(0,Math.min(Math.max(0,sc.h-H),py-H/2))}}
