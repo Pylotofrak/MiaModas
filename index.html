@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f7dce7" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>Mía Modas · Boutique Life Signature</title>
+<title>Mía Modas · Boutique Life Royal</title>
 <style>
 :root{
   --rose:#cf5f8b;--rose2:#f5bfd2;--rose3:#fff0f6;--wine:#5f2940;--gold:#caa55d;
@@ -194,7 +194,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
   </header>
 
   <main class="gameWrap" id="gameWrap">
-    <canvas id="game"></canvas>
+    <canvas id="game"></canvas><div class="tutorialHint" id="tutorialHint">Usa el joystick o toca directamente el suelo para caminar ✨</div>
     <div class="locationPill"><b id="locName">Carretera de Vic</b><small id="locSub">Sant Fruitós de Bages · Mía Modas nº 26</small></div>
     <button class="quest" onclick="openSheet('missions')">🎯</button><button class="audioBtn" id="audioBtn" onclick="toggleAudio()" aria-label="Activar o desactivar sonido">🔇</button>
     <button class="interact" id="interact">Entrar</button>
@@ -215,7 +215,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
   </nav>
 </div>
 <div class="sheet" id="sheet"><div class="handle"></div><div id="sheetContent"></div></div>
-<div class="start" id="start"><div class="startCard"><div class="startLogo">M</div><h1>Mía Modas</h1><p>Recorre Sant Fruitós, atiende clientas, crea looks, compra ropa y convierte tu boutique de Carretera de Vic, 26 en un imperio de moda.</p><button class="play" onclick="startGame()">ENTRAR CON MÚSICA ✨</button><div class="soundNote">Toca para activar <b>música, ambiente y voces</b></div></div></div>
+<div class="start" id="start"><div class="startCard"><div class="startLogo">M</div><h1>Mía Modas</h1><div class="royalTag">BOUTIQUE LIFE · ROYAL EDITION</div><p>Recorre Sant Fruitós, atiende clientas, crea looks, compra ropa y convierte tu boutique de Carretera de Vic, 26 en un imperio de moda.</p><button class="play" onclick="startGame()">EMPEZAR MI HISTORIA ✨</button><div class="soundNote">Toca para activar <b>música, ambiente y voces</b></div></div></div>
 <script>
 const C=document.getElementById('game'),ctx=C.getContext('2d'),wrap=document.getElementById('gameWrap');
 let W=0,H=0,dpr=1,last=0,joyX=0,joyY=0,target=null,near=null,started=false;
@@ -277,7 +277,7 @@ const interactables={
 function resize(){dpr=Math.min(devicePixelRatio||1,2);W=wrap.clientWidth;H=wrap.clientHeight;C.width=W*dpr;C.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',resize);resize();
 function save(){state.x=player.x;state.y=player.y;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);try{localStorage.setItem('miaMobileSave',JSON.stringify(state))}catch(e){}updateHud()}
 function updateHud(){money.textContent=state.money.toLocaleString('es-ES')+' €';fame.textContent='⭐ '+state.fame;energy.textContent='⚡ '+Math.round(state.energy);locName.textContent=scenes[state.scene].name;locSub.textContent=scenes[state.scene].sub}
-async function startGame(){document.getElementById('start').style.display='none';started=true;initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();audioOn=true;localStorage.setItem(AUDIO_KEY,'1');updateAudioBtn();startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);updateHud();updateAudioBtn();requestAnimationFrame(loop)}
+async function startGame(){document.getElementById('start').style.display='none';started=true;initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();audioOn=true;localStorage.setItem(AUDIO_KEY,'1');updateAudioBtn();startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),500);setTimeout(()=>th.classList.remove('show'),6000)}updateHud();updateAudioBtn();requestAnimationFrame(loop)}
 function rounded(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
 function text(t,x,y,size=14,color='#35252d',align='left',weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px ui-rounded,-apple-system`;ctx.textAlign=align;ctx.fillText(t,x,y)}
 function camera(){const s=scenes[state.scene];return{x:Math.max(0,Math.min(s.w-W,player.x-W/2)),y:Math.max(0,Math.min(s.h-H,player.y-H/2))}}
@@ -308,7 +308,35 @@ function room(x,y,w,h,c,emoji,label){ctx.save();ctx.shadowColor='rgba(69,30,48,.
 function drawInterior(cam,type){const ox=-cam.x,oy=-cam.y;const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,type==='home'?'#fff6f0':'#fff8fb');g.addColorStop(1,type==='home'?'#e8d9ce':'#e4dce2');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(255,255,255,.38)';ctx.fillRect(ox,0+oy,1000,760);const arr=interactables[type];arr.forEach((a,i)=>{const colors=type==='studio'?['#fff5f9','#f5f0ff','#fff8ec','#f0ecea']:type==='home'?['#fff3ed','#f8edf3','#eee9e7']:['#fff5f9','#fbf4ec','#eef5fb','#f1ece9'];room(a.x+ox,a.y+oy,a.w,a.h,colors[i%colors.length],i===arr.length-1?'🚪':['📦','👚','👜','📸'][i%4],a.label.toUpperCase())})}
 function drawPlayer(cam){const x=player.x-cam.x,y=player.y-cam.y;ctx.save();ctx.translate(x,y);ctx.fillStyle='rgba(42,22,31,.2)';ctx.beginPath();ctx.ellipse(0,25,22,8,0,0,7);ctx.fill();ctx.fillStyle='#f2c8b4';ctx.beginPath();ctx.arc(0,-23,12,0,7);ctx.fill();ctx.fillStyle='#5a342b';ctx.beginPath();ctx.arc(0,-28,15,Math.PI,Math.PI*2);ctx.fill();ctx.fillRect(-14,-27,6,40);ctx.fillRect(8,-27,6,40);ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-4,-23,1.6,0,7);ctx.arc(4,-23,1.6,0,7);ctx.fill();ctx.strokeStyle='#b9607e';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(0,-18,4,.15,Math.PI-.15);ctx.stroke();const dress=ctx.createLinearGradient(-16,-8,16,22);dress.addColorStop(0,'#f18aaf');dress.addColorStop(1,'#a73a69');ctx.fillStyle=dress;ctx.beginPath();ctx.moveTo(-14,-8);ctx.lineTo(14,-8);ctx.lineTo(20,20);ctx.lineTo(-20,20);ctx.closePath();ctx.fill();ctx.fillStyle='#f2c8b4';rounded(-22,-3,7,22,4,'#f2c8b4');rounded(15,-3,7,22,4,'#f2c8b4');ctx.fillStyle='#3a2e36';rounded(-12,19,8,20,3,'#3a2e36');rounded(4,19,8,20,3,'#3a2e36');rounded(-14,35,11,6,3,'#fff');rounded(3,35,11,6,3,'#fff');ctx.restore()}
 
-function draw(){const cam=camera();ctx.clearRect(0,0,W,H);if(state.scene==='street')drawStreet(cam);else if(state.scene==='shop')drawShop(cam);else drawInterior(cam,state.scene);drawPlayer(cam)}
+
+function shopRack(x,y,w,h,label,colors){
+ ctx.save();ctx.shadowColor='rgba(65,28,45,.16)';ctx.shadowBlur=16;ctx.shadowOffsetY=9;rounded(x,y,w,h,18,'#fffdfd','rgba(143,69,99,.10)');ctx.restore();
+ rounded(x+8,y+8,w-16,28,10,'#f9e5ed');text(label,x+w/2,y+27,10,'#71344e','center',1000);
+ ctx.strokeStyle='#b6957b';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x+20,y+54);ctx.lineTo(x+w-20,y+54);ctx.stroke();
+ colors.forEach((c,i)=>{const px=x+22+i*((w-44)/Math.max(1,colors.length-1));ctx.strokeStyle='#8c7463';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(px,y+54);ctx.lineTo(px,y+65);ctx.stroke();ctx.fillStyle=c;ctx.beginPath();ctx.moveTo(px-11,y+66);ctx.lineTo(px+11,y+66);ctx.lineTo(px+15,y+h-22);ctx.lineTo(px-15,y+h-22);ctx.closePath();ctx.fill();});
+}
+function shopCounter(x,y,w,h){ctx.save();ctx.shadowColor='rgba(65,28,45,.22)';ctx.shadowBlur=18;ctx.shadowOffsetY=10;rounded(x,y,w,h,16,'#f6eee9');ctx.restore();rounded(x+8,y+8,w-16,13,7,'#d0ad74');rounded(x+w-65,y-16,48,30,7,'#f8fbff','#a8b4bf');text('TPV',x+w-41,y+3,8,'#59636b','center',900);rounded(x+18,y+26,w-36,h-38,10,'#fff9f4');text('MÍA MODAS',x+w/2,y+h-22,12,'#8c3b61','center',1000)}
+function mirror(x,y,w,h){ctx.save();ctx.shadowColor='rgba(66,32,46,.15)';ctx.shadowBlur=18;rounded(x,y,w,h,24,'#d9b778');rounded(x+7,y+7,w-14,h-14,20,'#dceff2');const g=ctx.createLinearGradient(x,y,x+w,y+h);g.addColorStop(0,'rgba(255,255,255,.7)');g.addColorStop(.42,'rgba(255,255,255,.05)');g.addColorStop(1,'rgba(255,255,255,.28)');ctx.fillStyle=g;ctx.fillRect(x+12,y+12,w-24,h-24);ctx.restore()}
+function drawClient(x,y,dress='#d56691',hair='#5a342b',bubble=''){ctx.save();ctx.translate(x,y);ctx.fillStyle='rgba(40,20,30,.14)';ctx.beginPath();ctx.ellipse(0,24,18,6,0,0,7);ctx.fill();ctx.fillStyle='#efc4af';ctx.beginPath();ctx.arc(0,-20,10,0,7);ctx.fill();ctx.fillStyle=hair;ctx.beginPath();ctx.arc(0,-24,12,Math.PI,Math.PI*2);ctx.fill();ctx.fillRect(-11,-24,4,25);ctx.fillRect(7,-24,4,25);ctx.fillStyle=dress;ctx.beginPath();ctx.moveTo(-11,-7);ctx.lineTo(11,-7);ctx.lineTo(16,18);ctx.lineTo(-16,18);ctx.closePath();ctx.fill();ctx.fillStyle='#473640';rounded(-9,17,6,17,3,'#473640');rounded(3,17,6,17,3,'#473640');if(bubble){rounded(18,-55,104,31,11,'rgba(255,255,255,.94)');text(bubble,70,-35,9,'#5d3346','center',800)}ctx.restore()}
+function drawShop(cam){
+ const ox=-cam.x,oy=-cam.y;const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#fff9fb');bg.addColorStop(1,'#eadde3');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ // polished tile floor
+ ctx.fillStyle='#f4ece8';ctx.fillRect(ox,0+oy,1100,800);ctx.strokeStyle='rgba(145,103,114,.08)';ctx.lineWidth=1;for(let x=0;x<1100;x+=70){ctx.beginPath();ctx.moveTo(x+ox,0+oy);ctx.lineTo(x+ox,800+oy);ctx.stroke()}for(let y=0;y<800;y+=70){ctx.beginPath();ctx.moveTo(ox,y+oy);ctx.lineTo(1100+ox,y+oy);ctx.stroke()}
+ // feature wall and sign
+ rounded(35+ox,35+oy,1030,70,22,'#fffdfd');text('MÍA MODAS',550+ox,70+oy,25,'#74324f','center',1000);text('Carretera de Vic, 26 · Sant Fruitós de Bages',550+ox,91+oy,10,'#9a6a7e','center',750);
+ shopRack(85+ox,130+oy,220,185,'NUEVA COLECCIÓN',['#e179a1','#f3c2d4','#e8d0ad','#9eb8c8','#6a4b5b']);
+ mirror(440+ox,128+oy,175,205);rounded(400+ox,342+oy,255,58,18,'#f8e7ee');text('PROBADOR · CREA TU LOOK',527+ox,376+oy,11,'#73334f','center',1000);
+ shopRack(690+ox,130+oy,250,185,'LOOKS DE EVENTO',['#3d2b37','#b79658','#8c4164','#e2a4ba','#f3ede2']);
+ shopCounter(720+ox,455+oy,250,115);
+ rounded(390+ox,480+oy,240,120,22,'#fffdfd');text('PEDIDOS ONLINE',510+ox,512+oy,12,'#73334f','center',1000);rounded(420+ox,530+oy,70,45,10,'#d7b48b');rounded(520+ox,530+oy,70,45,10,'#d7b48b');text('📦',455+ox,561+oy,23,'#000','center');text('📦',555+ox,561+oy,23,'#000','center');
+ // décor
+ rounded(90+ox,500+oy,220,90,30,'#f4dce5');rounded(120+ox,480+oy,160,42,19,'#fbf5f7');text('🪴',95+ox,480+oy,36);text('✨ Boutique premium',200+ox,555+oy,11,'#744156','center',850);
+ drawClient(835+ox,400+oy,'#c85d88','#4c2c25','¿Me ayudas con un look?');drawClient(320+ox,440+oy,'#7c8fb0','#2f2a2d','¡Qué bonito todo!');
+ // exit mat
+ rounded(62+ox,645+oy,205,65,18,'#b94c79');text('SALIR A CARRETERA DE VIC',165+ox,683+oy,10,'white','center',1000)
+}
+
+function draw(){const cam=camera();ctx.clearRect(0,0,W,H);if(state.scene==='street')drawStreet(cam);else if(state.scene==='shop')drawShop(cam);else drawInterior(cam,state.scene);drawPlayer(cam);const vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.22,W/2,H/2,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,255,255,0)');vg.addColorStop(1,'rgba(55,24,39,.12)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H)}
 function loop(t){if(!started)return;const dt=Math.min((t-last)/1000,.035)||0;last=t;let dx=joyX,dy=joyY;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy);if(d<8)target=null;else{dx=vx/d;dy=vy/d}}
  if(dx||dy){const mag=Math.min(1,Math.hypot(dx,dy));player.x+=dx/mag*player.speed*dt;player.y+=dy/mag*player.speed*dt;state.energy=Math.max(0,state.energy-dt*.25)}
  const s=scenes[state.scene];player.x=Math.max(25,Math.min(s.w-25,player.x));player.y=Math.max(70,Math.min(s.h-25,player.y));checkNear();draw();updateHud();requestAnimationFrame(loop)}
