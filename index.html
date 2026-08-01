@@ -4,9 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
 <meta name="theme-color" content="#f7dce7" />
+<meta name="format-detection" content="telephone=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>Mía Modas · Royal Mobile Élite</title>
+<title>Mía Modas · Diamond Mobile Edition</title>
 <style>
 :root{
   --rose:#cf5f8b;--rose2:#f5bfd2;--rose3:#fff0f6;--wine:#5f2940;--gold:#caa55d;
@@ -204,7 +205,25 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
 .startCard h1{letter-spacing:-.04em;text-shadow:0 2px 0 #fff}
 .startBtn{background:linear-gradient(135deg,#d76e98,#9b335d);box-shadow:0 15px 35px rgba(133,45,79,.34),inset 0 1px 0 rgba(255,255,255,.45)}
 @media(max-width:390px){.topbar{gap:5px;padding-left:6px;padding-right:6px}.stat{padding:5px 6px;min-width:0}.stat small{font-size:8px}.stat b{font-size:11px}.locationPill{max-width:70vw}.joy{width:104px;height:104px}.knob{width:50px;height:50px}.bottom{padding-left:5px;padding-right:5px}.nav{font-size:9px}.nav span{font-size:20px}.sheet{max-height:84vh}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}
+
+/* Diamond mobile polish */
+.gameWrap:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.10),transparent 24%,transparent 74%,rgba(62,28,43,.08));mix-blend-mode:soft-light}
+.topbar{padding-bottom:8px}.brandText b{font-family:Georgia,"Times New Roman",serif;letter-spacing:1.1px}.logo{font-family:Georgia,"Times New Roman",serif;border:1px solid rgba(255,255,255,.55)}
+.locationPill{border:1px solid rgba(255,255,255,.95);box-shadow:0 12px 34px rgba(63,29,44,.17)}
+.joy{border:1px solid rgba(255,255,255,.9);box-shadow:0 16px 38px rgba(63,28,45,.22),inset 0 0 0 7px rgba(255,255,255,.15)}
+.knob{box-shadow:0 10px 24px rgba(88,34,59,.3),inset 0 2px 3px rgba(255,255,255,.65)}
+.roundBtn,.quest,.audioBtn,.iconBtn{transition:transform .12s ease,box-shadow .12s ease}.roundBtn:active,.quest:active,.audioBtn:active,.iconBtn:active{transform:scale(.93)}
+.interact.show{animation:actionPulse 1.8s ease-in-out infinite}@keyframes actionPulse{50%{box-shadow:0 16px 42px rgba(111,40,72,.48);transform:translateX(-50%) scale(1.035)}}
+.nav.active:after{content:"";position:absolute;left:24%;right:24%;bottom:3px;height:3px;border-radius:99px;background:linear-gradient(90deg,#e689aa,#a63e69)}
+.nav{position:relative}.sheet{border-top:1px solid rgba(255,255,255,.95);box-shadow:0 -26px 70px rgba(57,25,40,.28)}
+.item,.card{transition:transform .16s ease,box-shadow .16s ease}.item:active,.card:active{transform:scale(.985)}
+.start{background:radial-gradient(circle at 78% 18%,rgba(255,231,196,.75),transparent 27%),radial-gradient(circle at 16% 22%,rgba(255,213,231,.9),transparent 34%),linear-gradient(150deg,#f8edf2,#e8d5de)}
+.start:before,.start:after{content:"✦";position:absolute;color:rgba(184,124,70,.48);font-size:28px;animation:floatGem 4s ease-in-out infinite}.start:before{left:12%;top:17%}.start:after{right:11%;bottom:19%;animation-delay:-2s}@keyframes floatGem{50%{transform:translateY(-9px) rotate(18deg);opacity:.65}}
+.startCard{overflow:hidden}.startCard:before{content:"";position:absolute;left:-40%;top:-60%;width:80%;height:220%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:rotate(20deg);animation:cardShine 5s ease-in-out infinite}@keyframes cardShine{0%,55%{left:-70%}85%,100%{left:130%}}
+.tutorialHint{max-width:calc(100% - 32px);text-align:center}
+@media(max-height:690px){.joy{width:92px;height:92px;bottom:12px}.knob{width:46px;height:46px}.actionStack{bottom:14px}.interact{bottom:88px}.bottom{min-height:57px}.nav span{font-size:8px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
 </style>
 </head>
 <body>
@@ -216,13 +235,13 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
       <div class="stat"><small>Fama</small><b id="fame">⭐ 12</b></div>
       <div class="stat"><small>Energía</small><b id="energy">⚡ 100</b></div>
     </div>
-    <button class="iconBtn" onclick="openSheet('menu')">☰</button>
+    <button class="iconBtn" onclick="openSheet('menu')" aria-label="Abrir opciones">☰</button>
   </header>
 
   <main class="gameWrap" id="gameWrap">
     <canvas id="game"></canvas><div class="tutorialHint" id="tutorialHint">Usa el joystick o toca directamente el suelo para caminar ✨</div>
     <div class="locationPill"><b id="locName">Carretera de Vic</b><small id="locSub">Sant Fruitós de Bages · Mía Modas nº 26</small></div>
-    <button class="quest" onclick="openSheet('missions')">🎯</button><button class="audioBtn" id="audioBtn" onclick="toggleAudio()" aria-label="Activar o desactivar sonido">🔇</button>
+    <button class="quest" onclick="openSheet('missions')" aria-label="Abrir misiones">🎯</button><button class="audioBtn" id="audioBtn" onclick="toggleAudio()" aria-label="Activar o desactivar sonido">🔇</button>
     <button class="interact" id="interact">Entrar</button>
     <div class="joy" id="joy"><div class="knob" id="knob"></div></div>
     <div class="actionStack">
@@ -241,11 +260,11 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
   </nav>
 </div>
 <div class="sheet" id="sheet"><div class="handle"></div><div id="sheetContent"></div></div>
-<div class="start" id="start"><div class="startCard"><div class="startLogo">M</div><h1>Mía Modas</h1><div class="royalTag">BOUTIQUE LIFE · ROYAL MOBILE ÉLITE</div><p>Recorre Sant Fruitós, atiende clientas, crea looks, compra ropa y convierte tu boutique de Carretera de Vic, 26 en un imperio de moda.</p><button class="play" onclick="startGame()">EMPEZAR MI HISTORIA ✨</button><div class="soundNote">Toca para activar <b>música, ambiente y voces</b></div></div></div>
+<div class="start" id="start"><div class="startCard"><div class="startLogo">M</div><h1>Mía Modas</h1><div class="royalTag">BOUTIQUE LIFE · DIAMOND MOBILE EDITION</div><p>Recorre Sant Fruitós, atiende clientas, crea looks, compra ropa y convierte tu boutique de Carretera de Vic, 26 en un imperio de moda.</p><button class="play" onclick="startGame()">EMPEZAR MI HISTORIA ✨</button><div class="soundNote">Toca para activar <b>música, ambiente y voces</b></div></div></div>
 <script>
 const C=document.getElementById('game'),ctx=C.getContext('2d'),wrap=document.getElementById('gameWrap');
 let W=0,H=0,dpr=1,last=0,joyX=0,joyY=0,target=null,near=null,started=false;
-const DEFAULT_STATE={money:1250,fame:12,energy:100,followers:326,level:1,x:410,y:560,scene:'street',day:1,sales:0,dailySales:0,earnedToday:0,owned:['Mía Modas'],homes:[],stock:{vestido:6,camiseta:8,pantalon:5,bolso:4,zapatos:3},decor:0,claimed:{}};
+const DEFAULT_STATE={money:1250,fame:12,energy:100,followers:326,level:1,x:410,y:560,scene:'street',day:1,sales:0,dailySales:0,earnedToday:0,owned:['Mía Modas'],homes:[],stock:{vestido:6,camiseta:8,pantalon:5,bolso:4,zapatos:3},decor:0,claimed:{},dailyPhoto:0,dailyLook:0,lastScene:'street'};
 let storedState=null;try{storedState=JSON.parse(localStorage.getItem('miaMobileSave')||'null')}catch(_){storedState=null}
 const state={...DEFAULT_STATE,...(storedState&&typeof storedState==='object'?storedState:{}),stock:{...DEFAULT_STATE.stock,...(storedState?.stock||{})},claimed:{...(storedState?.claimed||{})}};
 if(!Array.isArray(state.owned))state.owned=['Mía Modas'];
@@ -256,7 +275,7 @@ if(!['street','shop','wholesale','studio','home'].includes(state.scene))state.sc
 if(!Number.isFinite(Number(state.x)))state.x=DEFAULT_STATE.x;
 if(!Number.isFinite(Number(state.y)))state.y=DEFAULT_STATE.y;
 state.x=Number(state.x);state.y=Number(state.y);
-['money','fame','energy','followers','level','day','sales','dailySales','earnedToday','decor'].forEach(k=>{if(!Number.isFinite(Number(state[k])))state[k]=DEFAULT_STATE[k]??0;else state[k]=Number(state[k])});
+['money','fame','energy','followers','level','day','sales','dailySales','earnedToday','decor','dailyPhoto','dailyLook'].forEach(k=>{if(!Number.isFinite(Number(state[k])))state[k]=DEFAULT_STATE[k]??0;else state[k]=Number(state[k])});
 
 let audioOn=false,audioCtx=null,musicTimer=null,master=null,ambience=null;
 const AUDIO_KEY='miaAudioOn';
@@ -310,11 +329,11 @@ const interactables={
  studio:[{x:120,y:130,w:230,h:190,label:'Hacer sesión de fotos',action:'photo'},{x:410,y:130,w:230,h:190,label:'Hacer un directo',action:'live'},{x:700,y:130,w:210,h:190,label:'Crear campaña',action:'campaign'},{x:70,y:560,w:190,h:130,label:'Volver a la calle',to:'street'}],
  home:[{x:130,y:140,w:250,h:190,label:'Descansar',action:'rest'},{x:450,y:140,w:250,h:190,label:'Cambiar de look',action:'wardrobe'},{x:70,y:560,w:190,h:130,label:'Volver a la calle',to:'street'}]
 };
-function resize(){dpr=Math.min(devicePixelRatio||1,2);W=wrap.clientWidth;H=wrap.clientHeight;C.width=W*dpr;C.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',resize);resize();
+function resize(){dpr=Math.min(window.devicePixelRatio||1,2);W=Math.max(1,wrap.clientWidth);H=Math.max(1,wrap.clientHeight);const nw=Math.round(W*dpr),nh=Math.round(H*dpr);if(C.width!==nw||C.height!==nh){C.width=nw;C.height=nh}ctx.setTransform(dpr,0,0,dpr,0,0);draw()}addEventListener('resize',resize,{passive:true});addEventListener('orientationchange',()=>setTimeout(resize,180),{passive:true});resize();
 function save(){state.x=player.x;state.y=player.y;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);try{localStorage.setItem('miaMobileSave',JSON.stringify(state))}catch(e){}updateHud()}
 const hud={money:document.getElementById('money'),fame:document.getElementById('fame'),energy:document.getElementById('energy'),locName:document.getElementById('locName'),locSub:document.getElementById('locSub')};
 function updateHud(){const sc=scenes[state.scene]||scenes.street;hud.money.textContent=Math.max(0,state.money).toLocaleString('es-ES')+' €';hud.fame.textContent='⭐ '+Math.max(0,state.fame);hud.energy.textContent='⚡ '+Math.round(Math.max(0,state.energy));hud.locName.textContent=sc.name;hud.locSub.textContent=sc.sub}
-async function startGame(){document.getElementById('start').style.display='none';const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));started=true;draw();initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();audioOn=true;localStorage.setItem(AUDIO_KEY,'1');updateAudioBtn();startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),500);setTimeout(()=>th.classList.remove('show'),6000)}updateHud();updateAudioBtn();requestAnimationFrame(loop)}
+async function startGame(){if(started)return;started=true;const startEl=document.getElementById('start');if(startEl)startEl.style.display='none';const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));draw();initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();audioOn=true;localStorage.setItem(AUDIO_KEY,'1');updateAudioBtn();startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),500);setTimeout(()=>th.classList.remove('show'),6000)}updateHud();updateAudioBtn();requestAnimationFrame(loop)}
 function rounded(x,y,w,h,r,fill,stroke){r=Math.max(0,Math.min(r,Math.abs(w)/2,Math.abs(h)/2));ctx.beginPath();if(typeof ctx.roundRect==='function')ctx.roundRect(x,y,w,h,r);else{ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
 function text(t,x,y,size=14,color='#35252d',align='left',weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px ui-rounded,-apple-system`;ctx.textAlign=align;ctx.fillText(t,x,y)}
 function camera(){const sc=scenes[state.scene]||scenes.street;const px=Number.isFinite(player.x)?player.x:DEFAULT_STATE.x,py=Number.isFinite(player.y)?player.y:DEFAULT_STATE.y;return{x:Math.max(0,Math.min(Math.max(0,sc.w-W),px-W/2)),y:Math.max(0,Math.min(Math.max(0,sc.h-H),py-H/2))}}
@@ -397,50 +416,52 @@ function drawShop(cam){
  rounded(62+ox,645+oy,205,65,18,'#b94c79');text('SALIR A CARRETERA DE VIC',165+ox,683+oy,10,'white','center',1000)
 }
 
-function draw(){const cam=camera();ctx.clearRect(0,0,W,H);if(state.scene==='street')drawStreet(cam);else if(state.scene==='shop')drawShop(cam);else drawInterior(cam,state.scene);drawPlayer(cam);if(started){const px=player.x-cam.x,py=player.y-cam.y;rounded(px-26,py-67,52,17,9,'rgba(255,255,255,.88)','rgba(164,72,108,.15)');text('TÚ',px,py-55,9,'#7f3153','center',1000)}const vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.22,W/2,H/2,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,255,255,0)');vg.addColorStop(1,'rgba(55,24,39,.12)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H)}
-function loop(t){if(!started)return;const dt=Math.min((t-last)/1000,.035)||0;last=t;let dx=joyX,dy=joyY;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy);if(d<8)target=null;else{dx=vx/d;dy=vy/d}}
+function drawMarkers(cam){const list=interactables[state.scene]||[];const pulse=.55+Math.sin(performance.now()/420)*.18;for(const a of list){const cx=a.x+a.w/2-cam.x,cy=a.y+a.h/2-cam.y;if(cx<-80||cy<-80||cx>W+80||cy>H+80)continue;ctx.save();ctx.globalAlpha=pulse;ctx.strokeStyle='rgba(215,91,139,.62)';ctx.lineWidth=2;ctx.setLineDash([7,7]);ctx.beginPath();ctx.ellipse(cx,cy,Math.min(44,a.w*.2),16,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.restore()}}
+function draw(){const cam=camera();ctx.clearRect(0,0,W,H);if(state.scene==='street')drawStreet(cam);else if(state.scene==='shop')drawShop(cam);else drawInterior(cam,state.scene);drawMarkers(cam);drawPlayer(cam);if(started){const px=player.x-cam.x,py=player.y-cam.y;rounded(px-26,py-67,52,17,9,'rgba(255,255,255,.88)','rgba(164,72,108,.15)');text('TÚ',px,py-55,9,'#7f3153','center',1000)}const vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.22,W/2,H/2,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,255,255,0)');vg.addColorStop(1,'rgba(55,24,39,.12)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H)}
+function loop(t){if(!started)return;if(!last)last=t;const dt=Math.min(Math.max((t-last)/1000,0),.035);last=t;let dx=joyX,dy=joyY;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy);if(d<8)target=null;else{dx=vx/d;dy=vy/d}}
  if(dx||dy){const mag=Math.min(1,Math.hypot(dx,dy));player.x+=dx/mag*player.speed*dt;player.y+=dy/mag*player.speed*dt;state.energy=Math.max(0,state.energy-dt*.25)}
  const s=scenes[state.scene];player.x=Math.max(25,Math.min(s.w-25,player.x));player.y=Math.max(70,Math.min(s.h-25,player.y));checkNear();draw();updateHud();requestAnimationFrame(loop)}
 function checkNear(){near=null;for(const a of interactables[state.scene]){const cx=Math.max(a.x,Math.min(player.x,a.x+a.w)),cy=Math.max(a.y,Math.min(player.y,a.y+a.h));if(Math.hypot(player.x-cx,player.y-cy)<65){near=a;break}}const b=document.getElementById('interact');b.classList.toggle('show',!!near);b.textContent=near?near.label:'Entrar'}
 function useAction(){if(near)activate(near);else toast('Acércate a una zona marcada ✨')}
 document.getElementById('interact').onclick=()=>near&&activate(near);
 function activate(a){if(a.to){state.scene=a.to;const s=scenes[a.to];player.x=a.to==='street'?500:90;player.y=a.to==='street'?520:s.h-120;target=null;save();toast('Has llegado a '+scenes[a.to].name);sparkle();speak('Has llegado a '+scenes[a.to].name)}else action(a.action)}
-function action(k){const map={shop:()=>openSheet('shop'),wardrobe:()=>openSheet('wardrobe'),sale:sale,orders:orders,buyDresses:()=>buyPack('vestido',5,240),buyBasics:()=>buyPack('camiseta',8,180),buyAccessories:()=>buyPack('bolso',5,210),photo:()=>reward(-25,22,120,'Sesión de fotos terminada 📸'),live:()=>reward(-18,35,210,'Directo completado 🔴'),campaign:()=>reward(-40,65,480,'Campaña publicada ✨'),rest:()=>{state.energy=100;state.day++;save();toast('Has descansado. Día '+state.day+' 🌙')}};map[k]?.()}
+function action(k){const map={shop:()=>openSheet('shop'),wardrobe:()=>openSheet('wardrobe'),sale:sale,orders:orders,buyDresses:()=>buyPack('vestido',5,240),buyBasics:()=>buyPack('camiseta',8,180),buyAccessories:()=>buyPack('bolso',5,210),photo:()=>{state.dailyPhoto=1;reward(-25,22,120,'Sesión de fotos terminada 📸')},live:()=>reward(-18,35,210,'Directo completado 🔴'),campaign:()=>reward(-40,65,480,'Campaña publicada ✨'),rest:()=>advanceDay('Has descansado y empieza un nuevo día 🌙')};if(typeof map[k]==='function')map[k]();else toast('Esta acción todavía no está disponible')}
 function sale(){let total=Object.values(state.stock).reduce((a,b)=>a+b,0);if(!total)return toast('No queda ropa. Ve al mayorista.');const keys=Object.keys(state.stock).filter(k=>state.stock[k]>0),k=keys[Math.floor(Math.random()*keys.length)],gain=25+Math.floor(Math.random()*36);state.stock[k]--;state.money+=gain;state.sales++;state.dailySales=(state.dailySales||0)+1;state.earnedToday=(state.earnedToday||0)+gain;state.fame+=1;save();sparkle();toast('Clienta feliz: +'+gain+' € 🛍️');speak('Muchas gracias, me encanta. Te has ganado '+gain+' euros.')}
 function orders(){if(state.energy<8)return toast('Necesitas descansar');const gain=45+Math.floor(Math.random()*70);state.money+=gain;state.earnedToday=(state.earnedToday||0)+gain;state.energy-=8;state.followers+=8;save();sparkle();toast('Pedido preparado: +'+gain+' € 📦');speak('Pedido preparado correctamente. Has ganado '+gain+' euros.')}
 function reward(e,f,fol,msg){if(state.energy<Math.abs(e))return toast('No tienes suficiente energía');state.energy+=e;state.fame+=f;state.followers+=fol;const cash=Math.floor(f*2.4);state.money+=cash;state.earnedToday=(state.earnedToday||0)+cash;save();sparkle();toast(msg);speak(msg.replace(/[📸🔴✨]/g,''))}
 function buyPack(k,n,c){if(state.money<c)return toast('No tienes suficiente dinero');state.money-=c;state.stock[k]=(state.stock[k]||0)+n;save();sparkle();toast('Has comprado '+n+' unidades 👗');speak('Nueva mercancía comprada. '+n+' unidades añadidas.')}
 function toast(t){tone(523,.12,0,'triangle',.04);const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2200)}
 // touch movement
-C.addEventListener('pointerdown',e=>{const r=C.getBoundingClientRect(),cam=camera();target={x:e.clientX-r.left+cam.x,y:e.clientY-r.top+cam.y}});
+C.addEventListener('pointerdown',e=>{if(document.getElementById('sheet').classList.contains('open'))return;e.preventDefault();const r=C.getBoundingClientRect(),cam=camera();target={x:e.clientX-r.left+cam.x,y:e.clientY-r.top+cam.y}},{passive:false});
 const joy=document.getElementById('joy'),knob=document.getElementById('knob');let joyId=null;
-joy.addEventListener('pointerdown',e=>{joyId=e.pointerId;joy.setPointerCapture(joyId);moveJoy(e)});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId)moveJoy(e)});joy.addEventListener('pointerup',resetJoy);joy.addEventListener('pointercancel',resetJoy);
+joy.addEventListener('pointerdown',e=>{joyId=e.pointerId;joy.setPointerCapture(joyId);moveJoy(e)});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId)moveJoy(e)});joy.addEventListener('pointerup',resetJoy);joy.addEventListener('pointercancel',resetJoy);window.addEventListener('pointerup',e=>{if(e.pointerId===joyId)resetJoy()},{passive:true});
 function moveJoy(e){target=null;const r=joy.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy),max=34,k=Math.min(max,d);joyX=d?dx/d:0;joyY=d?dy/d:0;knob.style.transform=`translate(${joyX*k}px,${joyY*k}px)`}
 function resetJoy(){joyId=null;joyX=joyY=0;knob.style.transform='translate(0,0)'}
 function setNav(b){document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
-const clothes=[['Vestido satinado','👗',69],['Vestido lunares','👗',49],['Top festival','👚',25],['Camiseta básica','👕',20],['Pantalón palazzo','👖',39],['Tejano claro','👖',45],['Conjunto lino','🥻',59],['Chaqueta corta','🧥',55],['Bolso dorado','👜',35],['Bolso beige','👜',32],['Sandalias','👡',30],['Gafas doradas','🕶️',18],['Sombrero verano','👒',22],['Mono bombacho','🥻',52],['Body blanco','👚',28]];
+const clothes=[['Vestido satinado','👗',69,'vestido'],['Vestido lunares','👗',49,'vestido'],['Top festival','👚',25,'camiseta'],['Camiseta básica','👕',20,'camiseta'],['Pantalón palazzo','👖',39,'pantalon'],['Tejano claro','👖',45,'pantalon'],['Conjunto lino','🥻',59,'vestido'],['Chaqueta corta','🧥',55,'camiseta'],['Bolso dorado','👜',35,'bolso'],['Bolso beige','👜',32,'bolso'],['Sandalias','👡',30,'zapatos'],['Gafas doradas','🕶️',18,'bolso'],['Sombrero verano','👒',22,'bolso'],['Mono bombacho','🥻',52,'vestido'],['Body blanco','👚',28,'camiseta']];
 const businesses=[['Mía Outlet','🏷️',6500,380],['Mía Modas Manresa','🏬',14000,780],['Centro online','📦',22000,1250],['Atelier Mía','🧵',35000,1850],['Mía Luxury Barcelona','💎',78000,4200],['Academia de moda','🎓',120000,7000]];
 const homes=[['Piso moderno','🏢',18000],['Ático con terraza','🌇',42000],['Casa con jardín','🏡',76000],['Villa con piscina','🏊',145000],['Masía catalana','🌳',260000],['Casa de lujo','🏰',500000]];
 function openSheet(type){const s=document.getElementById('sheet'),c=document.getElementById('sheetContent');let h='';
  const head=(t,sub)=>`<div class="sheetHead"><h2>${t}</h2><button class="close" onclick="closeSheet()">✕</button></div><div class="sub">${sub}</div>`;
- if(type==='shop'){h=head('Nueva colección','Compra más ropa para vender en tu boutique.')+'<div class="wardrobe">'+clothes.map((x,i)=>`<div class="item"><span class="badge">${state.stock[['vestido','camiseta','pantalon','bolso','zapatos'][i%5]]||0}</span><div class="pic">${x[1]}</div><b>${x[0]}</b><small>${x[2]} €</small><button onclick="quickBuy('${x[0]}',${x[2]})">Comprar</button></div>`).join('')+'</div>'}
+ if(type==='shop'){h=head('Nueva colección','Compra más ropa para vender en tu boutique.')+'<div class="wardrobe">'+clothes.map((x,i)=>`<div class="item"><span class="badge">${state.stock[x[3]]||0}</span><div class="pic">${x[1]}</div><b>${x[0]}</b><small>${x[2]} €</small><button onclick="quickBuy('${x[0]}',${x[2]},'${x[3]}')">Comprar</button></div>`).join('')+'</div>'}
  else if(type==='wardrobe'){h=head('Crear un look','Combina prendas y publícalo en redes.')+'<div class="grid"><div class="card"><div class="emoji">👗</div><h3>Look romántico</h3><p>Vestido, bolso y sandalias.</p><button onclick="createLook(18,95)">Crear look</button></div><div class="card"><div class="emoji">✨</div><h3>Look de evento</h3><p>Conjunto elegante y complementos.</p><button onclick="createLook(25,150)">Crear look</button></div><div class="card"><div class="emoji">☀️</div><h3>Look de verano</h3><p>Lino, gafas y bolso claro.</p><button onclick="createLook(12,70)">Crear look</button></div><div class="card"><div class="emoji">💎</div><h3>Look Luxury</h3><p>Para clientas VIP.</p><button onclick="createLook(35,260)">Crear look</button></div></div>'}
  else if(type==='business'){h=head('Mis negocios','Compra más tiendas y recibe ingresos cada día.')+'<div class="grid">'+businesses.map(x=>`<div class="card"><div class="emoji">${x[1]}</div><h3>${x[0]}</h3><p>Genera ${x[3]} € cada día.</p><div class="price">${x[2].toLocaleString('es-ES')} €</div><button ${state.owned.includes(x[0])?'disabled':''} onclick="buyBusiness('${x[0]}',${x[2]})">${state.owned.includes(x[0])?'Comprado':'Comprar'}</button></div>`).join('')+'</div>'}
  else if(type==='homes'){h=head('Casas y propiedades','Compra tu hogar soñado y desbloquea nuevas zonas.')+'<div class="grid">'+homes.map(x=>`<div class="card"><div class="emoji">${x[1]}</div><h3>${x[0]}</h3><p>Una nueva casa para tu personaje.</p><div class="price">${x[2].toLocaleString('es-ES')} €</div><button ${state.homes.includes(x[0])?'disabled':''} onclick="buyHome('${x[0]}',${x[2]})">${state.homes.includes(x[0])?'Comprada':'Comprar'}</button></div>`).join('')+'</div>'}
  else if(type==='profile'){h=head('Mi vida en Mía Modas','Tu progreso como empresaria de moda.')+`<div class="grid"><div class="card"><div class="emoji">👑</div><h3>Nivel ${state.level}</h3><p>${state.fame} puntos de fama</p></div><div class="card"><div class="emoji">📱</div><h3>${state.followers.toLocaleString('es-ES')}</h3><p>Seguidores en redes</p></div><div class="card"><div class="emoji">🛍️</div><h3>${state.sales} ventas</h3><p>Clientas atendidas</p></div><div class="card"><div class="emoji">🏬</div><h3>${state.owned.length} negocios</h3><p>Tu imperio comercial</p></div></div><button class="wideBtn" onclick="nextDay()">Terminar el día 🌙</button>`}
- else if(type==='missions'){h=head('Misiones de hoy','Completa objetivos y gana premios.')+`<div class="grid"><div class="card"><div class="emoji">🛍️</div><h3>Haz 3 ventas</h3><p>${Math.min(state.dailySales||0,3)}/3 completadas.</p><button onclick="claimMission('sales')">Reclamar</button></div><div class="card"><div class="emoji">📸</div><h3>Sube una foto</h3><p>Visita el estudio creativo.</p><button onclick="closeSheet();goScene('studio')">Ir al estudio</button></div><div class="card"><div class="emoji">👗</div><h3>Crea un look</h3><p>Combina una nueva propuesta.</p><button onclick="openSheet('wardrobe')">Crear ahora</button></div><div class="card"><div class="emoji">💰</div><h3>Gana 500 €</h3><p>${Math.min(state.earnedToday||0,500)}/500 € conseguidos hoy.</p><button onclick="claimMission('money')">Reclamar</button></div></div>`}
+ else if(type==='missions'){h=head('Misiones de hoy','Completa objetivos y gana premios.')+`<div class="grid"><div class="card"><div class="emoji">🛍️</div><h3>Haz 3 ventas</h3><p>${Math.min(state.dailySales||0,3)}/3 completadas.</p><button onclick="claimMission('sales')">Reclamar</button></div><div class="card"><div class="emoji">📸</div><h3>Sube una foto</h3><p>Visita el estudio creativo.</p><button onclick="claimMission('photo')">${state.dailyPhoto?'Reclamar':'Ir al estudio'}</button></div><div class="card"><div class="emoji">👗</div><h3>Crea un look</h3><p>Combina una nueva propuesta.</p><button onclick="claimMission('look')">${state.dailyLook?'Reclamar':'Crear ahora'}</button></div><div class="card"><div class="emoji">💰</div><h3>Gana 500 €</h3><p>${Math.min(state.earnedToday||0,500)}/500 € conseguidos hoy.</p><button onclick="claimMission('money')">Reclamar</button></div></div>`}
  else if(type==='map'){h=head('Mapa de Sant Fruitós','Viaja rápidamente a cualquier zona.')+`<div class="grid"><div class="card"><div class="emoji">🏬</div><h3>Mía Modas</h3><p>Carretera de Vic, 26.</p><button onclick="goScene('shop')">Viajar</button></div><div class="card"><div class="emoji">🏷️</div><h3>Mayorista</h3><p>Compra nueva colección.</p><button onclick="goScene('wholesale')">Viajar</button></div><div class="card"><div class="emoji">📸</div><h3>Estudio creativo</h3><p>Fotos y campañas.</p><button onclick="goScene('studio')">Viajar</button></div><div class="card"><div class="emoji">🏡</div><h3>Mi casa</h3><p>Descansa y recupérate.</p><button onclick="goScene('home')">Viajar</button></div></div>`}
  else {h=head('Opciones','Configura tu partida.')+'<button class="wideBtn" onclick="save();toast(\'Partida guardada\')">Guardar partida</button><button class="wideBtn" style="background:#6d5661" onclick="toggleFull()">Pantalla completa</button><button class="wideBtn" style="background:#9b4d60" onclick="resetGame()">Empezar de nuevo</button>'}
  c.innerHTML=h;s.classList.add('open')}
 function closeSheet(){document.getElementById('sheet').classList.remove('open')}document.getElementById('sheet').addEventListener('pointerdown',e=>{if(e.target.id==='sheet')closeSheet()});
-function quickBuy(name,c){if(state.money<c)return toast('No tienes suficiente dinero');state.money-=c;const keys=Object.keys(state.stock),k=keys[Math.floor(Math.random()*keys.length)];state.stock[k]++;save();toast(name+' añadido al stock')}
-function createLook(e,fol){if(state.energy<e)return toast('Necesitas más energía');state.energy-=e;state.followers+=fol;state.fame+=Math.floor(fol/18);const cash=Math.floor(fol*.35);state.money+=cash;state.earnedToday=(state.earnedToday||0)+cash;save();toast('Look publicado: +'+fol+' seguidores 💖')}
+function quickBuy(name,c,k){if(state.money<c)return toast('No tienes suficiente dinero');if(!Object.prototype.hasOwnProperty.call(state.stock,k))k='camiseta';state.money-=c;state.stock[k]=(state.stock[k]||0)+1;save();toast(name+' añadido al stock')}
+function createLook(e,fol){if(state.energy<e)return toast('Necesitas más energía');state.dailyLook=1;state.energy-=e;state.followers+=fol;state.fame+=Math.floor(fol/18);const cash=Math.floor(fol*.35);state.money+=cash;state.earnedToday=(state.earnedToday||0)+cash;save();toast('Look publicado: +'+fol+' seguidores 💖')}
 function buyBusiness(n,c){if(state.owned.includes(n))return toast('Ese negocio ya es tuyo');if(state.money<c)return toast('Todavía no tienes suficiente dinero');state.money-=c;state.owned.push(n);save();openSheet('business');toast('Has abierto '+n+' 🎉')}
 function buyHome(n,c){if(state.homes.includes(n))return toast('Esa casa ya es tuya');if(state.money<c)return toast('Todavía no tienes suficiente dinero');state.money-=c;state.homes.push(n);save();openSheet('homes');toast('Has comprado '+n+' 🏡')}
-function nextDay(){let inc=0;state.owned.forEach(n=>{const b=businesses.find(x=>x[0]===n);if(b)inc+=b[3]});state.money+=inc;state.day++;state.energy=100;state.dailySales=0;state.earnedToday=0;save();closeSheet();sparkle();toast('Nuevo día: ingresos +'+inc+' €')}
-function claimMission(k){state.claimed=state.claimed||{};const key=state.day+'_'+k;if(state.claimed[key])return toast('Esta recompensa ya está cobrada ✨');let ok=false,reward=0;if(k==='sales'&&(state.dailySales||0)>=3){ok=true;reward=300}else if(k==='money'&&(state.earnedToday||0)>=500){ok=true;reward=450}if(!ok)return toast('Aún no has completado la misión');state.claimed[key]=true;state.money+=reward;state.fame+=10;save();sparkle();toast('Misión completada: +'+reward+' €');speak('Misión completada. Recompensa conseguida.')}
-function goScene(s){state.scene=s;player.x=100;player.y=scenes[s].h-120;closeSheet();save();toast('Has viajado a '+scenes[s].name)}
-function toggleFull(){document.documentElement.requestFullscreen?.();closeSheet()}
+function advanceDay(message='Nuevo día'){let inc=0;state.owned.forEach(n=>{const b=businesses.find(x=>x[0]===n);if(b)inc+=b[3]});state.money+=inc;state.day++;state.energy=100;state.dailySales=0;state.earnedToday=0;state.dailyPhoto=0;state.dailyLook=0;save();closeSheet();sparkle();toast(message+(inc?' · Ingresos +'+inc+' €':''))}
+function nextDay(){advanceDay('Empieza el día '+(state.day+1))}
+function claimMission(k){state.claimed=state.claimed||{};const key=state.day+'_'+k;if(state.claimed[key])return toast('Esta recompensa ya está cobrada ✨');let ok=false,reward=0;if(k==='sales'&&(state.dailySales||0)>=3){ok=true;reward=300}else if(k==='money'&&(state.earnedToday||0)>=500){ok=true;reward=450}else if(k==='photo'&&state.dailyPhoto){ok=true;reward=250}else if(k==='look'&&state.dailyLook){ok=true;reward=220}if(!ok){if(k==='photo'){closeSheet();return goScene('studio')}if(k==='look')return openSheet('wardrobe');return toast('Aún no has completado la misión')}state.claimed[key]=true;state.money+=reward;state.fame+=10;save();sparkle();toast('Misión completada: +'+reward+' €');speak('Misión completada. Recompensa conseguida.')}
+function goScene(s){if(!scenes[s])return toast('Esa zona no está disponible');state.lastScene=state.scene;state.scene=s;player.x=100;player.y=scenes[s].h-120;target=null;resetJoy();closeSheet();save();toast('Has viajado a '+scenes[s].name)}
+async function toggleFull(){closeSheet();try{if(document.fullscreenElement){await document.exitFullscreen?.()}else if(document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen()}else{toast('En iPhone, añádelo a inicio para verlo como una app')}}catch(_){toast('No se pudo activar la pantalla completa')}}
 function resetGame(){if(confirm('¿Seguro que quieres borrar la partida?')){localStorage.removeItem('miaMobileSave');location.reload()}}
 updateHud();draw();setInterval(save,8000);
 
@@ -448,6 +469,10 @@ updateHud();draw();setInterval(save,8000);
 document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(musicTimer);musicTimer=null;window.speechSynthesis?.cancel();save()}else if(started&&audioOn){startMusic()}});
 window.addEventListener('pagehide',save);
 document.addEventListener('contextmenu',e=>e.preventDefault());
+
+
+window.addEventListener('error',e=>{console.error('Mía Modas:',e.error||e.message);try{save()}catch(_){} });
+window.addEventListener('unhandledrejection',e=>{console.error('Mía Modas promise:',e.reason);try{save()}catch(_){} });
 
 // Premium touch feedback
 document.addEventListener('click',e=>{if(e.target.closest('button')) navigator.vibrate?.(10)});
