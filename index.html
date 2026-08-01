@@ -1,591 +1,81 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-<meta name="theme-color" content="#f7dce7" />
-<meta name="format-detection" content="telephone=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>Mía Modas · Velvet Mobile Edition</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#f8dbe7">
+<title>Mía Modas · Boutique Life</title>
 <style>
-:root{
-  --rose:#cf5f8b;--rose2:#f5bfd2;--rose3:#fff0f6;--wine:#5f2940;--gold:#caa55d;
-  --ink:#2b2026;--paper:#fffafc;--glass:rgba(255,250,252,.88);--line:rgba(91,41,62,.12);
-  --shadow:0 18px 55px rgba(70,35,50,.22)
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent} button{touch-action:manipulation} canvas,.joy,.knob{touch-action:none}.sheet{touch-action:pan-y;-webkit-overflow-scrolling:touch}
-html,body{margin:0;height:100%;overflow:hidden;background:#eadbe2;color:var(--ink);font-family:ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button{font:inherit;color:inherit;border:0}
-#app{height:100%;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(180deg,#f8eaf0,#eadbe2)}
-.topbar{position:relative;z-index:20;display:flex;align-items:center;gap:8px;padding:calc(7px + env(safe-area-inset-top)) 9px 7px;background:var(--glass);backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(60,30,44,.12)}
-.brand{min-width:102px;display:flex;align-items:center;gap:7px}.logo{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,#ef8bb0,#b84772);color:#fff;font-weight:1000;box-shadow:0 8px 20px rgba(180,70,110,.3)}
-.brandText{line-height:1}.brandText b{display:block;font-size:13px;letter-spacing:.3px}.brandText small{font-size:9px;opacity:.6}
-.stats{flex:1;display:flex;gap:5px;justify-content:flex-end;overflow:hidden}.stat{min-width:57px;padding:5px 7px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 5px 15px rgba(70,35,50,.07);line-height:1.05}.stat small{font-size:8px;text-transform:uppercase;letter-spacing:.5px;opacity:.55}.stat b{display:block;font-size:12px;margin-top:3px;white-space:nowrap}
-.iconBtn{width:35px;height:35px;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:0 5px 15px rgba(70,35,50,.08);font-size:18px}
-.gameWrap{position:relative;flex:1;min-height:0;overflow:hidden;background:#d7d2c8}
-canvas{width:100%;height:100%;display:block;background:#cfd9cf}
-.locationPill{position:absolute;left:12px;top:12px;z-index:7;max-width:74%;padding:8px 12px;border-radius:15px;background:rgba(255,250,252,.9);backdrop-filter:blur(14px);box-shadow:0 9px 25px rgba(52,28,39,.16);border:1px solid rgba(255,255,255,.9)}
-.locationPill b{font-size:12px}.locationPill small{display:block;margin-top:2px;font-size:9px;opacity:.62}
-.quest{position:absolute;right:12px;top:12px;z-index:7;width:42px;height:42px;border-radius:15px;background:linear-gradient(145deg,#fff,#ffe6ef);box-shadow:0 9px 24px rgba(94,39,65,.2);border:1px solid white;font-size:21px}
-.interact{position:absolute;left:50%;bottom:100px;transform:translateX(-50%) scale(.9);opacity:0;pointer-events:none;z-index:9;padding:11px 17px;border-radius:999px;color:white;background:linear-gradient(135deg,#d35d8b,#8e345d);box-shadow:0 13px 30px rgba(111,40,72,.38);font-weight:900;font-size:12px;transition:.18s}
-.interact.show{opacity:1;transform:translateX(-50%) scale(1);pointer-events:auto}
-.joy{position:absolute;left:18px;bottom:24px;width:110px;height:110px;border-radius:50%;z-index:8;background:radial-gradient(circle,rgba(255,255,255,.42),rgba(255,255,255,.18));border:2px solid rgba(255,255,255,.65);box-shadow:0 10px 30px rgba(30,20,25,.18),inset 0 0 25px rgba(255,255,255,.28);backdrop-filter:blur(6px)}
-.knob{position:absolute;left:34px;top:34px;width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,#fff,#f0c0d1);border:2px solid white;box-shadow:0 8px 20px rgba(86,40,61,.28)}
-.actionStack{position:absolute;right:17px;bottom:24px;z-index:8;display:flex;flex-direction:column;gap:10px}.roundBtn{width:58px;height:58px;border-radius:20px;background:rgba(255,250,252,.92);border:1px solid rgba(255,255,255,.95);box-shadow:0 12px 28px rgba(65,33,48,.21);font-size:23px}.roundBtn.primary{background:linear-gradient(145deg,#df6f9b,#a53e69);color:white}
-.bottom{position:relative;z-index:18;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:7px 7px calc(7px + env(safe-area-inset-bottom));background:rgba(255,250,252,.95);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.9);box-shadow:0 -10px 28px rgba(62,33,47,.1)}
-.nav{height:49px;border-radius:14px;background:transparent;font-size:18px}.nav span{display:block;font-size:8px;margin-top:2px;font-weight:800;opacity:.65}.nav.active{background:linear-gradient(145deg,#ffe9f1,#f7c3d6);box-shadow:inset 0 0 0 1px rgba(168,62,101,.1)}
-.sheet{position:absolute;inset:auto 0 0;z-index:30;max-height:82%;padding:14px 14px calc(18px + env(safe-area-inset-bottom));background:rgba(255,250,252,.97);backdrop-filter:blur(24px);border-radius:26px 26px 0 0;box-shadow:0 -25px 65px rgba(62,29,44,.28);transform:translateY(105%);transition:.28s cubic-bezier(.2,.9,.2,1);overflow:auto}.sheet.open{transform:translateY(0)}
-.handle{width:42px;height:5px;border-radius:99px;background:#d9bdc8;margin:0 auto 10px}.sheetHead{display:flex;align-items:center;justify-content:space-between;gap:10px}.sheetHead h2{margin:0;font-size:19px}.close{width:34px;height:34px;border-radius:12px;background:#f5e5eb;font-size:17px}.sub{font-size:11px;opacity:.62;margin:4px 0 13px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{padding:12px;border-radius:18px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 22px rgba(72,34,50,.08)}.card .emoji{font-size:30px}.card h3{margin:7px 0 3px;font-size:13px}.card p{margin:0;font-size:10px;opacity:.62;line-height:1.35}.card .price{margin-top:8px;font-size:12px;font-weight:900;color:#9d3e68}.card button,.wideBtn{width:100%;margin-top:9px;padding:10px;border-radius:12px;background:linear-gradient(135deg,#d56590,#a33c67);color:white;font-weight:900;font-size:11px;box-shadow:0 8px 16px rgba(154,51,94,.23)}.card button:disabled{filter:grayscale(1);opacity:.5}
-.wardrobe{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.item{position:relative;min-height:92px;padding:8px;border-radius:15px;background:linear-gradient(145deg,#fff,#fff2f7);border:1px solid var(--line);text-align:center}.item .pic{font-size:32px}.item b{display:block;font-size:10px;margin-top:4px}.item small{font-size:8px;opacity:.55}.badge{position:absolute;right:6px;top:6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;display:grid;place-items:center;background:#5f2940;color:white;font-size:8px;font-weight:900}
-.toast{position:absolute;left:50%;top:78px;z-index:50;transform:translate(-50%,-15px);opacity:0;max-width:82%;padding:10px 14px;border-radius:14px;background:#392733;color:white;box-shadow:var(--shadow);font-size:11px;font-weight:800;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
-.start{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center;padding:24px 20px calc(28px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(53,25,39,.03),rgba(53,25,39,.5)),radial-gradient(circle at 50% 15%,#fff8fb 0,#f6cedc 40%,#c56b8f 100%)}
-.startCard{width:min(430px,100%);padding:22px;border-radius:28px;background:rgba(255,250,252,.94);backdrop-filter:blur(22px);box-shadow:0 30px 80px rgba(70,26,47,.35);border:1px solid rgba(255,255,255,.9);text-align:center}.startLogo{width:78px;height:78px;margin:-58px auto 12px;border-radius:26px;display:grid;place-items:center;background:linear-gradient(145deg,#ef87ae,#9d3965);color:white;font-size:40px;font-weight:1000;border:5px solid rgba(255,255,255,.9);box-shadow:0 18px 38px rgba(115,42,75,.34)}.start h1{font-size:27px;margin:0}.start p{font-size:12px;opacity:.68;line-height:1.5}.play{width:100%;padding:15px;border-radius:17px;background:linear-gradient(135deg,#e16e9b,#96365f);color:#fff;font-size:14px;font-weight:1000;box-shadow:0 15px 25px rgba(139,46,86,.32)}
-@media(min-width:720px){#app{max-width:500px;margin:auto;box-shadow:0 0 70px rgba(40,20,30,.25)}body{background:#bfaeb6}.sheet{left:50%;right:auto;width:500px;transform:translate(-50%,105%)}.sheet.open{transform:translate(-50%,0)}}
-
-/* Edición Mobile Luxe */
-:root{--rose:#d65f91;--rose2:#ffd4e3;--rose3:#fff5f9;--wine:#542337;--gold:#d8b36b;--ink:#271d22;--paper:#fffdfd;--glass:rgba(255,255,255,.82);--shadow:0 18px 55px rgba(79,31,53,.22)}
-body{background:radial-gradient(circle at 50% 0,#fff7fb,#d9c5cf 65%,#b79aa8);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Rounded","Segoe UI",sans-serif}
-#app{background:linear-gradient(180deg,#fff8fb,#f1dce5)}
-.topbar{padding:calc(8px + env(safe-area-inset-top)) 10px 8px;background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,247,251,.82));border-bottom:1px solid rgba(180,95,130,.12);box-shadow:0 8px 24px rgba(70,25,45,.11)}
-.logo{border-radius:50%;background:linear-gradient(145deg,#f38db4,#aa3868);box-shadow:0 8px 22px rgba(180,64,107,.35),inset 0 1px 0 rgba(255,255,255,.55);font-family:Georgia,serif;font-style:italic}
-.brandText b{font-family:Georgia,serif;letter-spacing:1px;color:#5b2940}.brandText small{color:#a25175;font-weight:700}
-.stat{background:rgba(255,255,255,.86);border-color:rgba(182,92,128,.11);box-shadow:0 5px 16px rgba(95,41,66,.08)}
-.gameWrap{background:#c9d9d3}
-.locationPill{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,245,249,.9));border:1px solid rgba(255,255,255,.95);box-shadow:0 12px 30px rgba(68,30,47,.18)}
-.locationPill b{font-family:Georgia,serif;color:#5d2940;font-size:13px}
-.quest,.roundBtn,.iconBtn{background:linear-gradient(145deg,#fff,#fff0f6);border:1px solid rgba(212,102,146,.15);box-shadow:0 10px 24px rgba(84,35,56,.18)}
-.roundBtn.primary{background:linear-gradient(145deg,#ef80aa,#a83b6b);box-shadow:0 12px 30px rgba(153,52,92,.35)}
-.joy{width:116px;height:116px;background:radial-gradient(circle at 38% 32%,rgba(255,255,255,.64),rgba(255,232,241,.27));border:1px solid rgba(255,255,255,.8);box-shadow:0 15px 38px rgba(50,25,36,.2),inset 0 0 28px rgba(255,255,255,.44)}
-.knob{left:35px;top:35px;width:46px;height:46px;background:linear-gradient(145deg,#fff,#f4afc9);box-shadow:0 9px 22px rgba(104,39,67,.3),inset 0 1px 0 #fff}
-.bottom{background:rgba(255,250,252,.96);border-top:1px solid rgba(181,92,128,.12)}
-.nav{border-radius:16px;transition:.18s}.nav.active{background:linear-gradient(145deg,#fff0f6,#f7bfd3);box-shadow:0 6px 18px rgba(160,58,98,.16),inset 0 0 0 1px rgba(168,62,101,.08)}
-.sheet{background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,246,250,.97));border:1px solid rgba(255,255,255,.95)}
-.card,.item{background:linear-gradient(145deg,#fff,#fff5f9);border-color:rgba(190,85,129,.11);box-shadow:0 10px 25px rgba(77,31,51,.09)}
-.start{background:radial-gradient(circle at 50% 8%,#fff 0,#ffe8f1 35%,#dd91ae 72%,#8d3e62 120%)}
-.start:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 18%,rgba(255,255,255,.7) 0 2px,transparent 3px),radial-gradient(circle at 82% 28%,rgba(255,255,255,.65) 0 2px,transparent 3px);background-size:72px 72px,95px 95px;opacity:.55}
-.startCard{position:relative;padding:26px 22px 24px;border-radius:32px;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(255,244,249,.92));box-shadow:0 35px 90px rgba(74,25,48,.4)}
-.startLogo{font-family:Georgia,serif;font-style:italic;background:linear-gradient(145deg,#f78eb5,#96315f);box-shadow:0 20px 46px rgba(120,38,75,.42)}
-.start h1{font-family:Georgia,serif;color:#5c2940;font-size:31px;letter-spacing:.5px}.play{background:linear-gradient(135deg,#ed77a5,#96345f);box-shadow:0 16px 30px rgba(139,46,86,.35)}
-
-
-/* Premium visual polish */
-.topbar{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,247,251,.88));border-bottom:1px solid rgba(255,255,255,.95);box-shadow:0 10px 35px rgba(86,36,58,.14)}
-.logo{background:linear-gradient(145deg,#ff91ba,#a93668);box-shadow:0 10px 24px rgba(169,54,104,.34),inset 0 1px 0 rgba(255,255,255,.45)}
-.stat{background:linear-gradient(180deg,#fff,#fff7fb);border-color:rgba(191,110,145,.16)}
-.gameWrap:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 25%,transparent 70%,rgba(70,25,46,.08));z-index:3}
-.locationPill{background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,245,250,.9));border:1px solid rgba(255,255,255,.98);box-shadow:0 12px 34px rgba(76,31,51,.18)}
-.joy{width:116px;height:116px;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.72),rgba(255,255,255,.18) 68%);border:2px solid rgba(255,255,255,.8);box-shadow:0 16px 35px rgba(48,22,33,.24),inset 0 0 30px rgba(255,255,255,.35)}
-.knob{left:35px;top:35px;width:44px;height:44px;background:linear-gradient(145deg,#fff,#f7bfd4);box-shadow:0 10px 22px rgba(110,45,74,.34),inset 0 1px 0 #fff}
-.roundBtn{background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(255,244,249,.94));border:1px solid rgba(255,255,255,.98);box-shadow:0 14px 32px rgba(65,33,48,.24)}
-.roundBtn.primary{background:linear-gradient(145deg,#ef7da8,#9c315f);box-shadow:0 14px 30px rgba(143,40,84,.35),inset 0 1px 0 rgba(255,255,255,.35)}
-.bottom{background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,247,251,.94));box-shadow:0 -12px 30px rgba(63,30,45,.13)}
-.nav.active{background:linear-gradient(145deg,#ffe7f1,#f6b9d0);box-shadow:inset 0 0 0 1px rgba(168,62,101,.12),0 8px 18px rgba(154,56,96,.12)}
-.sheet{background:linear-gradient(180deg,rgba(255,255,255,.99),rgba(255,246,250,.98));border:1px solid rgba(255,255,255,.95)}
-.card{background:linear-gradient(180deg,#fff,#fff8fb);box-shadow:0 10px 26px rgba(72,34,50,.1)}
-@media (max-width:430px){.topbar{gap:5px;padding-left:6px;padding-right:6px}.brand{min-width:88px}.brandText b{font-size:12px}.brandText small{font-size:8px}.stat{min-width:50px;padding:5px}.stat b{font-size:11px}.joy{left:14px;bottom:20px}.actionStack{right:14px;bottom:20px}.roundBtn{width:56px;height:56px}.bottom{gap:2px;padding-left:5px;padding-right:5px}.nav{height:47px}.locationPill{left:9px;top:9px}.quest{right:9px;top:9px}}
-
-/* AUDIO + FINISH PREMIUM */
-.audioBtn{position:absolute;right:16px;top:calc(82px + env(safe-area-inset-top));z-index:25;width:46px;height:46px;border-radius:16px;border:1px solid rgba(255,255,255,.9);background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(255,234,243,.9));box-shadow:0 12px 28px rgba(91,35,62,.22);font-size:20px;display:grid;place-items:center;backdrop-filter:blur(18px)}
-.audioBtn.on{background:linear-gradient(145deg,#f58fb4,#9c3b68);color:white;box-shadow:0 13px 30px rgba(145,51,92,.35)}
-.soundNote{margin-top:10px;font-size:11px;color:#7a4c60;opacity:.82}.soundNote b{color:#9e3f69}
-.startCard:after{content:"MÚSICA · AMBIENTE · VOCES";display:inline-flex;margin-top:13px;padding:7px 11px;border-radius:999px;background:#fff0f6;color:#9b3d68;font-weight:900;font-size:9px;letter-spacing:1.2px;border:1px solid #f4c8d9}
-.locationPill{box-shadow:0 14px 38px rgba(62,27,44,.22),inset 0 1px 0 rgba(255,255,255,.92)}
-.bottom{background:linear-gradient(180deg,rgba(255,255,255,.93),rgba(255,245,249,.98));box-shadow:0 -14px 36px rgba(70,27,48,.14)}
-.roundBtn,.interact,.quest{transition:transform .16s ease,filter .16s ease}.roundBtn:active,.interact:active,.quest:active,.audioBtn:active{transform:scale(.92)}
-
-/* Signature Plus — mobile polish */
-:root{--safeB:env(safe-area-inset-bottom);--safeT:env(safe-area-inset-top)}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.34),transparent 28%),radial-gradient(circle at 90% 18%,rgba(255,222,236,.22),transparent 24%);mix-blend-mode:screen}
-.topbar{padding-left:12px;padding-right:12px;background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,248,251,.86));border-bottom-color:rgba(190,111,143,.14)}
-.logo{position:relative;overflow:hidden;font-family:Georgia,serif;font-size:22px}.logo:after{content:"";position:absolute;inset:-40%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.65) 50%,transparent 65%);transform:translateX(-80%);animation:logoShine 5s ease-in-out infinite}@keyframes logoShine{15%,100%{transform:translateX(80%)}}
-.stat{transition:.2s transform,.2s box-shadow}.stat:active{transform:scale(.96)}
-.gameWrap:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;box-shadow:inset 0 0 70px rgba(72,30,49,.08)}
-.locationPill{display:flex;flex-direction:column;justify-content:center;min-height:48px;padding-left:15px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,244,249,.88));border:1px solid rgba(255,255,255,.95)}
-.locationPill:before{content:"📍";position:absolute;right:10px;top:9px;font-size:16px;opacity:.62}
-.quest,.audioBtn,.roundBtn,.iconBtn{transition:transform .12s ease,filter .12s ease}.quest:active,.audioBtn:active,.roundBtn:active,.iconBtn:active{transform:scale(.91);filter:brightness(.97)}
-.joy{width:118px;height:118px;left:14px;bottom:20px;border:1px solid rgba(255,255,255,.9);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.62),rgba(255,238,245,.24) 55%,rgba(154,62,101,.12));box-shadow:0 18px 38px rgba(55,24,38,.22),inset 0 0 0 8px rgba(255,255,255,.14),inset 0 0 32px rgba(255,255,255,.35)}
-.joy:before{content:"";position:absolute;inset:20px;border-radius:50%;border:1px dashed rgba(116,48,78,.16)}
-.knob{left:37px;top:37px;width:44px;height:44px;background:radial-gradient(circle at 35% 25%,#fff,#f4bfd3 50%,#cf6e98);box-shadow:0 10px 24px rgba(84,31,57,.34),inset 0 2px 0 rgba(255,255,255,.9)}
-.roundBtn{border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(255,238,245,.9));box-shadow:0 14px 32px rgba(63,27,45,.22),inset 0 1px 0 #fff}.roundBtn.primary{background:linear-gradient(145deg,#ed86ad,#c24f7f 54%,#94345d);box-shadow:0 16px 34px rgba(131,39,82,.35),inset 0 1px 0 rgba(255,255,255,.4)}
-.bottom{gap:7px;padding-left:10px;padding-right:10px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,247,250,.98))}.nav{height:52px;border-radius:17px;transition:.15s}.nav:active{transform:scale(.94)}.nav.active{background:linear-gradient(145deg,#fff,#f8d5e2);box-shadow:0 7px 18px rgba(124,43,80,.13),inset 0 0 0 1px rgba(168,62,101,.1)}
-.sheet{border-top:1px solid rgba(255,255,255,.98);background:linear-gradient(180deg,rgba(255,253,254,.99),rgba(255,246,250,.98));overscroll-behavior:contain}.sheetHead{position:sticky;top:-14px;z-index:3;padding-top:4px;padding-bottom:8px;background:linear-gradient(180deg,rgba(255,253,254,.99) 75%,transparent)}
-.card,.item{transition:transform .15s ease,box-shadow .15s ease}.card:active,.item:active{transform:scale(.985)}
-.card button,.wideBtn{min-height:43px;letter-spacing:.15px}.card button:active,.wideBtn:active{transform:translateY(1px);filter:brightness(.96)}
-.toast{max-width:min(88vw,390px);padding:13px 18px;border-radius:18px;font-size:12px;line-height:1.3}
-.startCard{max-width:390px;padding:34px 26px 28px}.startCard:before{content:"MÍA MODAS · CARRETERA DE VIC, 26";display:block;font-size:9px;letter-spacing:1.7px;color:#8e4765;margin-bottom:18px}.startLogo{width:88px;height:88px;font-size:52px;font-family:Georgia,serif}.start h1{font-size:37px;margin-bottom:8px}.start p{line-height:1.55}.play{min-height:55px;font-size:13px;letter-spacing:.45px}
-@media(max-height:700px){.topbar{padding-top:calc(4px + env(safe-area-inset-top));padding-bottom:4px}.bottom{padding-top:4px}.nav{height:44px}.joy{width:102px;height:102px}.knob{left:31px;top:31px;width:40px;height:40px}.actionStack{bottom:16px}.roundBtn{width:53px;height:53px}.interact{bottom:83px}}
-@media(min-width:700px){#app{max-width:520px;margin:auto;box-shadow:0 0 80px rgba(58,25,42,.3)}body{background:linear-gradient(135deg,#ead6df,#f6edf1)}}
-
-
-/* Refinado móvil 2026: contraste, profundidad y controles cómodos */
-:root{--rose:#c84f82;--rose2:#f5b7cf;--rose3:#fff3f8;--wine:#542236;--gold:#c9a35d;--ink:#291d23;--paper:#fffdfd;--glass:rgba(255,252,253,.92);--line:rgba(85,34,54,.12);--shadow:0 18px 55px rgba(70,26,45,.20)}
-body{background:radial-gradient(circle at 50% -20%,#fff 0,#f8e8ef 36%,#e7d4dd 100%)}
-#app{background:linear-gradient(180deg,#fff7fa 0,#f1dfe7 54%,#e8d8df 100%)}
-.topbar{backdrop-filter:blur(18px) saturate(1.18);-webkit-backdrop-filter:blur(18px) saturate(1.18);border-bottom:1px solid rgba(255,255,255,.72);box-shadow:0 8px 30px rgba(75,28,47,.10)}
-.pill,.iconBtn,.nav,.actionBtn{border:1px solid rgba(255,255,255,.72);box-shadow:0 8px 22px rgba(77,31,49,.12),inset 0 1px 0 rgba(255,255,255,.8)}
-.actionBtn{min-height:52px;background:linear-gradient(135deg,#d65d90,#b63e72);box-shadow:0 12px 30px rgba(174,55,105,.30),inset 0 1px 0 rgba(255,255,255,.32)}
-.actionBtn:active,.nav:active,.iconBtn:active{transform:scale(.97)}
-.bottomBar{backdrop-filter:blur(20px) saturate(1.15);-webkit-backdrop-filter:blur(20px) saturate(1.15);border-top:1px solid rgba(255,255,255,.78);box-shadow:0 -10px 35px rgba(61,26,40,.13)}
-.joy{width:112px;height:112px;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.96),rgba(245,206,221,.9) 48%,rgba(187,75,119,.82));border:2px solid rgba(255,255,255,.9);box-shadow:0 16px 38px rgba(89,34,56,.24),inset 0 0 0 8px rgba(255,255,255,.28)}
-.knob{width:48px;height:48px;background:radial-gradient(circle at 35% 28%,#fff,#f4b6cf 42%,#bf4778 100%);box-shadow:0 8px 18px rgba(91,29,56,.30),inset 0 1px 0 #fff}
-.sheetPanel{border:1px solid rgba(255,255,255,.82);box-shadow:0 -22px 70px rgba(62,24,40,.28);background:linear-gradient(180deg,rgba(255,253,254,.98),rgba(255,244,249,.98))}
-.card{border:1px solid rgba(100,43,65,.10);box-shadow:0 10px 28px rgba(79,29,48,.10);background:linear-gradient(145deg,#fff,#fff8fb)}
-#toast{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.72);box-shadow:0 15px 42px rgba(55,21,35,.28)}
-#tutorialHint{box-shadow:0 16px 42px rgba(66,25,42,.24);border:1px solid rgba(255,255,255,.7)}
-@media(max-width:430px){.topbar{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right))}.locSub{max-width:210px}.bottomBar{padding-bottom:max(8px,env(safe-area-inset-bottom))}.nav{min-width:58px}.nav span{font-size:10px}.joy{width:104px;height:104px}.actionBtn{right:14px;bottom:calc(84px + env(safe-area-inset-bottom))}}
-@media(max-height:700px){.joy{width:92px;height:92px}.knob{width:42px;height:42px}.actionBtn{min-height:46px}.topbar{padding-top:max(5px,env(safe-area-inset-top))}}
-
-
-/* Velvet Mobile Edition — revisión final de interfaz */
-html,body,#app{height:100%;height:100dvh;overscroll-behavior:none}
-button{cursor:pointer;-webkit-user-select:none;user-select:none}
-.gameWrap{isolation:isolate}
-.locationPill{padding-right:58px;overflow:hidden}
-.dayChip{position:absolute;right:8px;bottom:8px;padding:4px 7px;border-radius:999px;background:linear-gradient(135deg,#7d3154,#b9537e);color:#fff;font-size:7px;font-weight:1000;letter-spacing:.8px;box-shadow:0 5px 12px rgba(100,38,68,.22)}
-.interact{min-height:43px;padding:11px 20px;border:1px solid rgba(255,255,255,.55);white-space:nowrap}
-.interact.show{pointer-events:auto}
-.sheet>.handle{display:block}
-.sheet:before{display:none!important}
-.card button,.item button,.wideBtn,.play{min-height:44px}
-.item button{width:100%;margin-top:7px;padding:8px;border-radius:10px;background:linear-gradient(135deg,#c95784,#92345a);color:#fff;font-size:9px;font-weight:900}
-.startCard{border:1px solid rgba(255,255,255,.96);box-shadow:0 34px 95px rgba(67,24,45,.36),inset 0 1px 0 #fff}
-.royalTag{display:inline-flex;align-items:center;justify-content:center;min-height:25px;padding:5px 10px;border-radius:999px;background:linear-gradient(135deg,#fff2d8,#e8c47a);color:#663e20;font-size:8px;font-weight:1000;letter-spacing:1px;box-shadow:0 7px 16px rgba(145,101,41,.18)}
-.play:active{transform:translateY(1px) scale(.99)}
-@media(max-width:390px){
- .brand{min-width:88px}.brandText b{font-size:11px}.brandText small{font-size:8px}
- .stats{gap:3px}.stat{padding:5px 4px}.stat small{font-size:7px}.stat b{font-size:10px}
- .nav{font-size:18px!important}.nav span{font-size:7px!important;margin-top:1px}
- .locationPill{max-width:72vw}
- .wardrobe{grid-template-columns:repeat(2,minmax(0,1fr))}
- .joy{width:104px;height:104px}.knob{left:31px;top:31px;width:42px;height:42px}
-}
-@media(max-width:340px){.brandText{display:none}.brand{min-width:36px}.stat small{display:none}.stat{min-width:45px}.locationPill{max-width:69vw}}
-@media(max-height:620px){.locationPill{top:7px}.quest{top:7px}.audioBtn{top:58px}.joy{bottom:9px}.actionStack{bottom:9px}.interact{bottom:75px}.bottom{padding-top:3px}.nav{height:42px}}
-
-</style>
-
-<style id="luxury-detail-pass">
-:root{
- --rose:#d65d91;--rose-dark:#8f315d;--rose-soft:#ffe8f1;--champagne:#f7e8cc;--gold:#d6ad62;--ink:#2c2026;
-}
-html,body{background:radial-gradient(circle at 50% -15%,#fff,#ead7df 62%,#c9aeb9);}
-#app{background:linear-gradient(180deg,#fffafc 0,#f4e4ea 55%,#ead8e0 100%)}
-.topbar{border-bottom:1px solid rgba(199,116,149,.18);box-shadow:0 10px 30px rgba(77,31,50,.12),inset 0 -1px 0 rgba(255,255,255,.8)}
-.logo{position:relative;overflow:hidden}.logo:after{content:"";position:absolute;inset:-45%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.7) 50%,transparent 65%);transform:translateX(-70%) rotate(10deg);animation:logoShine 4.8s ease-in-out infinite}@keyframes logoShine{0%,55%{transform:translateX(-85%) rotate(10deg)}75%,100%{transform:translateX(85%) rotate(10deg)}}
-.brandText b{font-size:13.5px;text-shadow:0 1px 0 #fff}.stat{border:1px solid rgba(199,116,149,.14);box-shadow:0 7px 18px rgba(89,37,61,.08),inset 0 1px 0 rgba(255,255,255,.92)}
-.gameWrap:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.10),transparent 28%,transparent 72%,rgba(67,30,46,.07));mix-blend-mode:soft-light}
-.locationPill{padding:9px 13px;border-radius:17px;box-shadow:0 12px 28px rgba(67,29,45,.16),inset 0 1px 0 rgba(255,255,255,.95)}
-.locationPill:before{content:"✦";margin-right:6px;color:var(--gold)}
-.quest{animation:questPulse 2.8s ease-in-out infinite}@keyframes questPulse{50%{transform:translateY(-2px);box-shadow:0 14px 30px rgba(144,50,91,.25)}}
-.joy{width:118px;height:118px;left:14px;bottom:18px;background:radial-gradient(circle at 38% 32%,rgba(255,255,255,.62),rgba(255,255,255,.18) 52%,rgba(174,79,119,.18));border:1px solid rgba(255,255,255,.95);box-shadow:0 15px 36px rgba(47,22,33,.23),inset 0 0 0 7px rgba(255,255,255,.12),inset 0 0 25px rgba(255,255,255,.34)}
-.knob{left:37px;top:37px;width:44px;height:44px;background:radial-gradient(circle at 35% 30%,#fff,#f4c5d7 60%,#d684a8);box-shadow:0 9px 20px rgba(84,31,55,.30),inset 0 1px 0 #fff}
-.roundBtn{border-radius:21px;box-shadow:0 14px 30px rgba(62,28,44,.20),inset 0 1px 0 rgba(255,255,255,.95);transition:transform .14s ease,filter .14s ease}.roundBtn:active,.nav:active,.card button:active,.wideBtn:active{transform:scale(.95);filter:brightness(.98)}
-.roundBtn.primary{background:linear-gradient(145deg,#e77da5 0,#b34776 50%,#8f315d 100%);box-shadow:0 15px 30px rgba(141,48,91,.34),inset 0 1px 0 rgba(255,255,255,.35)}
-.bottom{gap:6px;padding-top:8px;background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(255,247,250,.95));box-shadow:0 -12px 32px rgba(67,30,46,.12)}
-.nav{height:52px;border-radius:16px;transition:.16s ease}.nav.active{background:linear-gradient(145deg,#fff4f8,#ffdbe8);box-shadow:0 7px 18px rgba(128,49,84,.12),inset 0 0 0 1px rgba(182,72,116,.12)}
-.sheet{border-radius:30px 30px 0 0;background:linear-gradient(180deg,rgba(255,255,255,.985),rgba(255,247,250,.98));box-shadow:0 -30px 80px rgba(64,25,42,.32)}
-.handle{height:4px;background:linear-gradient(90deg,#ead2dc,#c88ca7,#ead2dc)}
-.sheetHead h2{font-family:Georgia,serif;color:#5a2940;letter-spacing:.2px}.close{background:linear-gradient(145deg,#fff,#f4e2e9);box-shadow:0 6px 14px rgba(74,31,49,.10)}
-.card{position:relative;overflow:hidden;border:1px solid rgba(178,90,126,.12);background:linear-gradient(145deg,#fff,#fff8fb);box-shadow:0 10px 24px rgba(77,31,51,.09),inset 0 1px 0 rgba(255,255,255,.95)}
-.card:before{content:"";position:absolute;right:-24px;top:-24px;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle,rgba(245,195,215,.28),transparent 70%)}
-.card h3{color:#5d2b42}.card .price{color:#a33e6a}
-.card button,.wideBtn{background:linear-gradient(135deg,#df719d,#a83e6b 60%,#8d315b);box-shadow:0 10px 20px rgba(143,46,88,.24),inset 0 1px 0 rgba(255,255,255,.25)}
-.item{overflow:hidden;background:linear-gradient(145deg,#fff,#fff4f8);box-shadow:0 8px 18px rgba(78,31,52,.07),inset 0 1px 0 rgba(255,255,255,.95)}
-.item:after{content:"";position:absolute;inset:auto -20% -55% -20%;height:70%;background:radial-gradient(circle,rgba(238,168,196,.18),transparent 70%)}
-.badge{background:linear-gradient(135deg,#6d2b48,#3d1f2e);box-shadow:0 4px 10px rgba(60,24,40,.22)}
-.toast{border:1px solid rgba(255,255,255,.12);background:linear-gradient(145deg,#4d2c3b,#2f2028);box-shadow:0 18px 42px rgba(39,17,27,.35)}
-.start{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(57,20,38,.52)),radial-gradient(circle at 50% 8%,#fff 0,#ffe7f0 27%,#eaa3bf 60%,#a54a72 100%)}
-.start:before,.start:after{content:"";position:absolute;border-radius:50%;filter:blur(1px);background:rgba(255,255,255,.75);box-shadow:0 0 16px rgba(255,255,255,.9);animation:floatSpark 4s ease-in-out infinite}.start:before{width:8px;height:8px;left:18%;top:20%}.start:after{width:5px;height:5px;right:20%;top:32%;animation-delay:1.2s}@keyframes floatSpark{50%{transform:translateY(-12px) scale(1.35);opacity:.55}}
-.startCard{border:1px solid rgba(255,255,255,.95);box-shadow:0 34px 90px rgba(72,24,48,.38),inset 0 1px 0 rgba(255,255,255,.95)}
-.startLogo{background:linear-gradient(145deg,#ef8db2,#bc4c7c 52%,#893159);box-shadow:0 20px 44px rgba(100,32,66,.38),inset 0 1px 0 rgba(255,255,255,.35)}
-.start h1{font-family:Georgia,serif;color:#57283f;letter-spacing:.4px}.play{background:linear-gradient(135deg,#ef87ae,#bd4d7d 58%,#8d315b);box-shadow:0 17px 30px rgba(130,42,82,.34),inset 0 1px 0 rgba(255,255,255,.3)}
-@media(max-width:390px){.stat{min-width:53px;padding:5px 6px}.stat:nth-child(3){display:none}.brand{min-width:96px}.joy{transform:scale(.94);transform-origin:left bottom}.actionStack{right:12px}.roundBtn{width:55px;height:55px}}
-
-/* Signature Plus — mobile polish */
-:root{--safeB:env(safe-area-inset-bottom);--safeT:env(safe-area-inset-top)}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.34),transparent 28%),radial-gradient(circle at 90% 18%,rgba(255,222,236,.22),transparent 24%);mix-blend-mode:screen}
-.topbar{padding-left:12px;padding-right:12px;background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,248,251,.86));border-bottom-color:rgba(190,111,143,.14)}
-.logo{position:relative;overflow:hidden;font-family:Georgia,serif;font-size:22px}.logo:after{content:"";position:absolute;inset:-40%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.65) 50%,transparent 65%);transform:translateX(-80%);animation:logoShine 5s ease-in-out infinite}@keyframes logoShine{15%,100%{transform:translateX(80%)}}
-.stat{transition:.2s transform,.2s box-shadow}.stat:active{transform:scale(.96)}
-.gameWrap:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;box-shadow:inset 0 0 70px rgba(72,30,49,.08)}
-.locationPill{display:flex;flex-direction:column;justify-content:center;min-height:48px;padding-left:15px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,244,249,.88));border:1px solid rgba(255,255,255,.95)}
-.locationPill:before{content:"📍";position:absolute;right:10px;top:9px;font-size:16px;opacity:.62}
-.quest,.audioBtn,.roundBtn,.iconBtn{transition:transform .12s ease,filter .12s ease}.quest:active,.audioBtn:active,.roundBtn:active,.iconBtn:active{transform:scale(.91);filter:brightness(.97)}
-.joy{width:118px;height:118px;left:14px;bottom:20px;border:1px solid rgba(255,255,255,.9);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.62),rgba(255,238,245,.24) 55%,rgba(154,62,101,.12));box-shadow:0 18px 38px rgba(55,24,38,.22),inset 0 0 0 8px rgba(255,255,255,.14),inset 0 0 32px rgba(255,255,255,.35)}
-.joy:before{content:"";position:absolute;inset:20px;border-radius:50%;border:1px dashed rgba(116,48,78,.16)}
-.knob{left:37px;top:37px;width:44px;height:44px;background:radial-gradient(circle at 35% 25%,#fff,#f4bfd3 50%,#cf6e98);box-shadow:0 10px 24px rgba(84,31,57,.34),inset 0 2px 0 rgba(255,255,255,.9)}
-.roundBtn{border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(255,238,245,.9));box-shadow:0 14px 32px rgba(63,27,45,.22),inset 0 1px 0 #fff}.roundBtn.primary{background:linear-gradient(145deg,#ed86ad,#c24f7f 54%,#94345d);box-shadow:0 16px 34px rgba(131,39,82,.35),inset 0 1px 0 rgba(255,255,255,.4)}
-.bottom{gap:7px;padding-left:10px;padding-right:10px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,247,250,.98))}.nav{height:52px;border-radius:17px;transition:.15s}.nav:active{transform:scale(.94)}.nav.active{background:linear-gradient(145deg,#fff,#f8d5e2);box-shadow:0 7px 18px rgba(124,43,80,.13),inset 0 0 0 1px rgba(168,62,101,.1)}
-.sheet{border-top:1px solid rgba(255,255,255,.98);background:linear-gradient(180deg,rgba(255,253,254,.99),rgba(255,246,250,.98));overscroll-behavior:contain}.sheetHead{position:sticky;top:-14px;z-index:3;padding-top:4px;padding-bottom:8px;background:linear-gradient(180deg,rgba(255,253,254,.99) 75%,transparent)}
-.card,.item{transition:transform .15s ease,box-shadow .15s ease}.card:active,.item:active{transform:scale(.985)}
-.card button,.wideBtn{min-height:43px;letter-spacing:.15px}.card button:active,.wideBtn:active{transform:translateY(1px);filter:brightness(.96)}
-.toast{max-width:min(88vw,390px);padding:13px 18px;border-radius:18px;font-size:12px;line-height:1.3}
-.startCard{max-width:390px;padding:34px 26px 28px}.startCard:before{content:"MÍA MODAS · CARRETERA DE VIC, 26";display:block;font-size:9px;letter-spacing:1.7px;color:#8e4765;margin-bottom:18px}.startLogo{width:88px;height:88px;font-size:52px;font-family:Georgia,serif}.start h1{font-size:37px;margin-bottom:8px}.start p{line-height:1.55}.play{min-height:55px;font-size:13px;letter-spacing:.45px}
-@media(max-height:700px){.topbar{padding-top:calc(4px + env(safe-area-inset-top));padding-bottom:4px}.bottom{padding-top:4px}.nav{height:44px}.joy{width:102px;height:102px}.knob{left:31px;top:31px;width:40px;height:40px}.actionStack{bottom:16px}.roundBtn{width:53px;height:53px}.interact{bottom:83px}}
-@media(min-width:700px){#app{max-width:520px;margin:auto;box-shadow:0 0 80px rgba(58,25,42,.3)}body{background:linear-gradient(135deg,#ead6df,#f6edf1)}}
-
-
-/* Signature Élite — acabado móvil refinado */
-:root{--rose:#bd4f7b;--rose2:#f2b7cc;--wine:#512437;--gold:#c9a45f;--paper:#fffafc;--shadow:0 18px 48px rgba(65,28,44,.22)}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;background:radial-gradient(circle at 15% 8%,rgba(255,255,255,.55),transparent 27%),radial-gradient(circle at 88% 20%,rgba(255,218,231,.28),transparent 32%)}
-.topbar{background:linear-gradient(180deg,rgba(255,252,253,.96),rgba(255,246,249,.88));border-bottom:1px solid rgba(167,91,120,.13);box-shadow:0 8px 28px rgba(77,34,52,.13)}
-.logoMark{box-shadow:0 8px 22px rgba(173,67,109,.27),inset 0 1px 0 rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.72)}
-.stat{background:linear-gradient(180deg,#fff,#fff8fb);border:1px solid rgba(172,91,122,.12);box-shadow:0 5px 14px rgba(79,33,50,.07)}
-.locationPill{background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(255,243,248,.9));border:1px solid rgba(190,102,136,.15);box-shadow:0 10px 30px rgba(72,30,47,.13)}
-.bottom{background:linear-gradient(180deg,rgba(255,252,253,.91),rgba(255,247,250,.98));border-top:1px solid rgba(166,87,117,.13);box-shadow:0 -10px 30px rgba(67,29,44,.12)}
-.nav{border-radius:16px;transition:transform .16s ease,background .16s ease,color .16s ease}.nav:active{transform:scale(.94)}.nav.active{background:linear-gradient(145deg,#fff,#ffeaf2);box-shadow:0 7px 18px rgba(174,69,110,.16);color:var(--wine)}
-.joy{background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.98),rgba(249,213,226,.91));border:1px solid rgba(159,73,107,.18);box-shadow:0 13px 34px rgba(68,30,45,.25),inset 0 2px 7px rgba(255,255,255,.85)}
-.knob{background:linear-gradient(145deg,#d56d97,#a43e68);box-shadow:0 9px 22px rgba(129,49,81,.35),inset 0 2px 2px rgba(255,255,255,.45)}
-#interact{background:linear-gradient(135deg,#ce638d,#9d365f);border:1px solid rgba(255,255,255,.52);box-shadow:0 15px 34px rgba(112,40,70,.34),inset 0 1px 0 rgba(255,255,255,.4)}
-#interact:active{transform:translateX(-50%) scale(.96)}
-.sheet{background:linear-gradient(180deg,#fffdfd,#fff7fa);border:1px solid rgba(160,75,109,.13);box-shadow:0 -24px 70px rgba(55,23,37,.32)}
-.sheet:before{content:"";display:block;width:44px;height:5px;border-radius:99px;background:#d9bdc8;margin:9px auto 1px}
-.card,.item{background:linear-gradient(155deg,#fff,#fff8fb 62%,#fff2f7);border:1px solid rgba(170,86,119,.12);box-shadow:0 10px 26px rgba(73,29,47,.09);transition:transform .16s ease,box-shadow .16s ease}.card:active,.item:active{transform:scale(.985)}
-.card button,.item button,.wideBtn{background:linear-gradient(135deg,#cb5d88,#9e365f);box-shadow:0 8px 18px rgba(128,43,77,.24),inset 0 1px 0 rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.42)}
-.card button:disabled{background:#d8ccd1;box-shadow:none}
-#toast{background:rgba(52,27,38,.94);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.18);box-shadow:0 15px 38px rgba(35,15,24,.3)}
-.startCard{background:linear-gradient(155deg,rgba(255,255,255,.98),rgba(255,241,247,.96));border:1px solid rgba(255,255,255,.85);box-shadow:0 32px 90px rgba(84,35,55,.28)}
-.startCard:after{content:"✦";position:absolute;right:20px;top:16px;color:#cba85f;font-size:22px;filter:drop-shadow(0 3px 8px rgba(169,121,39,.25))}
-.startCard h1{letter-spacing:-.04em;text-shadow:0 2px 0 #fff}
-.startBtn{background:linear-gradient(135deg,#d76e98,#9b335d);box-shadow:0 15px 35px rgba(133,45,79,.34),inset 0 1px 0 rgba(255,255,255,.45)}
-@media(max-width:390px){.topbar{gap:5px;padding-left:6px;padding-right:6px}.stat{padding:5px 6px;min-width:0}.stat small{font-size:8px}.stat b{font-size:11px}.locationPill{max-width:70vw}.joy{width:104px;height:104px}.knob{width:50px;height:50px}.bottom{padding-left:5px;padding-right:5px}.nav{font-size:9px}.nav span{font-size:20px}.sheet{max-height:84vh}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}
-
-/* Diamond mobile polish */
-.gameWrap:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.10),transparent 24%,transparent 74%,rgba(62,28,43,.08));mix-blend-mode:soft-light}
-.topbar{padding-bottom:8px}.brandText b{font-family:Georgia,"Times New Roman",serif;letter-spacing:1.1px}.logo{font-family:Georgia,"Times New Roman",serif;border:1px solid rgba(255,255,255,.55)}
-.locationPill{border:1px solid rgba(255,255,255,.95);box-shadow:0 12px 34px rgba(63,29,44,.17)}
-.joy{border:1px solid rgba(255,255,255,.9);box-shadow:0 16px 38px rgba(63,28,45,.22),inset 0 0 0 7px rgba(255,255,255,.15)}
-.knob{box-shadow:0 10px 24px rgba(88,34,59,.3),inset 0 2px 3px rgba(255,255,255,.65)}
-.roundBtn,.quest,.audioBtn,.iconBtn{transition:transform .12s ease,box-shadow .12s ease}.roundBtn:active,.quest:active,.audioBtn:active,.iconBtn:active{transform:scale(.93)}
-.interact.show{animation:actionPulse 1.8s ease-in-out infinite}@keyframes actionPulse{50%{box-shadow:0 16px 42px rgba(111,40,72,.48);transform:translateX(-50%) scale(1.035)}}
-.nav.active:after{content:"";position:absolute;left:24%;right:24%;bottom:3px;height:3px;border-radius:99px;background:linear-gradient(90deg,#e689aa,#a63e69)}
-.nav{position:relative}.sheet{border-top:1px solid rgba(255,255,255,.95);box-shadow:0 -26px 70px rgba(57,25,40,.28)}
-.item,.card{transition:transform .16s ease,box-shadow .16s ease}.item:active,.card:active{transform:scale(.985)}
-.start{background:radial-gradient(circle at 78% 18%,rgba(255,231,196,.75),transparent 27%),radial-gradient(circle at 16% 22%,rgba(255,213,231,.9),transparent 34%),linear-gradient(150deg,#f8edf2,#e8d5de)}
-.start:before,.start:after{content:"✦";position:absolute;color:rgba(184,124,70,.48);font-size:28px;animation:floatGem 4s ease-in-out infinite}.start:before{left:12%;top:17%}.start:after{right:11%;bottom:19%;animation-delay:-2s}@keyframes floatGem{50%{transform:translateY(-9px) rotate(18deg);opacity:.65}}
-.startCard{overflow:hidden}.startCard:before{content:"";position:absolute;left:-40%;top:-60%;width:80%;height:220%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:rotate(20deg);animation:cardShine 5s ease-in-out infinite}@keyframes cardShine{0%,55%{left:-70%}85%,100%{left:130%}}
-.tutorialHint{max-width:calc(100% - 32px);text-align:center}
-@media(max-height:690px){.joy{width:92px;height:92px;bottom:12px}.knob{width:46px;height:46px}.actionStack{bottom:14px}.interact{bottom:88px}.bottom{min-height:57px}.nav span{font-size:8px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-
-
-/* Velvet Mobile Edition — revisión final de interfaz */
-html,body,#app{height:100%;height:100dvh;overscroll-behavior:none}
-button{cursor:pointer;-webkit-user-select:none;user-select:none}
-.gameWrap{isolation:isolate}
-.locationPill{padding-right:58px;overflow:hidden}
-.dayChip{position:absolute;right:8px;bottom:8px;padding:4px 7px;border-radius:999px;background:linear-gradient(135deg,#7d3154,#b9537e);color:#fff;font-size:7px;font-weight:1000;letter-spacing:.8px;box-shadow:0 5px 12px rgba(100,38,68,.22)}
-.interact{min-height:43px;padding:11px 20px;border:1px solid rgba(255,255,255,.55);white-space:nowrap}
-.interact.show{pointer-events:auto}
-.sheet>.handle{display:block}
-.sheet:before{display:none!important}
-.card button,.item button,.wideBtn,.play{min-height:44px}
-.item button{width:100%;margin-top:7px;padding:8px;border-radius:10px;background:linear-gradient(135deg,#c95784,#92345a);color:#fff;font-size:9px;font-weight:900}
-.startCard{border:1px solid rgba(255,255,255,.96);box-shadow:0 34px 95px rgba(67,24,45,.36),inset 0 1px 0 #fff}
-.royalTag{display:inline-flex;align-items:center;justify-content:center;min-height:25px;padding:5px 10px;border-radius:999px;background:linear-gradient(135deg,#fff2d8,#e8c47a);color:#663e20;font-size:8px;font-weight:1000;letter-spacing:1px;box-shadow:0 7px 16px rgba(145,101,41,.18)}
-.play:active{transform:translateY(1px) scale(.99)}
-@media(max-width:390px){
- .brand{min-width:88px}.brandText b{font-size:11px}.brandText small{font-size:8px}
- .stats{gap:3px}.stat{padding:5px 4px}.stat small{font-size:7px}.stat b{font-size:10px}
- .nav{font-size:18px!important}.nav span{font-size:7px!important;margin-top:1px}
- .locationPill{max-width:72vw}
- .wardrobe{grid-template-columns:repeat(2,minmax(0,1fr))}
- .joy{width:104px;height:104px}.knob{left:31px;top:31px;width:42px;height:42px}
-}
-@media(max-width:340px){.brandText{display:none}.brand{min-width:36px}.stat small{display:none}.stat{min-width:45px}.locationPill{max-width:69vw}}
-@media(max-height:620px){.locationPill{top:7px}.quest{top:7px}.audioBtn{top:58px}.joy{bottom:9px}.actionStack{bottom:9px}.interact{bottom:75px}.bottom{padding-top:3px}.nav{height:42px}}
-
-
-/* Personaje DOM garantizado para móvil */
-.playerSprite{position:absolute;left:50%;top:50%;z-index:7;width:54px;height:82px;transform:translate(-50%,-72%);pointer-events:none;filter:drop-shadow(0 10px 8px rgba(46,20,32,.28));will-change:left,top,transform;display:none}
-.playerSprite.visible{display:block}
-.playerSprite:before{content:"";position:absolute;left:50%;bottom:0;width:48px;height:14px;transform:translateX(-50%);border-radius:50%;background:rgba(55,25,38,.20);filter:blur(1px)}
-.psHead{position:absolute;left:15px;top:10px;width:25px;height:26px;border-radius:48% 48% 46% 46%;background:#efc2ad;border:1px solid rgba(91,47,48,.18);z-index:3}
-.psHead i{position:absolute;top:10px;width:5px;height:4px;border-radius:50%;background:#fff}.psHead i:first-child{left:5px}.psHead i:nth-child(2){right:5px}.psHead i:after{content:"";position:absolute;inset:1px;border-radius:50%;background:#4f8b6d}
-.psHead b{position:absolute;left:8px;top:18px;width:8px;height:4px;border-bottom:2px solid #b65376;border-radius:50%}
-.psHair{position:absolute;left:9px;top:4px;width:36px;height:51px;border-radius:48% 48% 42% 42%;background:linear-gradient(120deg,#6b4438,#3e2925 70%);z-index:1;box-shadow:inset 5px 0 0 rgba(156,95,77,.24)}
-.psBody{position:absolute;left:8px;top:33px;width:38px;height:36px;clip-path:polygon(27% 0,73% 0,100% 100%,0 100%);background:linear-gradient(135deg,#ff9fbe,#d95f8e 52%,#8f315a);border-radius:8px;z-index:2;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
-.psBody:after{content:"";position:absolute;left:4px;right:4px;top:13px;height:4px;border-radius:3px;background:#d6b067}
-.psLeg{position:absolute;top:66px;width:8px;height:14px;border-radius:4px;background:#4a3642;z-index:1}.psLeg.l{left:16px}.psLeg.r{right:16px}.psLeg:after{content:"";position:absolute;left:-3px;bottom:-3px;width:14px;height:6px;border-radius:5px;background:#fff;border:1px solid #d8b7c4}
-.psTag{position:absolute;left:50%;top:-12px;transform:translateX(-50%);padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.96);color:#7f3153;font-size:9px;font-weight:1000;box-shadow:0 5px 12px rgba(75,28,49,.16)}
-.playerSprite.walking{animation:psBob .28s ease-in-out infinite alternate}@keyframes psBob{to{transform:translate(-50%,-75%)}}
+:root{--pink:#d45285;--dark:#54243a;--gold:#d6b067;--paper:#fffafc;--shadow:0 14px 38px rgba(73,28,48,.2)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#ead9e1;color:#2d2027}button{font:inherit;border:0;color:inherit}
+#app{height:100%;display:flex;flex-direction:column;max-width:520px;margin:auto;background:#fff;box-shadow:0 0 70px rgba(0,0,0,.22)}
+.top{z-index:20;display:flex;align-items:center;gap:8px;padding:calc(8px + env(safe-area-inset-top)) 9px 8px;background:rgba(255,250,252,.95);backdrop-filter:blur(18px);border-bottom:1px solid #efdbe4}.logo{width:38px;height:38px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#ee83aa,#a53765);color:#fff;font:italic 800 23px Georgia;box-shadow:0 8px 20px rgba(165,55,101,.3)}.brand{min-width:98px}.brand b{display:block;font:700 13px Georgia;color:#5d2940}.brand small{font-size:8px;color:#a15a78}.stats{flex:1;display:flex;gap:4px;justify-content:flex-end}.stat{min-width:55px;padding:5px 6px;border-radius:12px;background:#fff;border:1px solid #f1dce5;box-shadow:0 5px 15px rgba(80,30,50,.07)}.stat small{display:block;font-size:7px;opacity:.55}.stat b{font-size:11px}.menuBtn{width:38px;height:38px;border-radius:13px;background:#fff3f8;font-size:19px}
+#world{position:relative;flex:1;min-height:0;overflow:hidden;touch-action:none;background:linear-gradient(#bfe2f1 0 28%,#a9cf9f 28% 42%,#b4b7bb 42% 100%)}
+.skyDecor{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 78% 10%,rgba(255,255,255,.9) 0 35px,transparent 36px),linear-gradient(150deg,transparent 0 24%,rgba(255,255,255,.3) 25% 26%,transparent 27%)}
+.mountain{position:absolute;top:19%;left:-8%;width:120%;height:24%;background:linear-gradient(145deg,#718c78,#486655);clip-path:polygon(0 100%,12% 56%,22% 79%,36% 30%,49% 72%,63% 21%,74% 61%,87% 35%,100% 100%);opacity:.8}
+.road{position:absolute;left:0;right:0;top:42%;bottom:0;background:linear-gradient(90deg,#b9bcc0,#d4d5d7 48%,#b9bcc0);border-top:14px solid #e9e3dc}.road:before{content:"";position:absolute;left:0;right:0;top:48%;height:5px;background:repeating-linear-gradient(90deg,#fff 0 35px,transparent 35px 70px);opacity:.85}
+.building{position:absolute;top:21%;height:26%;border-radius:8px 8px 0 0;box-shadow:0 9px 20px rgba(40,40,40,.18);border:2px solid rgba(255,255,255,.55)}.b1{left:2%;width:25%;background:#efd6c5}.b2{left:29%;width:42%;background:linear-gradient(#fff7f9,#f3d5df)}.b3{right:2%;width:25%;background:#dccdbf}.window{position:absolute;top:18%;width:24%;height:34%;background:linear-gradient(145deg,#c7e4ec,#7ea9b7);border:5px solid #fff;box-shadow:inset 0 0 15px rgba(255,255,255,.6)}.w1{left:8%}.w2{right:8%}.awning{position:absolute;left:5%;right:5%;top:0;height:22%;background:repeating-linear-gradient(90deg,#d45285 0 24px,#fff 24px 48px);clip-path:polygon(0 0,100% 0,94% 100%,6% 100%)}.shopName{position:absolute;left:10%;right:10%;top:22%;padding:7px 4px;border-radius:8px;background:#fff;text-align:center;font:700 14px Georgia;color:#682e49;box-shadow:0 5px 13px rgba(80,30,50,.13)}.door{position:absolute;left:41%;bottom:0;width:18%;height:45%;background:linear-gradient(145deg,#bde2ea,#699ba9);border:5px solid #fff}.address{position:absolute;left:0;right:0;bottom:4px;text-align:center;font-size:8px;font-weight:800;color:#6d3850}
+.tree{position:absolute;width:52px;height:78px}.tree:before{content:"";position:absolute;left:21px;bottom:0;width:10px;height:37px;background:#75513a;border-radius:5px}.tree:after{content:"";position:absolute;left:2px;top:0;width:48px;height:50px;background:radial-gradient(circle at 35% 30%,#8fc87e,#41734e);border-radius:50% 45% 52% 48%;box-shadow:0 8px 14px rgba(50,80,55,.2)}.t1{left:6%;top:48%}.t2{right:8%;top:52%}
+.zone{position:absolute;border:2px dashed rgba(212,82,133,.45);border-radius:18px;background:rgba(255,255,255,.12);display:flex;align-items:flex-end;justify-content:center;padding:5px;font-size:9px;font-weight:900;color:#71304c;animation:pulse 2s ease-in-out infinite}.shopZone{left:34%;top:34%;width:32%;height:22%}.cafeZone{left:4%;top:66%;width:25%;height:18%}.estateZone{right:4%;top:68%;width:26%;height:17%}@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(212,82,133,.08)}}
+#player{position:absolute;left:50%;top:72%;width:52px;height:82px;transform:translate(-50%,-70%);z-index:12;filter:drop-shadow(0 10px 7px rgba(50,20,35,.28));pointer-events:none;transition:filter .15s}.shadow{position:absolute;left:5px;bottom:0;width:43px;height:12px;border-radius:50%;background:rgba(50,25,35,.2)}.hair{position:absolute;left:7px;top:2px;width:38px;height:53px;border-radius:48% 48% 40% 40%;background:linear-gradient(120deg,#8d5b45,#392722 72%);z-index:1}.head{position:absolute;left:14px;top:10px;width:25px;height:27px;border-radius:48%;background:#efc5b3;z-index:3}.eye{position:absolute;top:11px;width:5px;height:4px;border-radius:50%;background:#4d8c68}.e1{left:5px}.e2{right:5px}.body{position:absolute;left:7px;top:34px;width:39px;height:37px;clip-path:polygon(25% 0,75% 0,100% 100%,0 100%);background:linear-gradient(145deg,#ff9fc1,#d45285 58%,#8c3158);z-index:2}.belt{position:absolute;left:6px;right:6px;top:14px;height:4px;border-radius:4px;background:var(--gold)}.leg{position:absolute;top:68px;width:8px;height:13px;background:#4a3440;border-radius:4px}.l1{left:15px}.l2{right:15px}.tag{position:absolute;left:50%;top:-13px;transform:translateX(-50%);padding:3px 8px;border-radius:999px;background:#fff;color:#83385b;font-size:9px;font-weight:1000;box-shadow:0 5px 12px rgba(80,30,50,.18)}#player.walk{animation:bob .26s ease-in-out infinite alternate}@keyframes bob{to{transform:translate(-50%,-74%)}}
+.location{position:absolute;left:10px;top:10px;z-index:14;padding:9px 12px;border-radius:16px;background:rgba(255,255,255,.93);box-shadow:var(--shadow);font-size:11px;font-weight:900}.location small{display:block;margin-top:2px;font-size:8px;opacity:.6}.interact{position:absolute;left:50%;bottom:95px;z-index:15;transform:translateX(-50%);padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#df6d9b,#96345f);color:#fff;font-size:12px;font-weight:900;box-shadow:0 13px 28px rgba(130,40,80,.35);display:none}.interact.show{display:block}
+.joy{position:absolute;left:16px;bottom:18px;z-index:16;width:112px;height:112px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,.18));border:2px solid rgba(255,255,255,.75);box-shadow:0 14px 35px rgba(40,20,30,.23);touch-action:none}.knob{position:absolute;left:34px;top:34px;width:44px;height:44px;border-radius:50%;background:linear-gradient(145deg,#fff,#efb8ce);border:2px solid #fff;box-shadow:0 8px 20px rgba(80,30,50,.28)}.action{position:absolute;right:18px;bottom:25px;z-index:16;width:62px;height:62px;border-radius:22px;background:linear-gradient(145deg,#ef83ac,#9c3762);color:#fff;font-size:25px;box-shadow:0 14px 30px rgba(120,40,75,.33)}
+.bottom{z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:7px 7px calc(7px + env(safe-area-inset-bottom));background:rgba(255,250,252,.97);border-top:1px solid #efdbe4}.nav{height:50px;border-radius:14px;background:transparent;font-size:18px}.nav span{display:block;font-size:7px;font-weight:800;opacity:.65}.nav:active{background:#ffe6f0}
+.modal{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;background:rgba(38,16,27,.34)}.modal.open{display:flex}.sheet{width:min(520px,100%);max-height:82%;overflow:auto;padding:14px 14px calc(18px + env(safe-area-inset-bottom));border-radius:28px 28px 0 0;background:#fffafc;box-shadow:0 -25px 65px rgba(50,20,35,.3)}.handle{width:43px;height:5px;border-radius:9px;background:#d9bcc8;margin:0 auto 10px}.sheetHead{display:flex;justify-content:space-between;align-items:center}.sheet h2{margin:0;font:700 20px Georgia;color:#5c2940}.close{width:36px;height:36px;border-radius:13px;background:#f7e8ee}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.card{padding:12px;border-radius:18px;background:#fff;border:1px solid #f0dbe4;box-shadow:0 8px 22px rgba(70,25,45,.08)}.card .emoji{font-size:29px}.card h3{margin:7px 0 3px;font-size:13px}.card p{margin:0;font-size:10px;opacity:.65}.card button,.wide{width:100%;margin-top:9px;padding:11px;border-radius:13px;background:linear-gradient(135deg,#dc6896,#9b3762);color:#fff;font-size:11px;font-weight:900}.card button:disabled{opacity:.45}.toast{position:absolute;left:50%;top:70px;z-index:80;transform:translate(-50%,-12px);opacity:0;max-width:82%;padding:10px 14px;border-radius:14px;background:#38252f;color:#fff;font-size:11px;font-weight:800;box-shadow:var(--shadow);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+.start{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center;padding:24px 18px calc(28px + env(safe-area-inset-bottom));background:linear-gradient(rgba(60,20,40,.02),rgba(60,20,40,.48)),radial-gradient(circle at 50% 12%,#fff 0,#ffe8f1 33%,#e69ab7 67%,#a84972)}.startCard{width:min(430px,100%);padding:23px;border-radius:29px;background:rgba(255,250,252,.96);text-align:center;box-shadow:0 32px 85px rgba(65,20,42,.38)}.startLogo{width:78px;height:78px;margin:-60px auto 12px;border-radius:26px;display:grid;place-items:center;background:linear-gradient(145deg,#ef88af,#92315b);color:#fff;font:italic 800 41px Georgia;border:5px solid #fff;box-shadow:0 18px 38px rgba(100,30,65,.36)}.start h1{margin:0;font:700 28px Georgia;color:#59273e}.start p{font-size:12px;line-height:1.5;opacity:.7}.play{width:100%;padding:15px;border-radius:17px;background:linear-gradient(135deg,#ec7faa,#96345e);color:#fff;font-size:14px;font-weight:1000;box-shadow:0 15px 27px rgba(130,40,80,.34)}
+@media(max-width:370px){.brand{min-width:80px}.brand small{display:none}.stat:nth-child(3){display:none}.joy{transform:scale(.9);transform-origin:left bottom}.grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div id="app">
-  <header class="topbar">
-    <div class="brand"><div class="logo">M</div><div class="brandText"><b>MÍA MODAS</b><small>Boutique Life</small></div></div>
-    <div class="stats">
-      <div class="stat"><small>Dinero</small><b id="money">1.250 €</b></div>
-      <div class="stat"><small>Fama</small><b id="fame">⭐ 12</b></div>
-      <div class="stat"><small>Energía</small><b id="energy">⚡ 100</b></div>
-    </div>
-    <button class="iconBtn" onclick="openSheet('menu')" aria-label="Abrir opciones">☰</button>
-  </header>
-
-  <main class="gameWrap" id="gameWrap">
-    <canvas id="game"></canvas><div id="playerSprite" class="playerSprite" aria-label="Tu personaje"><div class="psHair"></div><div class="psHead"><i></i><i></i><b></b></div><div class="psBody"></div><div class="psLeg l"></div><div class="psLeg r"></div><div class="psTag">TÚ</div></div><div class="tutorialHint" id="tutorialHint">Usa el joystick o toca directamente el suelo para caminar ✨</div>
-    <div class="locationPill"><b id="locName">Carretera de Vic</b><small id="locSub">Sant Fruitós de Bages · Mía Modas nº 26</small><span class="dayChip" id="dayChip">DÍA 1</span></div>
-    <button class="quest" onclick="openSheet('missions')" aria-label="Abrir misiones">🎯</button><button class="audioBtn" id="audioBtn" onclick="toggleAudio()" aria-label="Activar o desactivar sonido">🔇</button>
-    <button class="interact" id="interact" onclick="useAction()" aria-label="Interactuar con la zona cercana">Entrar</button>
-    <div class="joy" id="joy"><div class="knob" id="knob"></div></div>
-    <div class="actionStack">
-      <button class="roundBtn" onclick="openSheet('map')">🗺️</button>
-      <button class="roundBtn primary" onclick="useAction()">✨</button>
-    </div>
-    <div class="toast" id="toast"></div>
-  </main>
-
-  <nav class="bottom">
-    <button class="nav active" onclick="setNav(this);closeSheet()">🏙️<span>JUGAR</span></button>
-    <button class="nav" onclick="setNav(this);openSheet('shop')">👗<span>ROPA</span></button>
-    <button class="nav" onclick="setNav(this);openSheet('business')">🏬<span>NEGOCIOS</span></button>
-    <button class="nav" onclick="setNav(this);openSheet('homes')">🏡<span>CASAS</span></button>
-    <button class="nav" onclick="setNav(this);openSheet('profile')">💖<span>MI VIDA</span></button>
-  </nav>
+<header class="top"><div class="logo">M</div><div class="brand"><b>MÍA MODAS</b><small>BOUTIQUE LIFE</small></div><div class="stats"><div class="stat"><small>DINERO</small><b id="money">1.250 €</b></div><div class="stat"><small>FAMA</small><b id="fame">⭐ 12</b></div><div class="stat"><small>ENERGÍA</small><b id="energy">⚡ 100</b></div></div><button class="menuBtn" data-open="profile">☰</button></header>
+<main id="world">
+<div class="skyDecor"></div><div class="mountain"></div><div class="road"></div>
+<div class="building b1"></div><div class="building b2"><div class="awning"></div><div class="shopName">MÍA MODAS</div><div class="window w1"></div><div class="window w2"></div><div class="door"></div><div class="address">CARRETERA DE VIC, 26</div></div><div class="building b3"></div>
+<div class="tree t1"></div><div class="tree t2"></div>
+<div class="zone shopZone" data-zone="shop">ENTRAR EN MÍA MODAS</div><div class="zone cafeZone" data-zone="cafe">CAFETERÍA</div><div class="zone estateZone" data-zone="estate">INMOBILIARIA</div>
+<div class="location">Carretera de Vic<small>Sant Fruitós de Bages · nº 26</small></div>
+<div id="player"><div class="shadow"></div><div class="hair"></div><div class="head"><i class="eye e1"></i><i class="eye e2"></i></div><div class="body"><div class="belt"></div></div><div class="leg l1"></div><div class="leg l2"></div><div class="tag">TÚ</div></div>
+<button id="interact" class="interact">ENTRAR</button><div id="joy" class="joy"><div id="knob" class="knob"></div></div><button id="action" class="action">✨</button><div id="toast" class="toast"></div>
+</main>
+<nav class="bottom"><button class="nav" data-tab="play">🏙️<span>JUGAR</span></button><button class="nav" data-open="clothes">👗<span>ROPA</span></button><button class="nav" data-open="business">🏬<span>NEGOCIOS</span></button><button class="nav" data-open="homes">🏡<span>CASAS</span></button><button class="nav" data-open="profile">💖<span>MI VIDA</span></button></nav>
 </div>
-<div class="sheet" id="sheet"><div class="handle"></div><div id="sheetContent"></div></div>
-<div class="start" id="start"><div class="startCard"><div class="startLogo">M</div><h1>Mía Modas</h1><div class="royalTag">BOUTIQUE LIFE · VELVET MOBILE EDITION</div><p>Recorre Sant Fruitós, atiende clientas, crea looks, compra ropa y convierte tu boutique de Carretera de Vic, 26 en un imperio de moda.</p><button class="play" onclick="startGame()">EMPEZAR MI HISTORIA ✨</button><div class="soundNote">Toca para activar <b>música, ambiente y voces</b></div></div></div>
+<div id="modal" class="modal"><div class="sheet"><div class="handle"></div><div id="content"></div></div></div>
+<div id="start" class="start"><div class="startCard"><div class="startLogo">M</div><h1>Mía Modas</h1><p>Camina con el joystick o toca directamente el suelo. Atiende clientas, compra ropa, abre tiendas y consigue tu casa soñada.</p><button id="play" class="play">EMPEZAR A JUGAR ✨</button></div></div>
 <script>
-const C=document.getElementById('game'),ctx=C.getContext('2d'),wrap=document.getElementById('gameWrap');
-let W=0,H=0,dpr=1,last=0,joyX=0,joyY=0,target=null,near=null,started=false;
-const playerSprite=document.getElementById('playerSprite');
-const SAVE_VERSION=4;
-const DEFAULT_STATE={saveVersion:SAVE_VERSION,money:1250,fame:12,energy:100,followers:326,level:1,x:410,y:560,scene:'street',day:1,sales:0,dailySales:0,earnedToday:0,owned:['Mía Modas'],homes:[],stock:{vestido:6,camiseta:8,pantalon:5,bolso:4,zapatos:3},decor:0,claimed:{},dailyPhoto:0,dailyLook:0,lastScene:'street'};
-const STORAGE={get(k){try{return localStorage.getItem(k)}catch(e){console.warn('Almacenamiento no disponible',e);return null}},set(k,v){try{localStorage.setItem(k,v);return true}catch(e){console.warn('No se pudo guardar',e);return false}},remove(k){try{localStorage.removeItem(k)}catch(e){console.warn('No se pudo borrar',e)}}};
-let storedState=null;try{storedState=JSON.parse(STORAGE.get('miaMobileSave')||'null')}catch(_){storedState=null}
-const state={...DEFAULT_STATE,...(storedState&&typeof storedState==='object'?storedState:{}),stock:{...DEFAULT_STATE.stock,...(storedState?.stock||{})},claimed:{...(storedState?.claimed||{})}};
-if(!Array.isArray(state.owned))state.owned=['Mía Modas'];
-if(!Array.isArray(state.homes))state.homes=[];
-state.claimed=state.claimed&&typeof state.claimed==='object'?state.claimed:{};
-state.stock=Object.assign({vestido:0,camiseta:0,pantalon:0,bolso:0,zapatos:0},state.stock||{});
-if(!['street','shop','wholesale','studio','home'].includes(state.scene))state.scene='street';
-if(!Number.isFinite(Number(state.x)))state.x=DEFAULT_STATE.x;
-if(!Number.isFinite(Number(state.y)))state.y=DEFAULT_STATE.y;
-state.x=Number(state.x);state.y=Number(state.y);
-['money','fame','energy','followers','level','day','sales','dailySales','earnedToday','decor','dailyPhoto','dailyLook'].forEach(k=>{if(!Number.isFinite(Number(state[k])))state[k]=DEFAULT_STATE[k]??0;else state[k]=Number(state[k])});
-
-let audioOn=STORAGE.get('miaAudioOn')!=='0',audioCtx=null,musicTimer=null,master=null,ambience=null;
-const AUDIO_KEY='miaAudioOn';
-function initAudio(){
-  if(audioCtx)return;
-  const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioCtx=new AC();
-  master=audioCtx.createGain();master.gain.value=.18;master.connect(audioCtx.destination);
-  ambience=audioCtx.createGain();ambience.gain.value=.035;ambience.connect(master);
-  const buffer=audioCtx.createBuffer(1,audioCtx.sampleRate*2,audioCtx.sampleRate),data=buffer.getChannelData(0);
-  for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*.18;
-  const src=audioCtx.createBufferSource();src.buffer=buffer;src.loop=true;
-  const filter=audioCtx.createBiquadFilter();filter.type='lowpass';filter.frequency.value=700;
-  src.connect(filter);filter.connect(ambience);src.start();
-}
-function tone(freq,dur=.35,when=0,type='sine',vol=.06){
-  if(!audioCtx||!audioOn)return;
-  const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;
-  g.gain.setValueAtTime(0,audioCtx.currentTime+when);g.gain.linearRampToValueAtTime(vol,audioCtx.currentTime+when+.03);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+when+dur);
-  o.connect(g);g.connect(master);o.start(audioCtx.currentTime+when);o.stop(audioCtx.currentTime+when+dur+.05);
-}
-function sparkle(){tone(659,.18,0,'sine',.055);tone(784,.2,.08,'sine',.05);tone(988,.28,.16,'triangle',.045)}
-function startMusic(){
-  clearInterval(musicTimer);if(!audioOn)return;
-  const chords=[[261.6,329.6,392],[220,277.2,329.6],[174.6,220,261.6],[196,246.9,293.7]];let step=0;
-  const play=()=>{const c=chords[step++%chords.length];c.forEach((f,i)=>tone(f,2.8,i*.12,'sine',.022));tone(c[0]/2,2.6,0,'triangle',.018)};
-  play();musicTimer=setInterval(play,2800);
-}
-function speak(text,force=false){
-  if((!audioOn&&!force)||!('speechSynthesis' in window))return;
-  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='es-ES';u.rate=.98;u.pitch=1.08;u.volume=.72;
-  const vs=speechSynthesis.getVoices();u.voice=vs.find(v=>/es[-_ ]?ES/i.test(v.lang)&&/female|mónica|paulina|marisol|helena/i.test(v.name))||vs.find(v=>/^es/i.test(v.lang))||null;
-  speechSynthesis.speak(u);
-}
-function updateAudioBtn(){const b=document.getElementById('audioBtn');if(!b)return;b.textContent=audioOn?'🔊':'🔇';b.classList.toggle('on',audioOn)}
-async function toggleAudio(){
-  audioOn=!audioOn;STORAGE.set(AUDIO_KEY,audioOn?'1':'0');updateAudioBtn();
-  if(audioOn){try{initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();startMusic();sparkle();setTimeout(()=>speak('Sonido activado. Bienvenida a Mía Modas.'),300)}catch(err){audioOn=false;STORAGE.set(AUDIO_KEY,'0');updateAudioBtn();toast('El teléfono no ha permitido activar el sonido')}}else{clearInterval(musicTimer);musicTimer=null;window.speechSynthesis?.cancel()}
-}
-const scenes={
- street:{name:'Carretera de Vic',sub:'Sant Fruitós de Bages · Mía Modas nº 26',w:1500,h:1000},
- shop:{name:'Mía Modas',sub:'Carretera de Vic, 26 · Tu boutique',w:1100,h:800},
- wholesale:{name:'Mayorista de moda',sub:'Compra nueva colección',w:1000,h:760},
- studio:{name:'Estudio creativo',sub:'Fotos, directos y campañas',w:1000,h:760},
- home:{name:'Tu casa',sub:'Descansa y cambia de look',w:1000,h:760}
-};
-const player={x:state.x,y:state.y,r:18,speed:230};
-const interactables={
- street:[{x:340,y:310,w:270,h:150,label:'Entrar en Mía Modas',to:'shop'},{x:820,y:280,w:210,h:145,label:'Ir al mayorista',to:'wholesale'},{x:1110,y:560,w:230,h:155,label:'Entrar al estudio',to:'studio'},{x:160,y:690,w:210,h:150,label:'Ir a casa',to:'home'}],
- shop:[{x:90,y:125,w:210,h:180,label:'Ver nueva colección',action:'shop'},{x:420,y:120,w:220,h:170,label:'Crear un look',action:'wardrobe'},{x:760,y:120,w:220,h:170,label:'Atender clienta',action:'sale'},{x:760,y:480,w:210,h:160,label:'Pedidos online',action:'orders'},{x:70,y:560,w:190,h:130,label:'Salir a la calle',to:'street'}],
- wholesale:[{x:120,y:145,w:230,h:170,label:'Comprar vestidos',action:'buyDresses'},{x:390,y:145,w:230,h:170,label:'Comprar básicos',action:'buyBasics'},{x:660,y:145,w:230,h:170,label:'Comprar complementos',action:'buyAccessories'},{x:70,y:560,w:190,h:130,label:'Volver a la calle',to:'street'}],
- studio:[{x:120,y:130,w:230,h:190,label:'Hacer sesión de fotos',action:'photo'},{x:410,y:130,w:230,h:190,label:'Hacer un directo',action:'live'},{x:700,y:130,w:210,h:190,label:'Crear campaña',action:'campaign'},{x:70,y:560,w:190,h:130,label:'Volver a la calle',to:'street'}],
- home:[{x:130,y:140,w:250,h:190,label:'Descansar',action:'rest'},{x:450,y:140,w:250,h:190,label:'Cambiar de look',action:'wardrobe'},{x:70,y:560,w:190,h:130,label:'Volver a la calle',to:'street'}]
-};
-function resize(){dpr=Math.min(window.devicePixelRatio||1,2);W=Math.max(1,wrap.clientWidth);H=Math.max(1,wrap.clientHeight);const nw=Math.round(W*dpr),nh=Math.round(H*dpr);if(C.width!==nw||C.height!==nh){C.width=nw;C.height=nh}ctx.setTransform(dpr,0,0,dpr,0,0);draw()}addEventListener('resize',resize,{passive:true});addEventListener('orientationchange',()=>setTimeout(resize,180),{passive:true});resize();
-let lastSaveAt=0;function save(force=false){state.x=player.x;state.y=player.y;state.saveVersion=SAVE_VERSION;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);const now=Date.now();if(force||now-lastSaveAt>250){if(STORAGE.set('miaMobileSave',JSON.stringify(state)))lastSaveAt=now}updateHud()}
-const hud={money:document.getElementById('money'),fame:document.getElementById('fame'),energy:document.getElementById('energy'),locName:document.getElementById('locName'),locSub:document.getElementById('locSub')};
-function updateHud(){const sc=scenes[state.scene]||scenes.street;hud.money.textContent=Math.max(0,state.money).toLocaleString('es-ES')+' €';hud.fame.textContent='⭐ '+Math.max(0,state.fame);hud.energy.textContent='⚡ '+Math.round(Math.max(0,state.energy));hud.locName.textContent=sc.name;hud.locSub.textContent=sc.sub;const day=document.getElementById('dayChip');if(day)day.textContent='DÍA '+Math.max(1,state.day||1)}
-function startGame(){if(started)return;started=true;last=0;const startEl=document.getElementById('start');if(startEl)startEl.style.display='none';resize();const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));if(playerSprite)playerSprite.classList.add('visible');updateHud();draw();requestAnimationFrame(loop);setTimeout(async()=>{try{initAudio();if(audioCtx&&audioCtx.state==='suspended')await Promise.race([audioCtx.resume(),new Promise(r=>setTimeout(r,700))]);updateAudioBtn();if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),250)}}catch(err){console.warn('El audio no pudo iniciarse',err);updateAudioBtn()}},0);const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),350);setTimeout(()=>th.classList.remove('show'),6000)}}
-function rounded(x,y,w,h,r,fill,stroke){r=Math.max(0,Math.min(r,Math.abs(w)/2,Math.abs(h)/2));ctx.beginPath();if(typeof ctx.roundRect==='function')ctx.roundRect(x,y,w,h,r);else{ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
-function text(t,x,y,size=14,color='#35252d',align='left',weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px ui-rounded,-apple-system`;ctx.textAlign=align;ctx.fillText(t,x,y)}
-function camera(){const sc=scenes[state.scene]||scenes.street;const px=Number.isFinite(player.x)?player.x:DEFAULT_STATE.x,py=Number.isFinite(player.y)?player.y:DEFAULT_STATE.y;return{x:Math.max(0,Math.min(Math.max(0,sc.w-W),px-W/2)),y:Math.max(0,Math.min(Math.max(0,sc.h-H),py-H/2))}}
-function drawStreet(cam){
- const sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#86c6e7');sky.addColorStop(.42,'#f8d6cf');sky.addColorStop(1,'#f0e3df');ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
- const glow=ctx.createRadialGradient(W*.82,65,8,W*.82,65,150);glow.addColorStop(0,'rgba(255,244,198,.85)');glow.addColorStop(1,'rgba(255,244,198,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
- ctx.fillStyle='#708982';ctx.beginPath();ctx.moveTo(0,158-cam.y*.04);for(let x=0;x<W+80;x+=45)ctx.lineTo(x,105+Math.sin(x*.021)*23-cam.y*.04);ctx.lineTo(W,215);ctx.lineTo(0,215);ctx.fill();
- ctx.fillStyle='#8da29a';ctx.beginPath();ctx.moveTo(0,175-cam.y*.03);for(let x=0;x<W+80;x+=55)ctx.lineTo(x,138+Math.sin(x*.016+1.4)*18-cam.y*.03);ctx.lineTo(W,230);ctx.lineTo(0,230);ctx.fill();
- const ox=-cam.x,oy=-cam.y;ctx.fillStyle='#d9d2ca';ctx.fillRect(ox,180+oy,1500,700);
- ctx.fillStyle='#efe9e3';ctx.fillRect(ox,350+oy,1500,58);ctx.fillRect(ox,650+oy,1500,84);
- ctx.fillStyle='#343943';ctx.fillRect(ox,408+oy,1500,242);ctx.fillStyle='#4a505a';ctx.fillRect(ox,512+oy,1500,4);
- for(let x=30;x<1500;x+=145)rounded(x+ox,522+oy,72,7,4,'#ffe7a0');
- for(let x=42;x<1500;x+=120){rounded(x+ox,384+oy,44,5,3,'#f9f7f3');rounded(x+ox,666+oy,44,5,3,'#f9f7f3')}
- building(250+ox,195+oy,430,160,'#fffaf8','#b83e70','MÍA MODAS','Carretera de Vic, 26');
- building(785+ox,205+oy,280,145,'#f7f0e8','#6f645d','MAYORISTA','Nueva colección');
- building(1085+ox,660+oy,300,165,'#fff3f8','#9f4a73','ESTUDIO MÍA','Fotos · Directos · Campañas');
- building(90+ox,720+oy,300,170,'#f8f3ef','#687b65','MI CASA','Tu hogar');
- for(let x=70;x<1480;x+=180){tree(x+ox,338+oy);tree(x+70+ox,748+oy)}
- car(690+ox,548+oy,'#f8f8fb');car(1045+ox,455+oy,'#bd4d74');
- rounded(570+ox,365+oy,160,24,12,'rgba(255,255,255,.8)');text('SANT FRUITÓS DE BAGES',650+ox,382+oy,10,'#5b4650','center',900);
- text('CARRETERA DE VIC',750+ox,542+oy,15,'rgba(255,255,255,.66)','center',900)
-}
-function building(x,y,w,h,body,accent,title,sub){ctx.save();ctx.shadowColor='rgba(63,33,47,.24)';ctx.shadowBlur=22;ctx.shadowOffsetY=11;rounded(x,y,w,h,18,body);ctx.restore();rounded(x,y,w,38,18,accent);ctx.fillStyle=accent;ctx.fillRect(x,y+18,w,20);text(title,x+w/2,y+25,15,'white','center',1000);
- for(let i=0;i<3;i++){const wx=x+18+i*(w-38)/3;rounded(wx,y+52,(w-58)/3,h-76,10,'#9fc6d2');const g=ctx.createLinearGradient(wx,y,wx+(w-58)/3,y);g.addColorStop(0,'rgba(255,255,255,.5)');g.addColorStop(.45,'rgba(255,255,255,.06)');g.addColorStop(1,'rgba(255,255,255,.25)');ctx.fillStyle=g;ctx.fillRect(wx+4,y+56,(w-58)/3-8,h-84);ctx.fillStyle='rgba(255,255,255,.3)';ctx.fillRect(wx+8,y+61,4,h-94)}
- for(let i=0;i<8;i++)rounded(x+12+i*((w-24)/8),y+39,(w-24)/8,13,2,i%2?'#fff7f9':accent);
- rounded(x+10,y+h-27,w-20,22,8,'rgba(255,255,255,.84)');text(sub,x+w/2,y+h-12,10,'#5b414c','center',800)}
-function room(x,y,w,h,c,emoji,label){ctx.save();ctx.shadowColor='rgba(69,30,48,.12)';ctx.shadowBlur=16;ctx.shadowOffsetY=8;rounded(x,y,w,h,22,c,'rgba(114,62,83,.09)');ctx.restore();rounded(x+10,y+10,w-20,32,12,'rgba(255,255,255,.74)');text(label,x+w/2,y+31,11,'#6b3049','center',1000);text(emoji,x+w/2,y+h/2+14,48,'#000','center');}
-function drawInterior(cam,type){const ox=-cam.x,oy=-cam.y;const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,type==='home'?'#fff6f0':'#fff8fb');g.addColorStop(1,type==='home'?'#e8d9ce':'#e4dce2');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ctx.fillStyle='rgba(255,255,255,.38)';ctx.fillRect(ox,0+oy,1000,760);const arr=interactables[type];arr.forEach((a,i)=>{const colors=type==='studio'?['#fff5f9','#f5f0ff','#fff8ec','#f0ecea']:type==='home'?['#fff3ed','#f8edf3','#eee9e7']:['#fff5f9','#fbf4ec','#eef5fb','#f1ece9'];room(a.x+ox,a.y+oy,a.w,a.h,colors[i%colors.length],i===arr.length-1?'🚪':['📦','👚','👜','📸'][i%4],a.label.toUpperCase())})}
-function drawPlayer(cam){
- const x=player.x-cam.x,y=player.y-cam.y;
- if(!Number.isFinite(x)||!Number.isFinite(y))return;
- const moving=Math.abs(joyX)+Math.abs(joyY)>.08||!!target;
- const bob=moving?Math.sin(performance.now()/105)*1.8:Math.sin(performance.now()/420)*.7;
- ctx.save();ctx.translate(x,y+bob);
- // Halo para que el personaje siempre se vea claramente en el móvil
- const halo=ctx.createRadialGradient(0,5,5,0,5,42);halo.addColorStop(0,'rgba(255,255,255,.78)');halo.addColorStop(.55,'rgba(255,214,231,.24)');halo.addColorStop(1,'rgba(255,214,231,0)');ctx.fillStyle=halo;ctx.beginPath();ctx.arc(0,5,42,0,Math.PI*2);ctx.fill();
- ctx.fillStyle='rgba(45,22,33,.28)';ctx.beginPath();ctx.ellipse(0,31,25,9,0,0,Math.PI*2);ctx.fill();
- // piernas y zapatos
- rounded(-12,15,9,23,4,'#4a3642');rounded(3,15,9,23,4,'#4a3642');
- rounded(-16,34,14,7,4,'#fff','#cfaaba');rounded(2,34,14,7,4,'#fff','#cfaaba');
- // vestido con volumen y cinturón dorado
- const dress=ctx.createLinearGradient(-21,-10,21,25);dress.addColorStop(0,'#ff9fbe');dress.addColorStop(.5,'#d95f8e');dress.addColorStop(1,'#8f315a');
- ctx.fillStyle=dress;ctx.beginPath();ctx.moveTo(-15,-10);ctx.quadraticCurveTo(0,-15,15,-10);ctx.lineTo(23,22);ctx.quadraticCurveTo(0,29,-23,22);ctx.closePath();ctx.fill();
- ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(-10,-7);ctx.quadraticCurveTo(0,7,10,-7);ctx.stroke();
- rounded(-17,6,34,4,2,'#d6b067');
- // brazos
- rounded(-23,-7,7,25,4,'#efc2ad');rounded(16,-7,7,25,4,'#efc2ad');
- // cuello y cabeza
- rounded(-5,-16,10,8,4,'#efc2ad');ctx.fillStyle='#efc2ad';ctx.beginPath();ctx.arc(0,-30,14,0,Math.PI*2);ctx.fill();
- // pelo largo y brillante
- ctx.fillStyle='#5a352d';ctx.beginPath();ctx.arc(0,-34,17,Math.PI,Math.PI*2);ctx.lineTo(17,7);ctx.quadraticCurveTo(9,12,6,0);ctx.lineTo(-6,0);ctx.quadraticCurveTo(-9,12,-17,7);ctx.closePath();ctx.fill();
- ctx.strokeStyle='#8b594a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-10,-38);ctx.quadraticCurveTo(-4,-49,8,-42);ctx.stroke();
- // cara expresiva
- ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(-5,-31,3.1,2.2,0,0,Math.PI*2);ctx.ellipse(5,-31,3.1,2.2,0,0,Math.PI*2);ctx.fill();
- ctx.fillStyle='#4f8b6d';ctx.beginPath();ctx.arc(-5,-31,1.45,0,Math.PI*2);ctx.arc(5,-31,1.45,0,Math.PI*2);ctx.fill();
- ctx.fillStyle='#35252c';ctx.beginPath();ctx.arc(-5,-31,.65,0,Math.PI*2);ctx.arc(5,-31,.65,0,Math.PI*2);ctx.fill();
- ctx.strokeStyle='#b65376';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(0,-25,4.5,.2,Math.PI-.2);ctx.stroke();
- // pendientes
- ctx.fillStyle='#d8b36b';ctx.beginPath();ctx.arc(-13,-28,1.7,0,Math.PI*2);ctx.arc(13,-28,1.7,0,Math.PI*2);ctx.fill();
- // contorno exterior para separar del fondo
- ctx.strokeStyle='rgba(79,35,53,.42)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(0,-30,14,0,Math.PI*2);ctx.stroke();
- ctx.restore();
-}
-function drawClient(x,y,dress='#d56691',hair='#5a342b',bubble=''){ctx.save();ctx.translate(x,y);ctx.fillStyle='rgba(40,20,30,.14)';ctx.beginPath();ctx.ellipse(0,24,18,6,0,0,7);ctx.fill();ctx.fillStyle='#efc4af';ctx.beginPath();ctx.arc(0,-20,10,0,7);ctx.fill();ctx.fillStyle=hair;ctx.beginPath();ctx.arc(0,-24,12,Math.PI,Math.PI*2);ctx.fill();ctx.fillRect(-11,-24,4,25);ctx.fillRect(7,-24,4,25);ctx.fillStyle=dress;ctx.beginPath();ctx.moveTo(-11,-7);ctx.lineTo(11,-7);ctx.lineTo(16,18);ctx.lineTo(-16,18);ctx.closePath();ctx.fill();ctx.fillStyle='#473640';rounded(-9,17,6,17,3,'#473640');rounded(3,17,6,17,3,'#473640');if(bubble){rounded(18,-55,104,31,11,'rgba(255,255,255,.94)');text(bubble,70,-35,9,'#5d3346','center',800)}ctx.restore()}
-function drawShop(cam){
- const ox=-cam.x,oy=-cam.y;const bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#fff9fb');bg.addColorStop(1,'#eadde3');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
- // polished tile floor
- ctx.fillStyle='#f4ece8';ctx.fillRect(ox,0+oy,1100,800);ctx.strokeStyle='rgba(145,103,114,.08)';ctx.lineWidth=1;for(let x=0;x<1100;x+=70){ctx.beginPath();ctx.moveTo(x+ox,0+oy);ctx.lineTo(x+ox,800+oy);ctx.stroke()}for(let y=0;y<800;y+=70){ctx.beginPath();ctx.moveTo(ox,y+oy);ctx.lineTo(1100+ox,y+oy);ctx.stroke()}
- // feature wall and sign
- rounded(35+ox,35+oy,1030,70,22,'#fffdfd');text('MÍA MODAS',550+ox,70+oy,25,'#74324f','center',1000);text('Carretera de Vic, 26 · Sant Fruitós de Bages',550+ox,91+oy,10,'#9a6a7e','center',750);
- shopRack(85+ox,130+oy,220,185,'NUEVA COLECCIÓN',['#e179a1','#f3c2d4','#e8d0ad','#9eb8c8','#6a4b5b']);
- mirror(440+ox,128+oy,175,205);rounded(400+ox,342+oy,255,58,18,'#f8e7ee');text('PROBADOR · CREA TU LOOK',527+ox,376+oy,11,'#73334f','center',1000);
- shopRack(690+ox,130+oy,250,185,'LOOKS DE EVENTO',['#3d2b37','#b79658','#8c4164','#e2a4ba','#f3ede2']);
- shopCounter(720+ox,455+oy,250,115);
- rounded(390+ox,480+oy,240,120,22,'#fffdfd');text('PEDIDOS ONLINE',510+ox,512+oy,12,'#73334f','center',1000);rounded(420+ox,530+oy,70,45,10,'#d7b48b');rounded(520+ox,530+oy,70,45,10,'#d7b48b');text('📦',455+ox,561+oy,23,'#000','center');text('📦',555+ox,561+oy,23,'#000','center');
- // décor
- rounded(90+ox,500+oy,220,90,30,'#f4dce5');rounded(120+ox,480+oy,160,42,19,'#fbf5f7');text('🪴',95+ox,480+oy,36);text('✨ Boutique premium',200+ox,555+oy,11,'#744156','center',850);
- drawClient(835+ox,400+oy,'#c85d88','#4c2c25','¿Me ayudas con un look?');drawClient(320+ox,440+oy,'#7c8fb0','#2f2a2d','¡Qué bonito todo!');
- // exit mat
- rounded(62+ox,645+oy,205,65,18,'#b94c79');text('SALIR A CARRETERA DE VIC',165+ox,683+oy,10,'white','center',1000)
-}
-
-function drawMarkers(cam){const list=interactables[state.scene]||[];const pulse=.55+Math.sin(performance.now()/420)*.18;for(const a of list){const cx=a.x+a.w/2-cam.x,cy=a.y+a.h/2-cam.y;if(cx<-80||cy<-80||cx>W+80||cy>H+80)continue;ctx.save();ctx.globalAlpha=pulse;ctx.strokeStyle='rgba(215,91,139,.62)';ctx.lineWidth=2;ctx.setLineDash([7,7]);ctx.beginPath();ctx.ellipse(cx,cy,Math.min(44,a.w*.2),16,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.restore()}}
-function draw(){const cam=camera();ctx.clearRect(0,0,W,H);if(state.scene==='street')drawStreet(cam);else if(state.scene==='shop')drawShop(cam);else drawInterior(cam,state.scene);drawMarkers(cam);drawPlayer(cam);if(started){const px=player.x-cam.x,py=player.y-cam.y;rounded(px-26,py-67,52,17,9,'rgba(255,255,255,.88)','rgba(164,72,108,.15)');text('TÚ',px,py-55,9,'#7f3153','center',1000);if(playerSprite){playerSprite.style.left=px+'px';playerSprite.style.top=py+'px';playerSprite.classList.add('visible');playerSprite.classList.toggle('walking',Math.abs(joyX)+Math.abs(joyY)>.08||!!target)}}const vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.22,W/2,H/2,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,255,255,0)');vg.addColorStop(1,'rgba(55,24,39,.12)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H)}
-function loop(t){if(!started)return;if(!last)last=t;const dt=Math.min(Math.max((t-last)/1000,0),.035);last=t;let dx=joyX,dy=joyY;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy);if(d<8)target=null;else{dx=vx/d;dy=vy/d}}
- if(dx||dy){const mag=Math.max(.001,Math.min(1,Math.hypot(dx,dy)));player.x+=dx/mag*player.speed*dt;player.y+=dy/mag*player.speed*dt}
- const s=scenes[state.scene]||scenes.street;if(!scenes[state.scene])state.scene='street';player.x=Math.max(25,Math.min(s.w-25,player.x));player.y=Math.max(70,Math.min(s.h-25,player.y));checkNear();draw();updateHud();requestAnimationFrame(loop)}
-function checkNear(){near=null;for(const a of (interactables[state.scene]||[])){const cx=Math.max(a.x,Math.min(player.x,a.x+a.w)),cy=Math.max(a.y,Math.min(player.y,a.y+a.h));if(Math.hypot(player.x-cx,player.y-cy)<65){near=a;break}}const b=document.getElementById('interact');b.classList.toggle('show',!!near);b.textContent=near?near.label:'Entrar'}
-function useAction(){if(near)activate(near);else toast('Acércate a una zona marcada ✨')}
-document.getElementById('interact').onclick=()=>near&&activate(near);
-function activate(a){if(a.to){state.scene=a.to;const s=scenes[a.to];player.x=a.to==='street'?500:90;player.y=a.to==='street'?520:s.h-120;target=null;save();toast('Has llegado a '+scenes[a.to].name);sparkle();speak('Has llegado a '+scenes[a.to].name)}else action(a.action)}
-function action(k){const map={shop:()=>openSheet('shop'),wardrobe:()=>openSheet('wardrobe'),sale:sale,orders:orders,buyDresses:()=>buyPack('vestido',5,240),buyBasics:()=>buyPack('camiseta',8,180),buyAccessories:()=>buyPack('bolso',5,210),photo:()=>{if(state.energy<25)return toast('Necesitas al menos 25 de energía');state.dailyPhoto=1;reward(-25,22,120,'Sesión de fotos terminada 📸')},live:()=>reward(-18,35,210,'Directo completado 🔴'),campaign:()=>reward(-40,65,480,'Campaña publicada ✨'),rest:()=>advanceDay('Has descansado y empieza un nuevo día 🌙')};if(typeof map[k]==='function')map[k]();else toast('Esta acción todavía no está disponible')}
-function sale(){let total=Object.values(state.stock).reduce((a,b)=>a+b,0);if(!total)return toast('No queda ropa. Ve al mayorista.');const keys=Object.keys(state.stock).filter(k=>state.stock[k]>0),k=keys[Math.floor(Math.random()*keys.length)],gain=25+Math.floor(Math.random()*36);state.stock[k]--;state.money+=gain;state.sales++;state.dailySales=(state.dailySales||0)+1;state.earnedToday=(state.earnedToday||0)+gain;state.fame+=1;save();sparkle();toast('Clienta feliz: +'+gain+' € 🛍️');speak('Muchas gracias, me encanta. Te has ganado '+gain+' euros.')}
-function orders(){if(state.energy<8)return toast('Necesitas descansar');const gain=45+Math.floor(Math.random()*70);state.money+=gain;state.earnedToday=(state.earnedToday||0)+gain;state.energy-=8;state.followers+=8;save();sparkle();toast('Pedido preparado: +'+gain+' € 📦');speak('Pedido preparado correctamente. Has ganado '+gain+' euros.')}
-function reward(e,f,fol,msg){if(state.energy<Math.abs(e))return toast('No tienes suficiente energía');state.energy+=e;state.fame+=f;state.followers+=fol;const cash=Math.floor(f*2.4);state.money+=cash;state.earnedToday=(state.earnedToday||0)+cash;save();sparkle();toast(msg);speak(msg.replace(/[📸🔴✨]/g,''))}
-function buyPack(k,n,c){if(state.money<c)return toast('No tienes suficiente dinero');state.money-=c;state.stock[k]=(state.stock[k]||0)+n;save();sparkle();toast('Has comprado '+n+' unidades 👗');speak('Nueva mercancía comprada. '+n+' unidades añadidas.')}
-function toast(t){tone(523,.12,0,'triangle',.04);const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),2200)}
-// touch movement
-C.addEventListener('pointerdown',e=>{if(document.getElementById('sheet').classList.contains('open'))return;e.preventDefault();const r=C.getBoundingClientRect(),cam=camera();target={x:e.clientX-r.left+cam.x,y:e.clientY-r.top+cam.y}},{passive:false});
-const joy=document.getElementById('joy'),knob=document.getElementById('knob');let joyId=null;
-joy.addEventListener('pointerdown',e=>{e.preventDefault();joyId=e.pointerId;try{joy.setPointerCapture(joyId)}catch(_){}moveJoy(e)},{passive:false});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyId){e.preventDefault();moveJoy(e)}},{passive:false});joy.addEventListener('pointerup',resetJoy);joy.addEventListener('pointercancel',resetJoy);window.addEventListener('pointerup',e=>{if(e.pointerId===joyId)resetJoy()},{passive:true});
-function moveJoy(e){target=null;const r=joy.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy),max=34,k=Math.min(max,d);joyX=d?dx/d:0;joyY=d?dy/d:0;knob.style.transform=`translate(${joyX*k}px,${joyY*k}px)`}
-function resetJoy(){joyId=null;joyX=joyY=0;knob.style.transform='translate(0,0)'}
-function setNav(b){document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
-const clothes=[['Vestido satinado','👗',69,'vestido'],['Vestido lunares','👗',49,'vestido'],['Top festival','👚',25,'camiseta'],['Camiseta básica','👕',20,'camiseta'],['Pantalón palazzo','👖',39,'pantalon'],['Tejano claro','👖',45,'pantalon'],['Conjunto lino','🥻',59,'vestido'],['Chaqueta corta','🧥',55,'camiseta'],['Bolso dorado','👜',35,'bolso'],['Bolso beige','👜',32,'bolso'],['Sandalias','👡',30,'zapatos'],['Gafas doradas','🕶️',18,'bolso'],['Sombrero verano','👒',22,'bolso'],['Mono bombacho','🥻',52,'vestido'],['Body blanco','👚',28,'camiseta'],['Vestido invitada','👗',79,'vestido'],['Vestido midi floral','🌸',59,'vestido'],['Pantalón bombacho lino','👖',42,'pantalon'],['Pantalón sastre','👖',49,'pantalon'],['Top joya','✨',34,'camiseta'],['Camisa satinada','👚',39,'camiseta'],['Blazer rosa','🧥',65,'camiseta'],['Bolso cadena','👜',44,'bolso'],['Bolso negro elegante','👜',39,'bolso'],['Zapatilla urbana','👟',48,'zapatos'],['Tacón bajo','👠',45,'zapatos'],['Collar dorado','📿',21,'bolso'],['Pañuelo estampado','🧣',19,'bolso']];
-const businesses=[['Mía Outlet','🏷️',6500,380],['Mía Modas Manresa','🏬',14000,780],['Centro online','📦',22000,1250],['Atelier Mía','🧵',35000,1850],['Mía Luxury Barcelona','💎',78000,4200],['Academia de moda','🎓',120000,7000]];
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const world=$('#world'), player=$('#player'), joy=$('#joy'), knob=$('#knob'), interact=$('#interact'), modal=$('#modal'), content=$('#content');
+const defaults={money:1250,fame:12,energy:100,followers:326,day:1,x:.5,y:.72,stock:18,owned:['Mía Modas'],homes:[]};
+let saved={};try{saved=JSON.parse(localStorage.getItem('miaBoutiqueV2')||'{}')||{}}catch(e){}
+const state={...defaults,...saved,owned:Array.isArray(saved.owned)?saved.owned:['Mía Modas'],homes:Array.isArray(saved.homes)?saved.homes:[]};
+state.x=Number.isFinite(+state.x)?Math.min(.94,Math.max(.06,+state.x)):.5;state.y=Number.isFinite(+state.y)?Math.min(.92,Math.max(.48,+state.y)):.72;
+let running=false,target=null,jx=0,jy=0,last=0,near=null,joyPointer=null;
+function save(){try{localStorage.setItem('miaBoutiqueV2',JSON.stringify(state))}catch(e){}}
+function hud(){$('#money').textContent=Math.round(state.money).toLocaleString('es-ES')+' €';$('#fame').textContent='⭐ '+state.fame;$('#energy').textContent='⚡ '+state.energy}
+function place(){player.style.left=(state.x*world.clientWidth)+'px';player.style.top=(state.y*world.clientHeight)+'px'}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)}
+function checkZone(){near=null;const px=state.x*world.clientWidth,py=state.y*world.clientHeight;for(const z of $$('.zone')){const r=z.getBoundingClientRect(),wr=world.getBoundingClientRect();const cx=r.left-wr.left+r.width/2,cy=r.top-wr.top+r.height/2;if(Math.hypot(px-cx,py-cy)<Math.max(75,r.width*.55)){near=z.dataset.zone;break}}interact.classList.toggle('show',!!near);interact.textContent=near==='shop'?'ENTRAR EN LA TIENDA':near==='cafe'?'TOMAR ALGO':near==='estate'?'VER PROPIEDADES':'ENTRAR'}
+function loop(ts){if(!running)return;const dt=Math.min(.035,(ts-last||16)/1000);last=ts;let dx=jx,dy=jy;if(target){const vx=target.x-state.x,vy=target.y-state.y,d=Math.hypot(vx,vy);if(d<.012){target=null}else{dx=vx/d;dy=vy/d}}const moving=Math.abs(dx)+Math.abs(dy)>.03;if(moving){const ratio=world.clientWidth/world.clientHeight;state.x+=dx*.32*dt;state.y+=dy*.32*dt*ratio;state.x=Math.min(.95,Math.max(.05,state.x));state.y=Math.min(.94,Math.max(.47,state.y))}player.classList.toggle('walk',moving);place();checkZone();requestAnimationFrame(loop)}
+function start(){if(running)return;running=true;$('#start').style.display='none';hud();place();checkZone();last=performance.now();requestAnimationFrame(loop);toast('¡Ya puedes mover el personaje! 💖')}
+$('#play').addEventListener('click',start);window.addEventListener('resize',place);
+world.addEventListener('pointerdown',e=>{if(e.target.closest('button,.joy,.zone'))return;const r=world.getBoundingClientRect();target={x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height};e.preventDefault()},{passive:false});
+function joyMove(e){const r=joy.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy)||1,max=34,k=Math.min(max,d);jx=dx/d;jy=dy/d;knob.style.transform=`translate(${jx*k}px,${jy*k}px)`;target=null}
+joy.addEventListener('pointerdown',e=>{joyPointer=e.pointerId;joy.setPointerCapture?.(joyPointer);joyMove(e);e.preventDefault()},{passive:false});joy.addEventListener('pointermove',e=>{if(e.pointerId===joyPointer){joyMove(e);e.preventDefault()}},{passive:false});function joyEnd(){joyPointer=null;jx=jy=0;knob.style.transform='translate(0,0)'}joy.addEventListener('pointerup',joyEnd);joy.addEventListener('pointercancel',joyEnd);window.addEventListener('pointerup',e=>{if(e.pointerId===joyPointer)joyEnd()});
+function action(){if(!near)return toast('Acércate a una zona marcada ✨');if(near==='shop')open('shop');if(near==='cafe'){if(state.money<8)return toast('Necesitas 8 €');state.money-=8;state.energy=Math.min(100,state.energy+30);hud();save();toast('Has recuperado energía ☕')}if(near==='estate')open('homes')}
+interact.addEventListener('click',action);$('#action').addEventListener('click',action);
+const clothes=[['Vestido satinado','👗',69],['Vestido floral','🌸',59],['Pantalón palazzo','👖',42],['Blazer rosa','🧥',65],['Bolso dorado','👜',39],['Sandalias','👡',32],['Top joya','✨',34],['Mono bombacho','🥻',55],['Gafas doradas','🕶️',18],['Camisa satinada','👚',39],['Tacón bajo','👠',45],['Conjunto lino','🤍',62]];
+const businesses=[['Mía Outlet','🏷️',6500],['Mía Modas Manresa','🏬',14000],['Centro online','📦',22000],['Atelier Mía','🧵',35000],['Mía Luxury Barcelona','💎',78000],['Academia de moda','🎓',120000]];
 const homes=[['Piso moderno','🏢',18000],['Ático con terraza','🌇',42000],['Casa con jardín','🏡',76000],['Villa con piscina','🏊',145000],['Masía catalana','🌳',260000],['Casa de lujo','🏰',500000]];
-function openSheet(type){const s=document.getElementById('sheet'),c=document.getElementById('sheetContent');let h='';
- const head=(t,sub)=>`<div class="sheetHead"><h2>${t}</h2><button class="close" onclick="closeSheet()">✕</button></div><div class="sub">${sub}</div>`;
- if(type==='shop'){h=head('Nueva colección','Compra más ropa para vender en tu boutique.')+'<div class="wardrobe">'+clothes.map((x,i)=>`<div class="item"><span class="badge">${state.stock[x[3]]||0}</span><div class="pic">${x[1]}</div><b>${x[0]}</b><small>${x[2]} €</small><button onclick="quickBuy('${x[0]}',${x[2]},'${x[3]}')">Comprar</button></div>`).join('')+'</div>'}
- else if(type==='wardrobe'){h=head('Crear un look','Combina prendas y publícalo en redes.')+'<div class="grid"><div class="card"><div class="emoji">👗</div><h3>Look romántico</h3><p>Vestido, bolso y sandalias.</p><button onclick="createLook(18,95)">Crear look</button></div><div class="card"><div class="emoji">✨</div><h3>Look de evento</h3><p>Conjunto elegante y complementos.</p><button onclick="createLook(25,150)">Crear look</button></div><div class="card"><div class="emoji">☀️</div><h3>Look de verano</h3><p>Lino, gafas y bolso claro.</p><button onclick="createLook(12,70)">Crear look</button></div><div class="card"><div class="emoji">💎</div><h3>Look Luxury</h3><p>Para clientas VIP.</p><button onclick="createLook(35,260)">Crear look</button></div></div>'}
- else if(type==='business'){h=head('Mis negocios','Compra más tiendas y recibe ingresos cada día.')+'<div class="grid">'+businesses.map(x=>`<div class="card"><div class="emoji">${x[1]}</div><h3>${x[0]}</h3><p>Genera ${x[3]} € cada día.</p><div class="price">${x[2].toLocaleString('es-ES')} €</div><button ${state.owned.includes(x[0])?'disabled':''} onclick="buyBusiness('${x[0]}',${x[2]})">${state.owned.includes(x[0])?'Comprado':'Comprar'}</button></div>`).join('')+'</div>'}
- else if(type==='homes'){h=head('Casas y propiedades','Compra tu hogar soñado y desbloquea nuevas zonas.')+'<div class="grid">'+homes.map(x=>`<div class="card"><div class="emoji">${x[1]}</div><h3>${x[0]}</h3><p>Una nueva casa para tu personaje.</p><div class="price">${x[2].toLocaleString('es-ES')} €</div><button ${state.homes.includes(x[0])?'disabled':''} onclick="buyHome('${x[0]}',${x[2]})">${state.homes.includes(x[0])?'Comprada':'Comprar'}</button></div>`).join('')+'</div>'}
- else if(type==='profile'){h=head('Mi vida en Mía Modas','Tu progreso como empresaria de moda.')+`<div class="grid"><div class="card"><div class="emoji">👑</div><h3>Nivel ${state.level}</h3><p>${state.fame} puntos de fama</p></div><div class="card"><div class="emoji">📱</div><h3>${state.followers.toLocaleString('es-ES')}</h3><p>Seguidores en redes</p></div><div class="card"><div class="emoji">🛍️</div><h3>${state.sales} ventas</h3><p>Clientas atendidas</p></div><div class="card"><div class="emoji">🏬</div><h3>${state.owned.length} negocios</h3><p>Tu imperio comercial</p></div></div><button class="wideBtn" onclick="nextDay()">Terminar el día 🌙</button>`}
- else if(type==='missions'){h=head('Misiones de hoy','Completa objetivos y gana premios.')+`<div class="grid"><div class="card"><div class="emoji">🛍️</div><h3>Haz 3 ventas</h3><p>${Math.min(state.dailySales||0,3)}/3 completadas.</p><button onclick="claimMission('sales')">Reclamar</button></div><div class="card"><div class="emoji">📸</div><h3>Sube una foto</h3><p>Visita el estudio creativo.</p><button onclick="claimMission('photo')">${state.dailyPhoto?'Reclamar':'Ir al estudio'}</button></div><div class="card"><div class="emoji">👗</div><h3>Crea un look</h3><p>Combina una nueva propuesta.</p><button onclick="claimMission('look')">${state.dailyLook?'Reclamar':'Crear ahora'}</button></div><div class="card"><div class="emoji">💰</div><h3>Gana 500 €</h3><p>${Math.min(state.earnedToday||0,500)}/500 € conseguidos hoy.</p><button onclick="claimMission('money')">Reclamar</button></div></div>`}
- else if(type==='map'){h=head('Mapa de Sant Fruitós','Viaja rápidamente a cualquier zona.')+`<div class="grid"><div class="card"><div class="emoji">🏬</div><h3>Mía Modas</h3><p>Carretera de Vic, 26.</p><button onclick="goScene('shop')">Viajar</button></div><div class="card"><div class="emoji">🏷️</div><h3>Mayorista</h3><p>Compra nueva colección.</p><button onclick="goScene('wholesale')">Viajar</button></div><div class="card"><div class="emoji">📸</div><h3>Estudio creativo</h3><p>Fotos y campañas.</p><button onclick="goScene('studio')">Viajar</button></div><div class="card"><div class="emoji">🏡</div><h3>Mi casa</h3><p>Descansa y recupérate.</p><button onclick="goScene('home')">Viajar</button></div></div>`}
- else {h=head('Opciones','Configura tu partida.')+'<button class="wideBtn" onclick="save();toast(\'Partida guardada\')">Guardar partida</button><button class="wideBtn" style="background:#6d5661" onclick="toggleFull()">Pantalla completa</button><button class="wideBtn" style="background:#9b4d60" onclick="resetGame()">Empezar de nuevo</button>'}
- c.innerHTML=h;s.classList.add('open')}
-function closeSheet(){document.getElementById('sheet').classList.remove('open')}document.getElementById('sheet').addEventListener('pointerdown',e=>{if(e.target.id==='sheet')closeSheet()});
-function quickBuy(name,c,k){if(state.money<c)return toast('No tienes suficiente dinero');if(!Object.prototype.hasOwnProperty.call(state.stock,k))k='camiseta';state.money-=c;state.stock[k]=(state.stock[k]||0)+1;save();toast(name+' añadido al stock')}
-function createLook(e,fol){if(state.energy<e)return toast('Necesitas más energía');state.dailyLook=1;state.energy-=e;state.followers+=fol;state.fame+=Math.floor(fol/18);const cash=Math.floor(fol*.35);state.money+=cash;state.earnedToday=(state.earnedToday||0)+cash;save();toast('Look publicado: +'+fol+' seguidores 💖')}
-function buyBusiness(n,c){if(state.owned.includes(n))return toast('Ese negocio ya es tuyo');if(state.money<c)return toast('Todavía no tienes suficiente dinero');state.money-=c;state.owned.push(n);save();openSheet('business');toast('Has abierto '+n+' 🎉')}
-function buyHome(n,c){if(state.homes.includes(n))return toast('Esa casa ya es tuya');if(state.money<c)return toast('Todavía no tienes suficiente dinero');state.money-=c;state.homes.push(n);save();openSheet('homes');toast('Has comprado '+n+' 🏡')}
-function advanceDay(message='Nuevo día'){let inc=0;state.owned.forEach(n=>{const b=businesses.find(x=>x[0]===n);if(b)inc+=b[3]});state.money+=inc;state.day++;state.energy=100;state.dailySales=0;state.earnedToday=0;state.dailyPhoto=0;state.dailyLook=0;save();closeSheet();sparkle();toast(message+(inc?' · Ingresos +'+inc+' €':''))}
-function nextDay(){advanceDay('Empieza el día '+(state.day+1))}
-function claimMission(k){state.claimed=state.claimed||{};const key=state.day+'_'+k;if(state.claimed[key])return toast('Esta recompensa ya está cobrada ✨');let ok=false,reward=0;if(k==='sales'&&(state.dailySales||0)>=3){ok=true;reward=300}else if(k==='money'&&(state.earnedToday||0)>=500){ok=true;reward=450}else if(k==='photo'&&state.dailyPhoto){ok=true;reward=250}else if(k==='look'&&state.dailyLook){ok=true;reward=220}if(!ok){if(k==='photo'){closeSheet();return goScene('studio')}if(k==='look')return openSheet('wardrobe');return toast('Aún no has completado la misión')}state.claimed[key]=true;state.money+=reward;state.fame+=10;save();sparkle();toast('Misión completada: +'+reward+' €');speak('Misión completada. Recompensa conseguida.')}
-function goScene(s){if(!scenes[s])return toast('Esa zona no está disponible');state.lastScene=state.scene;state.scene=s;player.x=100;player.y=scenes[s].h-120;target=null;resetJoy();closeSheet();save();toast('Has viajado a '+scenes[s].name)}
-async function toggleFull(){closeSheet();try{if(document.fullscreenElement){await document.exitFullscreen?.()}else if(document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen()}else{toast('En iPhone, añádelo a inicio para verlo como una app')}}catch(_){toast('No se pudo activar la pantalla completa')}}
-function resetGame(){if(confirm('¿Seguro que quieres borrar la partida?')){STORAGE.remove('miaMobileSave');location.reload()}}
-updateHud();draw();setInterval(save,8000);
-
-
-document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(musicTimer);musicTimer=null;window.speechSynthesis?.cancel();save()}else if(started&&audioOn){startMusic()}});
-window.addEventListener('pagehide',()=>save(true));
-document.addEventListener('contextmenu',e=>e.preventDefault());
-
-
-
-function runSelfCheck(){
- const issues=[];
- ['game','gameWrap','money','fame','energy','locName','locSub','interact','joy','knob','sheet','sheetContent','toast'].forEach(id=>{if(!document.getElementById(id))issues.push('Falta #'+id)});
- Object.keys(scenes).forEach(k=>{if(!Array.isArray(interactables[k]))issues.push('Sin zonas en '+k)});
- if(!Number.isFinite(player.x)||!Number.isFinite(player.y))issues.push('Posición inválida');
- if(!state.stock||typeof state.stock!=='object')issues.push('Stock inválido');
- if(issues.length){console.error('Autocomprobación:',issues);toast('Se ha reparado una configuración antigua');state.scene='street';player.x=DEFAULT_STATE.x;player.y=DEFAULT_STATE.y;state.stock={...DEFAULT_STATE.stock};save(true)}
- else console.info('Mía Modas: autocomprobación correcta');
- return issues;
-}
-setTimeout(runSelfCheck,50);
-window.addEventListener('error',e=>{console.error('Mía Modas:',e.error||e.message);try{save()}catch(_){} });
-window.addEventListener('unhandledrejection',e=>{console.error('Mía Modas promise:',e.reason);try{save()}catch(_){} });
-
-// Premium touch feedback
-document.addEventListener('click',e=>{if(e.target.closest('button')) navigator.vibrate?.(10)});
-
-// Protección final para móviles: evita que un fallo aislado bloquee toda la partida.
-window.addEventListener('error',e=>{console.error('Error del juego:',e.error||e.message);try{save(true)}catch(_){} });
-window.addEventListener('unhandledrejection',e=>{console.error('Promesa rechazada:',e.reason);try{save(true)}catch(_){} });
-window.addEventListener('pagehide',()=>{try{save(true)}catch(_){} });
-document.addEventListener('visibilitychange',()=>{if(document.hidden){try{save(true)}catch(_){};if(audioCtx&&audioCtx.state==='running')audioCtx.suspend().catch(()=>{})}else if(started&&audioOn&&audioCtx&&audioCtx.state==='suspended'){audioCtx.resume().catch(()=>{})}});
-
-if(new URLSearchParams(location.search).get('autostart')==='1')setTimeout(startGame,50);
+function head(title,sub=''){return `<div class="sheetHead"><h2>${title}</h2><button class="close" id="close">✕</button></div><p style="font-size:11px;opacity:.65">${sub}</p>`}
+function open(type){let html='';if(type==='shop')html=head('Dentro de Mía Modas','Atiende clientas y gestiona la boutique.')+`<div class="grid"><div class="card"><div class="emoji">🛍️</div><h3>Atender clienta</h3><p>Vende una prenda del stock.</p><button data-job="sale">ATENDER</button></div><div class="card"><div class="emoji">📦</div><h3>Pedido online</h3><p>Prepara un pedido para redes.</p><button data-job="order">PREPARAR</button></div><div class="card"><div class="emoji">📸</div><h3>Sesión de fotos</h3><p>Gana seguidores y fama.</p><button data-job="photo">HACER FOTOS</button></div><div class="card"><div class="emoji">👗</div><h3>Comprar lote</h3><p>Añade 10 prendas al stock.</p><button data-job="stock">COMPRAR · 250 €</button></div></div>`;
+if(type==='clothes')html=head('Colección de Mía Modas','Más ropa y complementos para tu boutique.')+'<div class="grid">'+clothes.map(x=>`<div class="card"><div class="emoji">${x[1]}</div><h3>${x[0]}</h3><p>Precio de venta ${x[2]} €</p><button data-buy="${x[2]}">AÑADIR AL STOCK</button></div>`).join('')+'</div>';
+if(type==='business')html=head('Comprar más tiendas','Haz crecer tu imperio de moda.')+'<div class="grid">'+businesses.map(x=>`<div class="card"><div class="emoji">${x[1]}</div><h3>${x[0]}</h3><p>${x[2].toLocaleString('es-ES')} €</p><button data-property="business" data-name="${x[0]}" data-price="${x[2]}" ${state.owned.includes(x[0])?'disabled':''}>${state.owned.includes(x[0])?'COMPRADO':'COMPRAR'}</button></div>`).join('')+'</div>';
+if(type==='homes')html=head('Tus futuras casas','Compra nuevas viviendas con lo que ganes.')+'<div class="grid">'+homes.map(x=>`<div class="card"><div class="emoji">${x[1]}</div><h3>${x[0]}</h3><p>${x[2].toLocaleString('es-ES')} €</p><button data-property="home" data-name="${x[0]}" data-price="${x[2]}" ${state.homes.includes(x[0])?'disabled':''}>${state.homes.includes(x[0])?'COMPRADA':'COMPRAR'}</button></div>`).join('')+'</div>';
+if(type==='profile')html=head('Mi vida en Mía Modas','Tu progreso se guarda solamente en este móvil.')+`<div class="grid"><div class="card"><div class="emoji">💶</div><h3>${Math.round(state.money).toLocaleString('es-ES')} €</h3><p>Dinero disponible</p></div><div class="card"><div class="emoji">⭐</div><h3>${state.fame} de fama</h3><p>${state.followers} seguidores</p></div><div class="card"><div class="emoji">👗</div><h3>${state.stock} prendas</h3><p>Stock disponible</p></div><div class="card"><div class="emoji">🏬</div><h3>${state.owned.length} tiendas</h3><p>${state.homes.length} casas</p></div></div><button class="wide" id="newGame">BORRAR PARTIDA Y EMPEZAR DE CERO</button>`;
+content.innerHTML=html;modal.classList.add('open');$('#close')?.addEventListener('click',close);bindModal()}
+function close(){modal.classList.remove('open')}modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});
+function bindModal(){$$('[data-job]').forEach(b=>b.onclick=()=>{const k=b.dataset.job;if(k==='sale'){if(state.stock<1)return toast('No tienes stock');const gain=35+Math.floor(Math.random()*45);state.stock--;state.money+=gain;state.fame++;toast('Venta realizada: +'+gain+' € 🛍️')}if(k==='order'){if(state.energy<10)return toast('Necesitas energía');state.energy-=10;state.money+=70;state.followers+=8;toast('Pedido enviado: +70 € 📦')}if(k==='photo'){if(state.energy<20)return toast('Necesitas energía');state.energy-=20;state.fame+=8;state.followers+=120;toast('Sesión terminada: +120 seguidores 📸')}if(k==='stock'){if(state.money<250)return toast('No tienes 250 €');state.money-=250;state.stock+=10;toast('10 prendas añadidas 👗')}hud();save();open('shop')});$$('[data-buy]').forEach(b=>b.onclick=()=>{const cost=Math.max(8,Math.round(+b.dataset.buy*.35));if(state.money<cost)return toast('No tienes suficiente dinero');state.money-=cost;state.stock++;hud();save();toast('Prenda añadida al stock')});$$('[data-property]').forEach(b=>b.onclick=()=>{const price=+b.dataset.price,name=b.dataset.name;if(state.money<price)return toast('Aún no tienes suficiente dinero');state.money-=price;if(b.dataset.property==='home')state.homes.push(name);else state.owned.push(name);hud();save();open(b.dataset.property==='home'?'homes':'business');toast('Has comprado '+name+' 🎉')});$('#newGame')?.addEventListener('click',()=>{if(confirm('¿Seguro que quieres borrar toda la partida?')){localStorage.removeItem('miaBoutiqueV2');location.reload()}})}
+$$('[data-open]').forEach(b=>b.addEventListener('click',()=>open(b.dataset.open)));document.addEventListener('visibilitychange',()=>{if(document.hidden)save()});window.addEventListener('beforeunload',save);hud();place();
 </script>
-</body>
-</html>
+</body></html>
