@@ -118,6 +118,25 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
 @media(max-height:700px){.topbar{padding-top:calc(4px + env(safe-area-inset-top));padding-bottom:4px}.bottom{padding-top:4px}.nav{height:44px}.joy{width:102px;height:102px}.knob{left:31px;top:31px;width:40px;height:40px}.actionStack{bottom:16px}.roundBtn{width:53px;height:53px}.interact{bottom:83px}}
 @media(min-width:700px){#app{max-width:520px;margin:auto;box-shadow:0 0 80px rgba(58,25,42,.3)}body{background:linear-gradient(135deg,#ead6df,#f6edf1)}}
 
+
+/* Refinado móvil 2026: contraste, profundidad y controles cómodos */
+:root{--rose:#c84f82;--rose2:#f5b7cf;--rose3:#fff3f8;--wine:#542236;--gold:#c9a35d;--ink:#291d23;--paper:#fffdfd;--glass:rgba(255,252,253,.92);--line:rgba(85,34,54,.12);--shadow:0 18px 55px rgba(70,26,45,.20)}
+body{background:radial-gradient(circle at 50% -20%,#fff 0,#f8e8ef 36%,#e7d4dd 100%)}
+#app{background:linear-gradient(180deg,#fff7fa 0,#f1dfe7 54%,#e8d8df 100%)}
+.topbar{backdrop-filter:blur(18px) saturate(1.18);-webkit-backdrop-filter:blur(18px) saturate(1.18);border-bottom:1px solid rgba(255,255,255,.72);box-shadow:0 8px 30px rgba(75,28,47,.10)}
+.pill,.iconBtn,.nav,.actionBtn{border:1px solid rgba(255,255,255,.72);box-shadow:0 8px 22px rgba(77,31,49,.12),inset 0 1px 0 rgba(255,255,255,.8)}
+.actionBtn{min-height:52px;background:linear-gradient(135deg,#d65d90,#b63e72);box-shadow:0 12px 30px rgba(174,55,105,.30),inset 0 1px 0 rgba(255,255,255,.32)}
+.actionBtn:active,.nav:active,.iconBtn:active{transform:scale(.97)}
+.bottomBar{backdrop-filter:blur(20px) saturate(1.15);-webkit-backdrop-filter:blur(20px) saturate(1.15);border-top:1px solid rgba(255,255,255,.78);box-shadow:0 -10px 35px rgba(61,26,40,.13)}
+.joy{width:112px;height:112px;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.96),rgba(245,206,221,.9) 48%,rgba(187,75,119,.82));border:2px solid rgba(255,255,255,.9);box-shadow:0 16px 38px rgba(89,34,56,.24),inset 0 0 0 8px rgba(255,255,255,.28)}
+.knob{width:48px;height:48px;background:radial-gradient(circle at 35% 28%,#fff,#f4b6cf 42%,#bf4778 100%);box-shadow:0 8px 18px rgba(91,29,56,.30),inset 0 1px 0 #fff}
+.sheetPanel{border:1px solid rgba(255,255,255,.82);box-shadow:0 -22px 70px rgba(62,24,40,.28);background:linear-gradient(180deg,rgba(255,253,254,.98),rgba(255,244,249,.98))}
+.card{border:1px solid rgba(100,43,65,.10);box-shadow:0 10px 28px rgba(79,29,48,.10);background:linear-gradient(145deg,#fff,#fff8fb)}
+#toast{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.72);box-shadow:0 15px 42px rgba(55,21,35,.28)}
+#tutorialHint{box-shadow:0 16px 42px rgba(66,25,42,.24);border:1px solid rgba(255,255,255,.7)}
+@media(max-width:430px){.topbar{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right))}.locSub{max-width:210px}.bottomBar{padding-bottom:max(8px,env(safe-area-inset-bottom))}.nav{min-width:58px}.nav span{font-size:10px}.joy{width:104px;height:104px}.actionBtn{right:14px;bottom:calc(84px + env(safe-area-inset-bottom))}}
+@media(max-height:700px){.joy{width:92px;height:92px}.knob{width:42px;height:42px}.actionBtn{min-height:46px}.topbar{padding-top:max(5px,env(safe-area-inset-top))}}
+
 </style>
 
 <style id="luxury-detail-pass">
@@ -264,7 +283,8 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;ba
 <script>
 const C=document.getElementById('game'),ctx=C.getContext('2d'),wrap=document.getElementById('gameWrap');
 let W=0,H=0,dpr=1,last=0,joyX=0,joyY=0,target=null,near=null,started=false;
-const DEFAULT_STATE={money:1250,fame:12,energy:100,followers:326,level:1,x:410,y:560,scene:'street',day:1,sales:0,dailySales:0,earnedToday:0,owned:['Mía Modas'],homes:[],stock:{vestido:6,camiseta:8,pantalon:5,bolso:4,zapatos:3},decor:0,claimed:{},dailyPhoto:0,dailyLook:0,lastScene:'street'};
+const SAVE_VERSION=4;
+const DEFAULT_STATE={saveVersion:SAVE_VERSION,money:1250,fame:12,energy:100,followers:326,level:1,x:410,y:560,scene:'street',day:1,sales:0,dailySales:0,earnedToday:0,owned:['Mía Modas'],homes:[],stock:{vestido:6,camiseta:8,pantalon:5,bolso:4,zapatos:3},decor:0,claimed:{},dailyPhoto:0,dailyLook:0,lastScene:'street'};
 let storedState=null;try{storedState=JSON.parse(localStorage.getItem('miaMobileSave')||'null')}catch(_){storedState=null}
 const state={...DEFAULT_STATE,...(storedState&&typeof storedState==='object'?storedState:{}),stock:{...DEFAULT_STATE.stock,...(storedState?.stock||{})},claimed:{...(storedState?.claimed||{})}};
 if(!Array.isArray(state.owned))state.owned=['Mía Modas'];
@@ -277,7 +297,7 @@ if(!Number.isFinite(Number(state.y)))state.y=DEFAULT_STATE.y;
 state.x=Number(state.x);state.y=Number(state.y);
 ['money','fame','energy','followers','level','day','sales','dailySales','earnedToday','decor','dailyPhoto','dailyLook'].forEach(k=>{if(!Number.isFinite(Number(state[k])))state[k]=DEFAULT_STATE[k]??0;else state[k]=Number(state[k])});
 
-let audioOn=false,audioCtx=null,musicTimer=null,master=null,ambience=null;
+let audioOn=localStorage.getItem('miaAudioOn')!=='0',audioCtx=null,musicTimer=null,master=null,ambience=null;
 const AUDIO_KEY='miaAudioOn';
 function initAudio(){
   if(audioCtx)return;
@@ -330,10 +350,10 @@ const interactables={
  home:[{x:130,y:140,w:250,h:190,label:'Descansar',action:'rest'},{x:450,y:140,w:250,h:190,label:'Cambiar de look',action:'wardrobe'},{x:70,y:560,w:190,h:130,label:'Volver a la calle',to:'street'}]
 };
 function resize(){dpr=Math.min(window.devicePixelRatio||1,2);W=Math.max(1,wrap.clientWidth);H=Math.max(1,wrap.clientHeight);const nw=Math.round(W*dpr),nh=Math.round(H*dpr);if(C.width!==nw||C.height!==nh){C.width=nw;C.height=nh}ctx.setTransform(dpr,0,0,dpr,0,0);draw()}addEventListener('resize',resize,{passive:true});addEventListener('orientationchange',()=>setTimeout(resize,180),{passive:true});resize();
-function save(){state.x=player.x;state.y=player.y;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);try{localStorage.setItem('miaMobileSave',JSON.stringify(state))}catch(e){}updateHud()}
+let lastSaveAt=0;function save(force=false){state.x=player.x;state.y=player.y;state.saveVersion=SAVE_VERSION;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);const now=Date.now();if(force||now-lastSaveAt>250){try{localStorage.setItem('miaMobileSave',JSON.stringify(state));lastSaveAt=now}catch(e){console.warn('No se pudo guardar la partida',e)}}updateHud()}
 const hud={money:document.getElementById('money'),fame:document.getElementById('fame'),energy:document.getElementById('energy'),locName:document.getElementById('locName'),locSub:document.getElementById('locSub')};
 function updateHud(){const sc=scenes[state.scene]||scenes.street;hud.money.textContent=Math.max(0,state.money).toLocaleString('es-ES')+' €';hud.fame.textContent='⭐ '+Math.max(0,state.fame);hud.energy.textContent='⚡ '+Math.round(Math.max(0,state.energy));hud.locName.textContent=sc.name;hud.locSub.textContent=sc.sub}
-async function startGame(){if(started)return;started=true;const startEl=document.getElementById('start');if(startEl)startEl.style.display='none';const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));draw();initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();audioOn=true;localStorage.setItem(AUDIO_KEY,'1');updateAudioBtn();startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),500);setTimeout(()=>th.classList.remove('show'),6000)}updateHud();updateAudioBtn();requestAnimationFrame(loop)}
+async function startGame(){if(started)return;started=true;const startEl=document.getElementById('start');if(startEl)startEl.style.display='none';const sc=scenes[state.scene]||scenes.street;player.x=Math.max(40,Math.min(sc.w-40,Number.isFinite(player.x)?player.x:DEFAULT_STATE.x));player.y=Math.max(85,Math.min(sc.h-40,Number.isFinite(player.y)?player.y:DEFAULT_STATE.y));draw();initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();updateAudioBtn();if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);}const th=document.getElementById('tutorialHint');if(th){setTimeout(()=>th.classList.add('show'),500);setTimeout(()=>th.classList.remove('show'),6000)}updateHud();updateAudioBtn();requestAnimationFrame(loop)}
 function rounded(x,y,w,h,r,fill,stroke){r=Math.max(0,Math.min(r,Math.abs(w)/2,Math.abs(h)/2));ctx.beginPath();if(typeof ctx.roundRect==='function')ctx.roundRect(x,y,w,h,r);else{ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
 function text(t,x,y,size=14,color='#35252d',align='left',weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px ui-rounded,-apple-system`;ctx.textAlign=align;ctx.fillText(t,x,y)}
 function camera(){const sc=scenes[state.scene]||scenes.street;const px=Number.isFinite(player.x)?player.x:DEFAULT_STATE.x,py=Number.isFinite(player.y)?player.y:DEFAULT_STATE.y;return{x:Math.max(0,Math.min(Math.max(0,sc.w-W),px-W/2)),y:Math.max(0,Math.min(Math.max(0,sc.h-H),py-H/2))}}
@@ -419,13 +439,13 @@ function drawShop(cam){
 function drawMarkers(cam){const list=interactables[state.scene]||[];const pulse=.55+Math.sin(performance.now()/420)*.18;for(const a of list){const cx=a.x+a.w/2-cam.x,cy=a.y+a.h/2-cam.y;if(cx<-80||cy<-80||cx>W+80||cy>H+80)continue;ctx.save();ctx.globalAlpha=pulse;ctx.strokeStyle='rgba(215,91,139,.62)';ctx.lineWidth=2;ctx.setLineDash([7,7]);ctx.beginPath();ctx.ellipse(cx,cy,Math.min(44,a.w*.2),16,0,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.restore()}}
 function draw(){const cam=camera();ctx.clearRect(0,0,W,H);if(state.scene==='street')drawStreet(cam);else if(state.scene==='shop')drawShop(cam);else drawInterior(cam,state.scene);drawMarkers(cam);drawPlayer(cam);if(started){const px=player.x-cam.x,py=player.y-cam.y;rounded(px-26,py-67,52,17,9,'rgba(255,255,255,.88)','rgba(164,72,108,.15)');text('TÚ',px,py-55,9,'#7f3153','center',1000)}const vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.22,W/2,H/2,Math.max(W,H)*.72);vg.addColorStop(0,'rgba(255,255,255,0)');vg.addColorStop(1,'rgba(55,24,39,.12)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H)}
 function loop(t){if(!started)return;if(!last)last=t;const dt=Math.min(Math.max((t-last)/1000,0),.035);last=t;let dx=joyX,dy=joyY;if(target){const vx=target.x-player.x,vy=target.y-player.y,d=Math.hypot(vx,vy);if(d<8)target=null;else{dx=vx/d;dy=vy/d}}
- if(dx||dy){const mag=Math.min(1,Math.hypot(dx,dy));player.x+=dx/mag*player.speed*dt;player.y+=dy/mag*player.speed*dt;state.energy=Math.max(0,state.energy-dt*.25)}
- const s=scenes[state.scene];player.x=Math.max(25,Math.min(s.w-25,player.x));player.y=Math.max(70,Math.min(s.h-25,player.y));checkNear();draw();updateHud();requestAnimationFrame(loop)}
-function checkNear(){near=null;for(const a of interactables[state.scene]){const cx=Math.max(a.x,Math.min(player.x,a.x+a.w)),cy=Math.max(a.y,Math.min(player.y,a.y+a.h));if(Math.hypot(player.x-cx,player.y-cy)<65){near=a;break}}const b=document.getElementById('interact');b.classList.toggle('show',!!near);b.textContent=near?near.label:'Entrar'}
+ if((dx||dy)&&state.energy>0){const mag=Math.max(.001,Math.min(1,Math.hypot(dx,dy)));player.x+=dx/mag*player.speed*dt;player.y+=dy/mag*player.speed*dt;state.energy=Math.max(0,state.energy-dt*.18)}else if(state.energy<=0&&target){target=null;toast('Estás agotada. Ve a casa a descansar 🌙')}
+ const s=scenes[state.scene]||scenes.street;if(!scenes[state.scene])state.scene='street';player.x=Math.max(25,Math.min(s.w-25,player.x));player.y=Math.max(70,Math.min(s.h-25,player.y));checkNear();draw();updateHud();requestAnimationFrame(loop)}
+function checkNear(){near=null;for(const a of (interactables[state.scene]||[])){const cx=Math.max(a.x,Math.min(player.x,a.x+a.w)),cy=Math.max(a.y,Math.min(player.y,a.y+a.h));if(Math.hypot(player.x-cx,player.y-cy)<65){near=a;break}}const b=document.getElementById('interact');b.classList.toggle('show',!!near);b.textContent=near?near.label:'Entrar'}
 function useAction(){if(near)activate(near);else toast('Acércate a una zona marcada ✨')}
 document.getElementById('interact').onclick=()=>near&&activate(near);
 function activate(a){if(a.to){state.scene=a.to;const s=scenes[a.to];player.x=a.to==='street'?500:90;player.y=a.to==='street'?520:s.h-120;target=null;save();toast('Has llegado a '+scenes[a.to].name);sparkle();speak('Has llegado a '+scenes[a.to].name)}else action(a.action)}
-function action(k){const map={shop:()=>openSheet('shop'),wardrobe:()=>openSheet('wardrobe'),sale:sale,orders:orders,buyDresses:()=>buyPack('vestido',5,240),buyBasics:()=>buyPack('camiseta',8,180),buyAccessories:()=>buyPack('bolso',5,210),photo:()=>{state.dailyPhoto=1;reward(-25,22,120,'Sesión de fotos terminada 📸')},live:()=>reward(-18,35,210,'Directo completado 🔴'),campaign:()=>reward(-40,65,480,'Campaña publicada ✨'),rest:()=>advanceDay('Has descansado y empieza un nuevo día 🌙')};if(typeof map[k]==='function')map[k]();else toast('Esta acción todavía no está disponible')}
+function action(k){const map={shop:()=>openSheet('shop'),wardrobe:()=>openSheet('wardrobe'),sale:sale,orders:orders,buyDresses:()=>buyPack('vestido',5,240),buyBasics:()=>buyPack('camiseta',8,180),buyAccessories:()=>buyPack('bolso',5,210),photo:()=>{if(state.energy<25)return toast('Necesitas al menos 25 de energía');state.dailyPhoto=1;reward(-25,22,120,'Sesión de fotos terminada 📸')},live:()=>reward(-18,35,210,'Directo completado 🔴'),campaign:()=>reward(-40,65,480,'Campaña publicada ✨'),rest:()=>advanceDay('Has descansado y empieza un nuevo día 🌙')};if(typeof map[k]==='function')map[k]();else toast('Esta acción todavía no está disponible')}
 function sale(){let total=Object.values(state.stock).reduce((a,b)=>a+b,0);if(!total)return toast('No queda ropa. Ve al mayorista.');const keys=Object.keys(state.stock).filter(k=>state.stock[k]>0),k=keys[Math.floor(Math.random()*keys.length)],gain=25+Math.floor(Math.random()*36);state.stock[k]--;state.money+=gain;state.sales++;state.dailySales=(state.dailySales||0)+1;state.earnedToday=(state.earnedToday||0)+gain;state.fame+=1;save();sparkle();toast('Clienta feliz: +'+gain+' € 🛍️');speak('Muchas gracias, me encanta. Te has ganado '+gain+' euros.')}
 function orders(){if(state.energy<8)return toast('Necesitas descansar');const gain=45+Math.floor(Math.random()*70);state.money+=gain;state.earnedToday=(state.earnedToday||0)+gain;state.energy-=8;state.followers+=8;save();sparkle();toast('Pedido preparado: +'+gain+' € 📦');speak('Pedido preparado correctamente. Has ganado '+gain+' euros.')}
 function reward(e,f,fol,msg){if(state.energy<Math.abs(e))return toast('No tienes suficiente energía');state.energy+=e;state.fame+=f;state.followers+=fol;const cash=Math.floor(f*2.4);state.money+=cash;state.earnedToday=(state.earnedToday||0)+cash;save();sparkle();toast(msg);speak(msg.replace(/[📸🔴✨]/g,''))}
@@ -438,7 +458,7 @@ joy.addEventListener('pointerdown',e=>{joyId=e.pointerId;joy.setPointerCapture(j
 function moveJoy(e){target=null;const r=joy.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy),max=34,k=Math.min(max,d);joyX=d?dx/d:0;joyY=d?dy/d:0;knob.style.transform=`translate(${joyX*k}px,${joyY*k}px)`}
 function resetJoy(){joyId=null;joyX=joyY=0;knob.style.transform='translate(0,0)'}
 function setNav(b){document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
-const clothes=[['Vestido satinado','👗',69,'vestido'],['Vestido lunares','👗',49,'vestido'],['Top festival','👚',25,'camiseta'],['Camiseta básica','👕',20,'camiseta'],['Pantalón palazzo','👖',39,'pantalon'],['Tejano claro','👖',45,'pantalon'],['Conjunto lino','🥻',59,'vestido'],['Chaqueta corta','🧥',55,'camiseta'],['Bolso dorado','👜',35,'bolso'],['Bolso beige','👜',32,'bolso'],['Sandalias','👡',30,'zapatos'],['Gafas doradas','🕶️',18,'bolso'],['Sombrero verano','👒',22,'bolso'],['Mono bombacho','🥻',52,'vestido'],['Body blanco','👚',28,'camiseta']];
+const clothes=[['Vestido satinado','👗',69,'vestido'],['Vestido lunares','👗',49,'vestido'],['Top festival','👚',25,'camiseta'],['Camiseta básica','👕',20,'camiseta'],['Pantalón palazzo','👖',39,'pantalon'],['Tejano claro','👖',45,'pantalon'],['Conjunto lino','🥻',59,'vestido'],['Chaqueta corta','🧥',55,'camiseta'],['Bolso dorado','👜',35,'bolso'],['Bolso beige','👜',32,'bolso'],['Sandalias','👡',30,'zapatos'],['Gafas doradas','🕶️',18,'bolso'],['Sombrero verano','👒',22,'bolso'],['Mono bombacho','🥻',52,'vestido'],['Body blanco','👚',28,'camiseta'],['Vestido invitada','👗',79,'vestido'],['Vestido midi floral','🌸',59,'vestido'],['Pantalón bombacho lino','👖',42,'pantalon'],['Pantalón sastre','👖',49,'pantalon'],['Top joya','✨',34,'camiseta'],['Camisa satinada','👚',39,'camiseta'],['Blazer rosa','🧥',65,'camiseta'],['Bolso cadena','👜',44,'bolso'],['Bolso negro elegante','👜',39,'bolso'],['Zapatilla urbana','👟',48,'zapatos'],['Tacón bajo','👠',45,'zapatos'],['Collar dorado','📿',21,'bolso'],['Pañuelo estampado','🧣',19,'bolso']];
 const businesses=[['Mía Outlet','🏷️',6500,380],['Mía Modas Manresa','🏬',14000,780],['Centro online','📦',22000,1250],['Atelier Mía','🧵',35000,1850],['Mía Luxury Barcelona','💎',78000,4200],['Academia de moda','🎓',120000,7000]];
 const homes=[['Piso moderno','🏢',18000],['Ático con terraza','🌇',42000],['Casa con jardín','🏡',76000],['Villa con piscina','🏊',145000],['Masía catalana','🌳',260000],['Casa de lujo','🏰',500000]];
 function openSheet(type){const s=document.getElementById('sheet'),c=document.getElementById('sheetContent');let h='';
@@ -467,10 +487,22 @@ updateHud();draw();setInterval(save,8000);
 
 
 document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(musicTimer);musicTimer=null;window.speechSynthesis?.cancel();save()}else if(started&&audioOn){startMusic()}});
-window.addEventListener('pagehide',save);
+window.addEventListener('pagehide',()=>save(true));
 document.addEventListener('contextmenu',e=>e.preventDefault());
 
 
+
+function runSelfCheck(){
+ const issues=[];
+ ['game','gameWrap','money','fame','energy','locName','locSub','interact','joy','knob','sheet','sheetContent','toast'].forEach(id=>{if(!document.getElementById(id))issues.push('Falta #'+id)});
+ Object.keys(scenes).forEach(k=>{if(!Array.isArray(interactables[k]))issues.push('Sin zonas en '+k)});
+ if(!Number.isFinite(player.x)||!Number.isFinite(player.y))issues.push('Posición inválida');
+ if(!state.stock||typeof state.stock!=='object')issues.push('Stock inválido');
+ if(issues.length){console.error('Autocomprobación:',issues);toast('Se ha reparado una configuración antigua');state.scene='street';player.x=DEFAULT_STATE.x;player.y=DEFAULT_STATE.y;state.stock={...DEFAULT_STATE.stock};save(true)}
+ else console.info('Mía Modas: autocomprobación correcta');
+ return issues;
+}
+setTimeout(runSelfCheck,50);
 window.addEventListener('error',e=>{console.error('Mía Modas:',e.error||e.message);try{save()}catch(_){} });
 window.addEventListener('unhandledrejection',e=>{console.error('Mía Modas promise:',e.reason);try{save()}catch(_){} });
 
