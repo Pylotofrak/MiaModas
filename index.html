@@ -13,7 +13,7 @@
   --ink:#2b2026;--paper:#fffafc;--glass:rgba(255,250,252,.88);--line:rgba(91,41,62,.12);
   --shadow:0 18px 55px rgba(70,35,50,.22)
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:none}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent} button{touch-action:manipulation} canvas,.joy,.knob{touch-action:none}.sheet{touch-action:pan-y;-webkit-overflow-scrolling:touch}
 html,body{margin:0;height:100%;overflow:hidden;background:#eadbe2;color:var(--ink);font-family:ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 button{font:inherit;color:inherit;border:0}
 #app{height:100%;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(180deg,#f8eaf0,#eadbe2)}
@@ -93,6 +93,30 @@ body{background:radial-gradient(circle at 50% 0,#fff7fb,#d9c5cf 65%,#b79aa8);fon
 .locationPill{box-shadow:0 14px 38px rgba(62,27,44,.22),inset 0 1px 0 rgba(255,255,255,.92)}
 .bottom{background:linear-gradient(180deg,rgba(255,255,255,.93),rgba(255,245,249,.98));box-shadow:0 -14px 36px rgba(70,27,48,.14)}
 .roundBtn,.interact,.quest{transition:transform .16s ease,filter .16s ease}.roundBtn:active,.interact:active,.quest:active,.audioBtn:active{transform:scale(.92)}
+
+/* Signature Plus — mobile polish */
+:root{--safeB:env(safe-area-inset-bottom);--safeT:env(safe-area-inset-top)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.34),transparent 28%),radial-gradient(circle at 90% 18%,rgba(255,222,236,.22),transparent 24%);mix-blend-mode:screen}
+.topbar{padding-left:12px;padding-right:12px;background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,248,251,.86));border-bottom-color:rgba(190,111,143,.14)}
+.logo{position:relative;overflow:hidden;font-family:Georgia,serif;font-size:22px}.logo:after{content:"";position:absolute;inset:-40%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.65) 50%,transparent 65%);transform:translateX(-80%);animation:logoShine 5s ease-in-out infinite}@keyframes logoShine{15%,100%{transform:translateX(80%)}}
+.stat{transition:.2s transform,.2s box-shadow}.stat:active{transform:scale(.96)}
+.gameWrap:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;box-shadow:inset 0 0 70px rgba(72,30,49,.08)}
+.locationPill{display:flex;flex-direction:column;justify-content:center;min-height:48px;padding-left:15px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,244,249,.88));border:1px solid rgba(255,255,255,.95)}
+.locationPill:before{content:"📍";position:absolute;right:10px;top:9px;font-size:16px;opacity:.62}
+.quest,.audioBtn,.roundBtn,.iconBtn{transition:transform .12s ease,filter .12s ease}.quest:active,.audioBtn:active,.roundBtn:active,.iconBtn:active{transform:scale(.91);filter:brightness(.97)}
+.joy{width:118px;height:118px;left:14px;bottom:20px;border:1px solid rgba(255,255,255,.9);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.62),rgba(255,238,245,.24) 55%,rgba(154,62,101,.12));box-shadow:0 18px 38px rgba(55,24,38,.22),inset 0 0 0 8px rgba(255,255,255,.14),inset 0 0 32px rgba(255,255,255,.35)}
+.joy:before{content:"";position:absolute;inset:20px;border-radius:50%;border:1px dashed rgba(116,48,78,.16)}
+.knob{left:37px;top:37px;width:44px;height:44px;background:radial-gradient(circle at 35% 25%,#fff,#f4bfd3 50%,#cf6e98);box-shadow:0 10px 24px rgba(84,31,57,.34),inset 0 2px 0 rgba(255,255,255,.9)}
+.roundBtn{border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(255,238,245,.9));box-shadow:0 14px 32px rgba(63,27,45,.22),inset 0 1px 0 #fff}.roundBtn.primary{background:linear-gradient(145deg,#ed86ad,#c24f7f 54%,#94345d);box-shadow:0 16px 34px rgba(131,39,82,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+.bottom{gap:7px;padding-left:10px;padding-right:10px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,247,250,.98))}.nav{height:52px;border-radius:17px;transition:.15s}.nav:active{transform:scale(.94)}.nav.active{background:linear-gradient(145deg,#fff,#f8d5e2);box-shadow:0 7px 18px rgba(124,43,80,.13),inset 0 0 0 1px rgba(168,62,101,.1)}
+.sheet{border-top:1px solid rgba(255,255,255,.98);background:linear-gradient(180deg,rgba(255,253,254,.99),rgba(255,246,250,.98));overscroll-behavior:contain}.sheetHead{position:sticky;top:-14px;z-index:3;padding-top:4px;padding-bottom:8px;background:linear-gradient(180deg,rgba(255,253,254,.99) 75%,transparent)}
+.card,.item{transition:transform .15s ease,box-shadow .15s ease}.card:active,.item:active{transform:scale(.985)}
+.card button,.wideBtn{min-height:43px;letter-spacing:.15px}.card button:active,.wideBtn:active{transform:translateY(1px);filter:brightness(.96)}
+.toast{max-width:min(88vw,390px);padding:13px 18px;border-radius:18px;font-size:12px;line-height:1.3}
+.startCard{max-width:390px;padding:34px 26px 28px}.startCard:before{content:"MÍA MODAS · CARRETERA DE VIC, 26";display:block;font-size:9px;letter-spacing:1.7px;color:#8e4765;margin-bottom:18px}.startLogo{width:88px;height:88px;font-size:52px;font-family:Georgia,serif}.start h1{font-size:37px;margin-bottom:8px}.start p{line-height:1.55}.play{min-height:55px;font-size:13px;letter-spacing:.45px}
+@media(max-height:700px){.topbar{padding-top:calc(4px + env(safe-area-inset-top));padding-bottom:4px}.bottom{padding-top:4px}.nav{height:44px}.joy{width:102px;height:102px}.knob{left:31px;top:31px;width:40px;height:40px}.actionStack{bottom:16px}.roundBtn{width:53px;height:53px}.interact{bottom:83px}}
+@media(min-width:700px){#app{max-width:520px;margin:auto;box-shadow:0 0 80px rgba(58,25,42,.3)}body{background:linear-gradient(135deg,#ead6df,#f6edf1)}}
+
 </style>
 
 <style id="luxury-detail-pass">
@@ -131,6 +155,30 @@ html,body{background:radial-gradient(circle at 50% -15%,#fff,#ead7df 62%,#c9aeb9
 .startLogo{background:linear-gradient(145deg,#ef8db2,#bc4c7c 52%,#893159);box-shadow:0 20px 44px rgba(100,32,66,.38),inset 0 1px 0 rgba(255,255,255,.35)}
 .start h1{font-family:Georgia,serif;color:#57283f;letter-spacing:.4px}.play{background:linear-gradient(135deg,#ef87ae,#bd4d7d 58%,#8d315b);box-shadow:0 17px 30px rgba(130,42,82,.34),inset 0 1px 0 rgba(255,255,255,.3)}
 @media(max-width:390px){.stat{min-width:53px;padding:5px 6px}.stat:nth-child(3){display:none}.brand{min-width:96px}.joy{transform:scale(.94);transform-origin:left bottom}.actionStack{right:12px}.roundBtn{width:55px;height:55px}}
+
+/* Signature Plus — mobile polish */
+:root{--safeB:env(safe-area-inset-bottom);--safeT:env(safe-area-inset-top)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.34),transparent 28%),radial-gradient(circle at 90% 18%,rgba(255,222,236,.22),transparent 24%);mix-blend-mode:screen}
+.topbar{padding-left:12px;padding-right:12px;background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,248,251,.86));border-bottom-color:rgba(190,111,143,.14)}
+.logo{position:relative;overflow:hidden;font-family:Georgia,serif;font-size:22px}.logo:after{content:"";position:absolute;inset:-40%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.65) 50%,transparent 65%);transform:translateX(-80%);animation:logoShine 5s ease-in-out infinite}@keyframes logoShine{15%,100%{transform:translateX(80%)}}
+.stat{transition:.2s transform,.2s box-shadow}.stat:active{transform:scale(.96)}
+.gameWrap:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;box-shadow:inset 0 0 70px rgba(72,30,49,.08)}
+.locationPill{display:flex;flex-direction:column;justify-content:center;min-height:48px;padding-left:15px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,244,249,.88));border:1px solid rgba(255,255,255,.95)}
+.locationPill:before{content:"📍";position:absolute;right:10px;top:9px;font-size:16px;opacity:.62}
+.quest,.audioBtn,.roundBtn,.iconBtn{transition:transform .12s ease,filter .12s ease}.quest:active,.audioBtn:active,.roundBtn:active,.iconBtn:active{transform:scale(.91);filter:brightness(.97)}
+.joy{width:118px;height:118px;left:14px;bottom:20px;border:1px solid rgba(255,255,255,.9);background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.62),rgba(255,238,245,.24) 55%,rgba(154,62,101,.12));box-shadow:0 18px 38px rgba(55,24,38,.22),inset 0 0 0 8px rgba(255,255,255,.14),inset 0 0 32px rgba(255,255,255,.35)}
+.joy:before{content:"";position:absolute;inset:20px;border-radius:50%;border:1px dashed rgba(116,48,78,.16)}
+.knob{left:37px;top:37px;width:44px;height:44px;background:radial-gradient(circle at 35% 25%,#fff,#f4bfd3 50%,#cf6e98);box-shadow:0 10px 24px rgba(84,31,57,.34),inset 0 2px 0 rgba(255,255,255,.9)}
+.roundBtn{border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(255,238,245,.9));box-shadow:0 14px 32px rgba(63,27,45,.22),inset 0 1px 0 #fff}.roundBtn.primary{background:linear-gradient(145deg,#ed86ad,#c24f7f 54%,#94345d);box-shadow:0 16px 34px rgba(131,39,82,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+.bottom{gap:7px;padding-left:10px;padding-right:10px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,247,250,.98))}.nav{height:52px;border-radius:17px;transition:.15s}.nav:active{transform:scale(.94)}.nav.active{background:linear-gradient(145deg,#fff,#f8d5e2);box-shadow:0 7px 18px rgba(124,43,80,.13),inset 0 0 0 1px rgba(168,62,101,.1)}
+.sheet{border-top:1px solid rgba(255,255,255,.98);background:linear-gradient(180deg,rgba(255,253,254,.99),rgba(255,246,250,.98));overscroll-behavior:contain}.sheetHead{position:sticky;top:-14px;z-index:3;padding-top:4px;padding-bottom:8px;background:linear-gradient(180deg,rgba(255,253,254,.99) 75%,transparent)}
+.card,.item{transition:transform .15s ease,box-shadow .15s ease}.card:active,.item:active{transform:scale(.985)}
+.card button,.wideBtn{min-height:43px;letter-spacing:.15px}.card button:active,.wideBtn:active{transform:translateY(1px);filter:brightness(.96)}
+.toast{max-width:min(88vw,390px);padding:13px 18px;border-radius:18px;font-size:12px;line-height:1.3}
+.startCard{max-width:390px;padding:34px 26px 28px}.startCard:before{content:"MÍA MODAS · CARRETERA DE VIC, 26";display:block;font-size:9px;letter-spacing:1.7px;color:#8e4765;margin-bottom:18px}.startLogo{width:88px;height:88px;font-size:52px;font-family:Georgia,serif}.start h1{font-size:37px;margin-bottom:8px}.start p{line-height:1.55}.play{min-height:55px;font-size:13px;letter-spacing:.45px}
+@media(max-height:700px){.topbar{padding-top:calc(4px + env(safe-area-inset-top));padding-bottom:4px}.bottom{padding-top:4px}.nav{height:44px}.joy{width:102px;height:102px}.knob{left:31px;top:31px;width:40px;height:40px}.actionStack{bottom:16px}.roundBtn{width:53px;height:53px}.interact{bottom:83px}}
+@media(min-width:700px){#app{max-width:520px;margin:auto;box-shadow:0 0 80px rgba(58,25,42,.3)}body{background:linear-gradient(135deg,#ead6df,#f6edf1)}}
+
 </style>
 </head>
 <body>
@@ -172,12 +220,13 @@ html,body{background:radial-gradient(circle at 50% -15%,#fff,#ead7df 62%,#c9aeb9
 const C=document.getElementById('game'),ctx=C.getContext('2d'),wrap=document.getElementById('gameWrap');
 let W=0,H=0,dpr=1,last=0,joyX=0,joyY=0,target=null,near=null,started=false;
 const state=JSON.parse(localStorage.getItem('miaMobileSave')||'null')||{money:1250,fame:12,energy:100,followers:326,level:1,x:410,y:560,scene:'street',day:1,sales:0,owned:['Mía Modas'],homes:[],stock:{vestido:6,camiseta:8,pantalon:5,bolso:4,zapatos:3},decor:0};
+Object.assign(state,{money:1250,fame:12,energy:100,followers:326,level:1,x:410,y:560,scene:'street',day:1,sales:0,owned:['Mía Modas'],homes:[],stock:{vestido:6,camiseta:8,pantalon:5,bolso:4,zapatos:3},decor:0,claimed:{},xp:0},state);state.claimed=state.claimed||{};state.stock=Object.assign({vestido:0,camiseta:0,pantalon:0,bolso:0,zapatos:0},state.stock||{});
 
 let audioOn=false,audioCtx=null,musicTimer=null,master=null,ambience=null;
 const AUDIO_KEY='miaAudioOn';
 function initAudio(){
   if(audioCtx)return;
-  audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioCtx=new AC();
   master=audioCtx.createGain();master.gain.value=.18;master.connect(audioCtx.destination);
   ambience=audioCtx.createGain();ambience.gain.value=.035;ambience.connect(master);
   const buffer=audioCtx.createBuffer(1,audioCtx.sampleRate*2,audioCtx.sampleRate),data=buffer.getChannelData(0);
@@ -207,8 +256,8 @@ function speak(text,force=false){
 }
 function updateAudioBtn(){const b=document.getElementById('audioBtn');if(!b)return;b.textContent=audioOn?'🔊':'🔇';b.classList.toggle('on',audioOn)}
 async function toggleAudio(){
-  initAudio();if(audioCtx.state==='suspended')await audioCtx.resume();audioOn=!audioOn;localStorage.setItem(AUDIO_KEY,audioOn?'1':'0');updateAudioBtn();
-  if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Sonido activado. Bienvenida a Mía Modas.'),300)}else{clearInterval(musicTimer);speechSynthesis?.cancel()}
+  initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();audioOn=!audioOn;localStorage.setItem(AUDIO_KEY,audioOn?'1':'0');updateAudioBtn();
+  if(audioOn){startMusic();sparkle();setTimeout(()=>speak('Sonido activado. Bienvenida a Mía Modas.'),300)}else{clearInterval(musicTimer);window.speechSynthesis&&window.speechSynthesis.cancel()}
 }
 const scenes={
  street:{name:'Carretera de Vic',sub:'Sant Fruitós de Bages · Mía Modas nº 26',w:1500,h:1000},
@@ -226,9 +275,9 @@ const interactables={
  home:[{x:130,y:140,w:250,h:190,label:'Descansar',action:'rest'},{x:450,y:140,w:250,h:190,label:'Cambiar de look',action:'wardrobe'},{x:70,y:560,w:190,h:130,label:'Volver a la calle',to:'street'}]
 };
 function resize(){dpr=Math.min(devicePixelRatio||1,2);W=wrap.clientWidth;H=wrap.clientHeight;C.width=W*dpr;C.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}addEventListener('resize',resize);resize();
-function save(){state.x=player.x;state.y=player.y;localStorage.setItem('miaMobileSave',JSON.stringify(state));updateHud()}
+function save(){state.x=player.x;state.y=player.y;state.energy=Math.max(0,Math.min(100,state.energy));state.level=Math.max(1,Math.floor((state.fame||0)/50)+1);try{localStorage.setItem('miaMobileSave',JSON.stringify(state))}catch(e){}updateHud()}
 function updateHud(){money.textContent=state.money.toLocaleString('es-ES')+' €';fame.textContent='⭐ '+state.fame;energy.textContent='⚡ '+Math.round(state.energy);locName.textContent=scenes[state.scene].name;locSub.textContent=scenes[state.scene].sub}
-async function startGame(){document.getElementById('start').style.display='none';started=true;initAudio();if(audioCtx.state==='suspended')await audioCtx.resume();audioOn=true;localStorage.setItem(AUDIO_KEY,'1');updateAudioBtn();startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);updateHud();updateAudioBtn();requestAnimationFrame(loop)}
+async function startGame(){document.getElementById('start').style.display='none';started=true;initAudio();if(audioCtx&&audioCtx.state==='suspended')await audioCtx.resume();audioOn=true;localStorage.setItem(AUDIO_KEY,'1');updateAudioBtn();startMusic();sparkle();setTimeout(()=>speak('Bienvenida a Mía Modas. Tu boutique te está esperando.'),350);updateHud();updateAudioBtn();requestAnimationFrame(loop)}
 function rounded(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke()}}
 function text(t,x,y,size=14,color='#35252d',align='left',weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px ui-rounded,-apple-system`;ctx.textAlign=align;ctx.fillText(t,x,y)}
 function camera(){const s=scenes[state.scene];return{x:Math.max(0,Math.min(s.w-W,player.x-W/2)),y:Math.max(0,Math.min(s.h-H,player.y-H/2))}}
@@ -297,14 +346,19 @@ function openSheet(type){const s=document.getElementById('sheet'),c=document.get
 function closeSheet(){document.getElementById('sheet').classList.remove('open')}
 function quickBuy(name,c){if(state.money<c)return toast('No tienes suficiente dinero');state.money-=c;const keys=Object.keys(state.stock),k=keys[Math.floor(Math.random()*keys.length)];state.stock[k]++;save();toast(name+' añadido al stock')}
 function createLook(e,fol){if(state.energy<e)return toast('Necesitas más energía');state.energy-=e;state.followers+=fol;state.fame+=Math.floor(fol/18);state.money+=Math.floor(fol*.35);save();toast('Look publicado: +'+fol+' seguidores 💖')}
-function buyBusiness(n,c){if(state.money<c)return toast('Todavía no tienes suficiente dinero');state.money-=c;state.owned.push(n);save();openSheet('business');toast('Has abierto '+n+' 🎉')}
-function buyHome(n,c){if(state.money<c)return toast('Todavía no tienes suficiente dinero');state.money-=c;state.homes.push(n);save();openSheet('homes');toast('Has comprado '+n+' 🏡')}
+function buyBusiness(n,c){if(state.owned.includes(n))return toast('Ese negocio ya es tuyo');if(state.money<c)return toast('Todavía no tienes suficiente dinero');state.money-=c;state.owned.push(n);save();openSheet('business');toast('Has abierto '+n+' 🎉')}
+function buyHome(n,c){if(state.homes.includes(n))return toast('Esa casa ya es tuya');if(state.money<c)return toast('Todavía no tienes suficiente dinero');state.money-=c;state.homes.push(n);save();openSheet('homes');toast('Has comprado '+n+' 🏡')}
 function nextDay(){let inc=0;state.owned.forEach(n=>{const b=businesses.find(x=>x[0]===n);if(b)inc+=b[3]});state.money+=inc;state.day++;state.energy=100;save();closeSheet();toast('Nuevo día: ingresos +'+inc+' €')}
-function claimMission(k){if(k==='sales'&&state.sales>=3){state.money+=300;state.fame+=10;save();toast('Misión completada: +300 €');}else toast('Aún no has completado la misión')}
+function claimMission(k){const key=state.day+'_'+k;if(state.claimed[key])return toast('Esta recompensa ya está cobrada ✨');if(k==='sales'&&state.sales>=3){state.claimed[key]=true;state.money+=300;state.fame+=10;save();sparkle();toast('Misión completada: +300 €');speak('Misión completada. Has ganado trescientos euros.')}else toast('Aún no has completado la misión')}
 function goScene(s){state.scene=s;player.x=100;player.y=scenes[s].h-120;closeSheet();save();toast('Has viajado a '+scenes[s].name)}
 function toggleFull(){document.documentElement.requestFullscreen?.();closeSheet()}
 function resetGame(){if(confirm('¿Seguro que quieres borrar la partida?')){localStorage.removeItem('miaMobileSave');location.reload()}}
 updateHud();draw();setInterval(save,8000);
+
+
+document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInterval(musicTimer);save()}else if(started&&audioOn){startMusic()}});
+window.addEventListener('pagehide',save);
+document.addEventListener('contextmenu',e=>e.preventDefault());
 
 // Premium touch feedback
 document.addEventListener('click',e=>{if(e.target.closest('button')) navigator.vibrate?.(10)});
